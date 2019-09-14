@@ -51,12 +51,12 @@ static int cmd_si(char *args) {
 static int cmd_info(char *args) {
 	char *arg = strtok(NULL, " ");
 	if (arg==NULL) 
-		printf("More subcommand needed");
+		printf("More subcommand needed\n");
 	else if (strcmp(arg, "r") == 0)
 		isa_reg_display();
 	else if (strcmp(arg, "w") == 0)
 		;
-	else printf("Unkown command");
+	else printf("Unkown command\n");
 	return 0;
 }
 
