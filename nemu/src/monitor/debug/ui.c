@@ -56,7 +56,7 @@ static int cmd_info(char *args) {
 		isa_reg_display();
 	else if (strcmp(arg, "w") == 0)
 		;
-	else printf("Unkown command\n");
+	else printf("Unkown subcommand '%s'\n", arg);
 	return 0;
 }
 
