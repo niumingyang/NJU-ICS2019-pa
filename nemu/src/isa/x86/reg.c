@@ -40,7 +40,15 @@ void reg_test() {
   assert(pc_sample == cpu.pc);
 }
 
-void isa_reg_display() {
+void isa_reg_display() {	
+	printf("eax: %08x %d\n", cpu.eax, cpu.eax);
+	printf("ecx: %08x %d\n", cpu.ecx, cpu.ecx);
+	printf("edx: %08x %d\n", cpu.edx, cpu.edx);
+	printf("ebx: %08x %d\n", cpu.ebx, cpu.ebx);
+	printf("esp: %08x %d\n", cpu.esp, cpu.esp);
+	printf("ebp: %08x %d\n", cpu.ebp, cpu.ebp);
+	printf("esi: %08x %d\n", cpu.esi, cpu.esi);
+	printf("edi: %08x %d\n", cpu.edi, cpu.edi);
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {

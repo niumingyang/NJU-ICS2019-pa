@@ -9,6 +9,8 @@
 
 void cpu_exec(uint64_t);
 
+void isa_reg_display(void);
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -47,7 +49,15 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-	return -1;
+	char *arg = strtok(NULL, " ");
+	if (arg==NULL) 
+		printf("More subcommand needed");
+	else if (strcmp(arg, "r") == 0)
+		isa_reg_display();
+	else if (strcmp(arg, "w") == 0)
+		;
+	else printf("Unkown command");
+	return 0;
 }
 
 static int cmd_p(char *args) {
