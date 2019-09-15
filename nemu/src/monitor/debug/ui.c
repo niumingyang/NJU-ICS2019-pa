@@ -80,7 +80,7 @@ static int cmd_x(char *args) {
    	sscanf(arg, "%d", &arg_number);
    	sscanf(arg_sec+2, "%x", &arg_addr);
 	for (int i = 0; i < arg_number; ++i) {
-		printf("%s: %08x\n", arg_sec, isa_vaddr_read(arg_addr, 1));
+		printf("0x%08x: 0x%08x\n", arg_addr+i, isa_vaddr_read(arg_addr+i, 1));
 	}
 	return 0;
 }
