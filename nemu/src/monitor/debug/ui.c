@@ -79,8 +79,13 @@ static int cmd_x(char *args) {
 	int arg_number, arg_addr;
    	sscanf(arg, "%d", &arg_number);
    	sscanf(arg_sec+2, "%x", &arg_addr);
-	for (int i = 0; i < arg_number; ++i) {
-		printf("0x%08x: 0x%08x\n", arg_addr+i, isa_vaddr_read(arg_addr+i, 1));
+	for (int i = 1; i*4 <= arg_number; ++i) {
+		printf("0x%08x: 0x%08x\n", arg_addr+(i-1)*4, isa_vaddr_read(arg_addr+(i-1)*4, 4));
+	}
+	if (arg_number%4) {
+		int _remain = arg_number%4;
+		arg_number -= _remain;
+		printf("0x%08x: 0x%08x\n", arg_addr+arg_number, isa_vaddr_read(arg_addr+arg_number, _remain));
 	}
 	return 0;
 }
