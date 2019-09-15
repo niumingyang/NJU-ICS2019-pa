@@ -61,11 +61,28 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_p(char *args) {
-	return -1;
+
+	return 0;	
 }
 
 static int cmd_x(char *args) {
-	return -1;
+	char *arg = strtok(NULL, " ");
+	if (arg==NULL) { 
+		printf("More subcommand needed\n");
+		return 0;
+	}
+	char *arg_sec = strtok(NULL, " ");
+	if (arg_sec==NULL) { 
+		printf("More subcommand needed\n");
+		return 0;
+	}
+	int arg_number, arg_addr;
+   	sscanf(arg, "%d", &arg_number);
+   	sscanf(arg_sec+2, "%x", &arg_addr);
+	for (int i = 0; i < arg_number; ++i) {
+		printf("%s: %08x\n", arg_sec, isa_vaddr_read(arg_addr, 1));
+	}
+	return 0;
 }
 
 static int cmd_w(char *args) {
