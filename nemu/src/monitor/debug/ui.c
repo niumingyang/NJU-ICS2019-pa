@@ -61,7 +61,14 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_p(char *args) {
-
+	char *arg = strtok(NULL, " ");
+	bool succ = true;
+	if (arg==NULL) 
+		printf("More subcommand needed\n");
+	else {
+		unsigned cmd_p_ans = expr(arg, &succ);
+		if (succ) printf("%u\n", cmd_p_ans);	
+	}
 	return 0;	
 }
 
@@ -79,8 +86,8 @@ static int cmd_x(char *args) {
 	int arg_number, arg_addr;
    	sscanf(arg, "%d", &arg_number);
    	sscanf(arg_sec+2, "%x", &arg_addr);
-	for (int i = 1; i <= arg_number; ++i) {
-		printf("0x%08x: 0x%08x\n", arg_addr+(i-1)*4, isa_vaddr_read(arg_addr+(i-1)*4, 4));
+	for (int i = 0; i < arg_number; ++i) {
+		printf("0x%08x: 0x%08x\n %d", arg_addr+i*4, isa_vaddr_read(arg_addr+i*4, 4), isa_vaddr_read(arg_addr+i*4, 4));
 	}
 	return 0;
 }
