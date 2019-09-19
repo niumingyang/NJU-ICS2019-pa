@@ -163,7 +163,7 @@ uint32_t eval(int p, int q) {
     int op = main_optr(p, q);
 	if (expr_errorsign) return 0;
     int val1 = eval(p, op - 1);
-    int val2 = eval(op + 1, q);
+    int val2 = eval(op + 1, q); printf("%d %d\n", val1, val2);
     switch (tokens[op].type) {
       case TK_PLUS: return val1 + val2;
       case TK_MIN: return val1 - val2; 
