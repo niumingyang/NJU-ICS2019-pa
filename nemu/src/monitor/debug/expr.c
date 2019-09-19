@@ -108,8 +108,10 @@ static bool make_token(char *e) {
 				break;
 			}
 			case TK_NUM: {
-				tokens[nr_token++].type = TK_NUM;
-
+				if (substr_len>32)
+					assert(0);
+				tokens[nr_token].type = TK_NUM;
+				strncpy(tokens[nr_token].str, substr_start, substr_len);
 				break;
 			}
 			case TK_LB: {
