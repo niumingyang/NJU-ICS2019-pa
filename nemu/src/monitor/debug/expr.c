@@ -184,7 +184,7 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  uint32_t expr_ans = eval(0, nr_token);
+  uint32_t expr_ans = eval(0, nr_token-1);
   if (expr_ans==0 && expr_errorsign) {
 	*success = false;
 	return 0;
