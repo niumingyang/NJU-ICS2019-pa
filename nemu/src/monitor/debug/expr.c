@@ -3,7 +3,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_MUL, TK_DIV, TK_PLUS, TK_MIN, TK_EQ, TK_NUM, TK_LB, TK_RB
+  TK_NOTYPE = 256, TK_MUL, TK_DIV, TK_PLUS = 260, TK_MIN, TK_EQ, TK_NUM, TK_LB, TK_RB
 };
 
 static struct rule {
@@ -77,6 +77,7 @@ static bool make_token(char *e) {
 				  return false;
 				}
 				strncpy(tokens[nr_token].str, substr_start, substr_len);
+				tokens[nr_token].str[substr_len] = '\0';
 				tokens[nr_token++].type = TK_NUM;
 				break;
 			}
@@ -133,7 +134,7 @@ int main_optr(int m, int n){
 	  case TK_PLUS: case TK_MIN: case TK_MUL: case TK_DIV: is_want = 1; break;
 	  default: break;
 	} 
-    if (bracket_cnt ==  0 && is_want && tokens[i].type>=crt_optr) {
+    if (bracket_cnt ==  0 && is_want && (tokens[i].type>=crt_optr || tokens[i].type==crt_optr-1)) {
 	  crt_optr = tokens[i].type;
 	  crt_opnum = i;
     }
