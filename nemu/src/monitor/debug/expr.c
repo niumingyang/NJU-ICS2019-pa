@@ -144,7 +144,7 @@ int main_optr(int m, int n){
 
 uint32_t eval(int p, int q) {
   if (p > q) {
-	printf("bad expression\n");
+	printf("illegal expression\n");
 	expr_errorsign = true;
 	return 0;
   }

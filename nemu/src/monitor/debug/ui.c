@@ -65,7 +65,7 @@ static int cmd_p(char *args) {
 		printf("More subcommand needed\n");
 	else {
 		int  cmd_p_ans = expr(args, &succ);
-		if (succ) printf("%d\n", cmd_p_ans);	
+		if (succ) printf("%d\n%d\n", cmd_p_ans, succ);	
 	}
 	return 0;	
 }
