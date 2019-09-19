@@ -162,9 +162,9 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   else {
     int op = main_optr(p, q);
-	if (expr_errorsign) return 0;
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
+	if (expr_errorsign) return 0;
     switch (tokens[op].type) {
       case TK_PLUS: return val1 + val2;
       case TK_MIN: return val1 - val2; 
