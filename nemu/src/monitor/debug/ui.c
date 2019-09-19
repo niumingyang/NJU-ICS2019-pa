@@ -49,24 +49,22 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-	char *arg = strtok(NULL, " ");
-	if (arg==NULL) 
+	if (args==NULL) 
 		printf("More subcommand needed\n");
-	else if (strcmp(arg, "r") == 0)
+	else if (strcmp(args, "r") == 0)
 		isa_reg_display();
-	else if (strcmp(arg, "w") == 0)
+	else if (strcmp(args, "w") == 0)
 		;
-	else printf("Unkown subcommand '%s'\n", arg);
+	else printf("Unkown subcommand '%s'\n", args);
 	return 0;
 }
 
 static int cmd_p(char *args) {
-	char *arg = strtok(NULL, " ");
 	bool succ = true;
-	if (arg==NULL) 
+	if (args==NULL) 
 		printf("More subcommand needed\n");
 	else {
-		unsigned cmd_p_ans = expr(arg, &succ);
+		unsigned cmd_p_ans = expr(args, &succ);
 		if (succ) printf("%u\n", cmd_p_ans);	
 	}
 	return 0;	
