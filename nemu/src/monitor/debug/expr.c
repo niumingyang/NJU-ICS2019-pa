@@ -1,27 +1,15 @@
 #include "nemu.h"
-
-/* We use the POSIX regex functions to process regular expressions.
- * Type 'man regex' for more information about POSIX regex functions.
- */
 #include <sys/types.h>
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_PLUS, TK_MIN, TK_MUL, TK_DIV, TK_NUM, TK_LB, TK_RB
-
-  /* TODO: Add more token types */
-
+  TK_NOTYPE = 256, TK_MUL, TK_DIV, TK_PLUS, TK_MIN, TK_EQ, TK_NUM, TK_LB, TK_RB
 };
 
 static struct rule {
   char *regex;
   int token_type;
 } rules[] = {
-
-  /* TODO: Add more rules.
-   * Pay attention to the precedence level of different rules.
-   */
-
   {" +", TK_NOTYPE},     // spaces
   {"\\+", TK_PLUS},      // plus
   {"\\*", TK_MUL},       // multiply
@@ -36,10 +24,6 @@ static struct rule {
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 
 static regex_t re[NR_REGEX] = {};
-
-/* Rules are used for many times.
- * Therefore we compile them only once before any usage.
- */
 void init_regex() {
   int i;
   char error_msg[128];
@@ -71,21 +55,13 @@ static bool make_token(char *e) {
   nr_token = 0;
 
   while (e[position] != '\0') {
-    /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
-
-        /* TODO: Now a new token is recognized with rules[i]. Add codes
-         * to record the token in the array `tokens'. For certain types
-         * of tokens, some extra actions should be performed.
-         */
-
         switch (rules[i].token_type) {
 			case TK_NOTYPE: break;
 			case TK_EQ:   tokens[nr_token++].type = TK_EQ;    break;
@@ -131,14 +107,14 @@ bool check_parentheses(int m, int n) {
 	  default: break;
 	}
 	if (bracket_cnt < 0) {
-	  printf("Illegal expression: brackets do not match\n");
+	  printf("Illegal expression: brackets are not matched\n");
 	  expr_errorsign = true;
 	  return false;
 	}
 	if (bracket_cnt == 0&&i < n) check_sign = 1;
   } 
   if (bracket_cnt) {
-	  printf("Illegal expression: brackets do not match\n");
+	  printf("Illegal expression: brackets are not matched\n");
 	  expr_errorsign = true;
 	  return 0;	
   }
@@ -147,8 +123,22 @@ bool check_parentheses(int m, int n) {
 }
 
 int main_optr(int m, int n){
-  
-  return 0;
+  int bracket_cnt = 0, crt_optr = TK_NOTYPE, crt_opnum = 0;
+  bool is_want;
+  for (int i = m; i <= n; ++i) {
+	is_want = 0;
+	switch (tokens[i].type) {
+	  case TK_LB: ++bracket_cnt; break;
+	  case TK_RB: --bracket_cnt; break;
+	  case TK_PLUS: case TK_MIN: case TK_MUL: case TK_DIV: is_want = 1; break;
+	  default: break;
+	} 
+    if (bracket_cnt ==  0 && is_want && tokens[i].type>=crt_optr) {
+	  crt_optr = tokens[i].type;
+	  crt_opnum = i;
+    }
+  }	
+  return crt_opnum;
 }
 
 uint32_t eval(int p, int q) {
@@ -171,6 +161,7 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   else {
     int op = main_optr(p, q);
+	if (expr_errorsign) return 0;
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
     switch (tokens[op].type) {
@@ -193,7 +184,10 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
-  /* TODO: Insert codes to evaluate the expression. */
-  return eval(0, nr_token);
+  uint32_t expr_ans = eval(0, nr_token);
+  if (expr_ans==0 && expr_errorsign) {
+	*success = false;
+	return 0;
+  }
+  return expr_ans;
 }
