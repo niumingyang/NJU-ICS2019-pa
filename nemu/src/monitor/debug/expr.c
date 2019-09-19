@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ, TK_PLUS, TK_MINUS, TK_MULTIPLY, TK_DIVIDE
 
   /* TODO: Add more token types */
 
@@ -23,7 +23,10 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {"\\+", TK_PLUS},         // plus
+  {"\\*", TK_MULTIPLY},         // multiply
+  {"\\-", TK_MINUS},         // minus
+  {"\\/", TK_DIVIDE},         // divide
   {"==", TK_EQ}         // equal
 };
 
@@ -39,7 +42,7 @@ void init_regex() {
   char error_msg[128];
   int ret;
 
-  for (i = 0; i < NR_REGEX; i ++) {
+  for (i = 0; i < NR_REGEX; i++) {
     ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
     if (ret != 0) {
       regerror(ret, &re[i], error_msg, 128);
