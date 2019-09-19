@@ -64,8 +64,8 @@ static int cmd_p(char *args) {
 	if (args==NULL) 
 		printf("More subcommand needed\n");
 	else {
-		unsigned cmd_p_ans = expr(args, &succ);
-		if (succ) printf("%u\n", cmd_p_ans);	
+		int  cmd_p_ans = expr(args, &succ);
+		if (succ) printf("%d\n", cmd_p_ans);	
 	}
 	return 0;	
 }
