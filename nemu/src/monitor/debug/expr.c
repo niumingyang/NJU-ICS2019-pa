@@ -61,6 +61,7 @@ typedef struct token {
 
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
+static bool expr_errorsign = false;
 
 static bool make_token(char *e) {
   int position = 0;
@@ -87,66 +88,112 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
 			case TK_NOTYPE: break;
-			case TK_EQ: {
-				tokens[nr_token++].type = TK_EQ;
-			    break;
-			}
-			case TK_PLUS: {
-				tokens[nr_token++].type = TK_PLUS;
-				break;
-			}
-			case TK_MIN: {
-				tokens[nr_token++].type = TK_MIN;
-				break;
-			}	
-			case TK_MUL: {
-				tokens[nr_token++].type = TK_MUL;
-				break;
-			}
-			case TK_DIV: {
-				tokens[nr_token++].type = TK_DIV;
-				break;
-			}
+			case TK_EQ:   tokens[nr_token++].type = TK_EQ;    break;
+			case TK_PLUS: tokens[nr_token++].type = TK_PLUS;  break;
+			case TK_MIN:  tokens[nr_token++].type = TK_MIN;   break;
+			case TK_MUL:  tokens[nr_token++].type = TK_MUL;   break;
+			case TK_DIV:  tokens[nr_token++].type = TK_DIV;   break;
+			case TK_LB:   tokens[nr_token++].type = TK_LB;    break;
+			case TK_RB:   tokens[nr_token++].type = TK_RB;    break;
 			case TK_NUM: {
-				if (substr_len>32)
-					assert(0);
-				tokens[nr_token].type = TK_NUM;
+				if (substr_len>32) {
+				  printf("Number overflow\n");
+				  return false;
+				}
 				strncpy(tokens[nr_token].str, substr_start, substr_len);
-				nr_token++;
+				tokens[nr_token++].type = TK_NUM;
 				break;
 			}
-			case TK_LB: {
-				tokens[nr_token++].type = TK_LB;
-				break;
+            default: {
+				return false;
 			}
-			case TK_RB: {
-				tokens[nr_token++].type = TK_RB;
-				break;
-			}
-            default: TODO();
         }
-
         break;
       }
     }
-
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }
   }
-
   return true;
 }
 
+bool check_parentheses(int m, int n) {
+  if (tokens[m].type != TK_LB || tokens[n].type != TK_RB)
+	return false;
+  int bracket_cnt = 0;
+  bool check_sign = 0;
+  for (int i = m; i <= n; ++i) {
+	switch (tokens[i].type) {
+	  case TK_LB: ++bracket_cnt; break;
+	  case TK_RB: --bracket_cnt; break;
+	  default: break;
+	}
+	if (bracket_cnt < 0) {
+	  printf("Illegal expression: brackets do not match\n");
+	  expr_errorsign = true;
+	  return false;
+	}
+	if (bracket_cnt == 0&&i < n) check_sign = 1;
+  } 
+  if (bracket_cnt) {
+	  printf("Illegal expression: brackets do not match\n");
+	  expr_errorsign = true;
+	  return 0;	
+  }
+  if (check_sign) return 0;
+  else return 1;
+}
+
+int main_optr(int m, int n){
+  
+  return 0;
+}
+
+uint32_t eval(int p, int q) {
+  if (p > q) {
+	printf("bad expression\n");
+	expr_errorsign = true;
+	return 0;
+  }
+  else if (p == q) {
+    if (tokens[p].type != TK_NUM) {
+	  printf("Illegal expression: '%s' is not a number\n", tokens[p].str);
+      expr_errorsign = true;
+	  return 0;	  
+	}
+	int tk_num;
+	sscanf(tokens[p].str, "%d", &tk_num);
+	return tk_num;
+  }
+  else if (check_parentheses(p, q) == true)
+    return eval(p + 1, q - 1);
+  else {
+    int op = main_optr(p, q);
+    int val1 = eval(p, op - 1);
+    int val2 = eval(op + 1, q);
+    switch (tokens[op].type) {
+      case TK_PLUS: return val1 + val2;
+      case TK_MIN: return val1 - val2; 
+      case TK_MUL: return val1 * val2;
+      case TK_DIV: return val1 / val2;
+      default: {
+	    expr_errorsign = true;
+		printf("Illegal expression: tokens[%d] is not a valid operator\n", op);
+	    return 0;	
+      }
+    }
+  }
+}
+
 uint32_t expr(char *e, bool *success) {
+  expr_errorsign = false;
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  return eval(0, nr_token);
 }
