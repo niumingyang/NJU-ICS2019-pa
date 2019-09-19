@@ -143,6 +143,7 @@ int main_optr(int m, int n){
 }
 
 uint32_t eval(int p, int q) {
+  if (expr_errorsign) return 0;
   if (p > q) {
 	printf("illegal expression\n");
 	expr_errorsign = true;
