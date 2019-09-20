@@ -74,7 +74,7 @@ static void gen_rand_op(){
 }
 
 static inline void gen_rand_expr() {
-  if (crt_loc>=65350) return;
+  if (crt_loc>=65350||of_sign) return;
   switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
