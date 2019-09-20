@@ -100,7 +100,8 @@ int main(int argc, char *argv[]) {
     gen_rand_expr();
 	if (of_sign) {
 	  i--;
-	  break;
+	  of_sign = 0;
+	  continue;
 	}
 
     sprintf(code_buf, code_format, buf);
