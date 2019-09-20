@@ -67,8 +67,8 @@ static int cmd_p(char *args) {
 		FILE *pf;
 		pf = fopen("~/ics2019/nemu/tools/gen-expr/input", "r");
 		if (pf==NULL) {
-			return 0;
 			printf("open failed\n");
+			return 0;
 		}
 		int result = 0, cnt_error = 0;
 		char test_expr[70000];
