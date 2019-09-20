@@ -77,8 +77,10 @@ static inline void gen_rand_expr() {
   if (crt_loc>=65350||of_sign) return;
   switch (choose(3)) {
     case 0: gen_num(); break;
-    case 1: gen('('); gen_rand_expr(); gen(')'); break;
-    default: gen_rand_expr(); gen_rand_op();
+    case 1: gen('('); gen_rand_expr(); if (of_sign) return; gen(')'); break;
+    default: gen_rand_expr(); 
+			 if (of_sign) return;
+			 gen_rand_op();
 			 int ptr_now = crt_loc;
 			 gen('('); gen_rand_expr(); gen(')');
 			 if (buf[ptr_now-1]=='/'&&expr_test(ptr_now)==0)
