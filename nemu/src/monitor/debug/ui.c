@@ -61,8 +61,23 @@ static int cmd_info(char *args) {
 
 static int cmd_p(char *args) {
 	bool succ = true;
-	if (args==NULL) 
-		printf("More subcommand needed\n");
+	if (args==NULL) {
+		//printf("More subcommand needed\n");
+		/*use some examples to test this function*/
+		FILE *pf;
+		pf = fopen("~/ics2019/nemu/tools/gen-expr/input", "r");
+		int result, cnt_error = 0;
+		for (int i = 0; i < 10; ++i) {
+			fscanf(pf, "%d", &result);
+			fscanf(pf, "%s", args);
+			int cmd_p_ans = expr(args, &succ);
+			if (succ && result != cmd_p_ans)
+				printf("Error %d: expected %d, get %d\n%s\n", cnt_error, result, cmd_p_ans, args);
+			cnt_error++;
+		}
+		fclose(pf);
+		if (!cnt_error) printf("success!!!");
+	}
 	else {
 		int  cmd_p_ans = expr(args, &succ);
 		if (succ) printf("%d\n", cmd_p_ans);	
