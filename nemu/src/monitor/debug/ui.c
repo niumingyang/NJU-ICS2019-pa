@@ -65,7 +65,7 @@ static int cmd_p(char *args) {
 		//printf("More subcommand needed\n");
 		/*use some examples to test this function*/
 		FILE *pf;
-		pf = fopen("~/ics2019/nemu/tools/gen-expr/input", "r");
+		pf = fopen("/home/nmy/ics2019/nemu/tools/gen-expr/input", "r");
 		if (pf==NULL) {
 			printf("open failed\n");
 			return 0;
