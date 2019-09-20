@@ -80,7 +80,7 @@ static inline void gen_rand_expr() {
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op();
 			 int ptr_now = crt_loc;
-			 gen_rand_expr();
+			 gen('('); gen_rand_expr(); gen(')');
 			 if (buf[ptr_now-1]=='/'&&expr_test(ptr_now)==0)
 				 of_sign = 1;
   }
