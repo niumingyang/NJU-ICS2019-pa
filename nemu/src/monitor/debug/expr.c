@@ -62,7 +62,7 @@ static bool make_token(char *e) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-		if (rules[i].token_type==TK_NEG && nr_token>=1 && (tokens[nr_token-1].type==TK_NUM))
+		if (rules[i].token_type==TK_NEG && nr_token>=1 && (tokens[nr_token-1].type==TK_NUM||tokens[nr_token-1].type==TK_RB))
 			i = 4; 
         /*Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);*/
