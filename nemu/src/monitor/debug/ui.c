@@ -77,13 +77,14 @@ static int cmd_p(char *args) {
 			fgets(test_expr, 70000, pf);
 			test_expr[strlen(test_expr)-1] = '\0';
 			int cmd_p_ans = expr(test_expr, &succ);
-			if (succ && result != cmd_p_ans)
-				printf("Error %d: expected %d, get %d\n%s\n", cnt_error, result, cmd_p_ans, test_expr);
-			else printf("no error\n");
-			cnt_error++;
+			if (succ && result != cmd_p_ans) {
+				printf("Error %d: expected %d, get %d\nError expression: %s\n", cnt_error, result, cmd_p_ans, test_expr);
+			    cnt_error++;
+			}
+			else printf("Expression %d: no error\n", i);
 		}
 		fclose(pf);
-		if (!cnt_error) printf("success!!!\n");
+		if (!cnt_error) printf("Success!!!\n");
 	}
 	else {
 		int  cmd_p_ans = expr(args, &succ);
