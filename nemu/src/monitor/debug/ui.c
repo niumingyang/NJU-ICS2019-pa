@@ -66,10 +66,10 @@ static int cmd_p(char *args) {
 		/*use some examples to test this function*/
 		FILE *pf;
 		pf = fopen("~/ics2019/nemu/tools/gen-expr/input", "r");
-		int result, cnt_error = 0;
+		int result = 0, cnt_error = 0;
 		char test_expr[65499];
 		for (int i = 0; i < 10; ++i) {printf("%d\n",i);
-			fscanf(pf, "%d ", &result);printf("%d\n",i);
+		//	fscanf(pf, "%d ", &result);printf("%d\n",i);
 			fscanf(pf, "%s", test_expr);printf("%d\n",i);
 			int cmd_p_ans = expr(test_expr, &succ);
 			if (succ && result != cmd_p_ans)
