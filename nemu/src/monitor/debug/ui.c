@@ -70,7 +70,7 @@ static int cmd_p(char *args) {
 		char test_expr[65499];
 		for (int i = 0; i < 10; ++i) {
 			fscanf(pf, "%d", &result);
-			fscanf(pf, "%s", test_expr);
+			fscanf(pf, "%s", test_expr);printf("%d\n",i);
 			int cmd_p_ans = expr(test_expr, &succ);
 			if (succ && result != cmd_p_ans)
 				printf("Error %d: expected %d, get %d\n%s\n", cnt_error, result, cmd_p_ans, test_expr);
