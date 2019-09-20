@@ -72,12 +72,13 @@ static int cmd_p(char *args) {
 		}
 		int result = 0, cnt_error = 0;
 		char test_expr[70000];
-		for (int i = 0; i < 10; ++i) {printf("%d\n",i);
-			fscanf(pf, "%d ", &result);printf("%d\n",i);
-			fscanf(pf, "%s", test_expr);printf("%d\n",i);
+		for (int i = 0; i < 10; ++i) {
+			fscanf(pf, "%d ", &result);
+			fscanf(pf, "%s", test_expr);
 			int cmd_p_ans = expr(test_expr, &succ);
 			if (succ && result != cmd_p_ans)
 				printf("Error %d: expected %d, get %d\n%s\n", cnt_error, result, cmd_p_ans, test_expr);
+			else printf("no error\n");
 			cnt_error++;
 		}
 		fclose(pf);
