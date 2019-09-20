@@ -23,7 +23,7 @@ static char *code_format =
 "  return 0; "
 "}";
 
-static int expr_test(int location) {
+/*static int expr_test(int location) {
   sprintf(code_buf, code_format, buf+location);
   FILE *fp = fopen("/tmp/.code.c", "w");
   assert(fp != NULL);
@@ -37,7 +37,7 @@ static int expr_test(int location) {
   fscanf(fp, "%d", &result);
   pclose(fp);
   return result;
-}	
+}*/	
 
 static void gen_num(){
   bool num_sign = 1;
@@ -67,7 +67,7 @@ static void gen_rand_op(){
 	case 0: strcpy(buf+crt_loc, "+\0"); crt_loc++; break;
 	case 1: strcpy(buf+crt_loc, "-\0"); crt_loc++; break;
 	case 2: strcpy(buf+crt_loc, "*\0"); crt_loc++; break;
-	case 3: strcpy(buf+crt_loc, "/\0"); crt_loc++; break;
+	case 3: strcpy(buf+crt_loc, "/\0"); crt_loc++; gen_num(); gen_rand_op(); break;
 	default: assert(0);
   }
   if (choose(2)) gen(' ');
@@ -79,12 +79,8 @@ static inline void gen_rand_expr() {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); if (of_sign) return; gen(')'); break;
     default: gen_rand_expr(); 
-			 if (of_sign) return;
 			 gen_rand_op();
-			 int ptr_now = crt_loc;
-			 gen('('); gen_rand_expr(); gen(')');
-			 if (buf[ptr_now-1]=='/'&&expr_test(ptr_now)==0)
-				 of_sign = 1;
+			 gen_rand_expr();
   }
 }
 
@@ -100,11 +96,6 @@ int main(int argc, char *argv[]) {
 	crt_loc = 0;
 	buf[0] = '\0';
     gen_rand_expr();
-	if (of_sign) {
-	  i--;
-	  of_sign = 0;
-	  continue;
-	}
 
     sprintf(code_buf, code_format, buf);
 
