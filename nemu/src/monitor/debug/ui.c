@@ -73,16 +73,16 @@ static int cmd_p(char *args) {
 		}
 		int result = 0, cnt_error = 0;
 		char test_expr[70000];
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 100; ++i) {
 			fscanf(pf, "%d ", &result);
 			fgets(test_expr, 70000, pf);
 			test_expr[strlen(test_expr)-1] = '\0';
 			int cmd_p_ans = expr(test_expr, &succ);
 			if (succ && result != cmd_p_ans) {
-				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n\n", i, result, cmd_p_ans, test_expr);
+				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n", i, result, cmd_p_ans, test_expr);
 			    cnt_error++;
 			}
-			else printf("Expression %d: no error\nExpected %d, get %d\n\n", i, result, cmd_p_ans);
+			else printf("Expression %d: no error\nExpected %d, get %d\n", i, result, cmd_p_ans);
 		}
 		fclose(pf);
 		if (!cnt_error) printf("Success!!!\n");

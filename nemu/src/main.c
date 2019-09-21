@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 		}
 		int result = 0, cnt_error = 0;
 		char test_expr[70000];
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 100; ++i) {
 			fscanf(pf, "%d ", &result);
 			fgets(test_expr, 70000, pf);
 			test_expr[strlen(test_expr)-1] = '\0';
