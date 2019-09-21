@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   int is_batch_mode = init_monitor(argc, argv);
 
-		/*use some examples to test this function*/
+		/*use some examples to test expression evaluation*/
 		FILE *pf;
 		bool succ = 1;
 		pf = fopen("/home/nmy/ics2019/nemu/tools/gen-expr/input", "r");
@@ -26,10 +26,10 @@ int main(int argc, char *argv[]) {
 			test_expr[strlen(test_expr)-1] = '\0';
 			int cmd_p_ans = expr(test_expr, &succ);
 			if (succ && result != cmd_p_ans) {
-				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n\n", i, result, cmd_p_ans, test_expr);
+				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n", i, result, cmd_p_ans, test_expr);
 			    cnt_error++;
 			}
-			else printf("Expression %d: no error\nExpected %d, get %d\n\n", i, result, cmd_p_ans);
+			else printf("Expression %d: no error\nExpected %d, get %d\n", i, result, cmd_p_ans);
 		}
 		fclose(pf);
 		if (!cnt_error) printf("Success!!!\n");
