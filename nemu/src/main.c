@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 		}
 		fclose(pf);
 		if (!cnt_error) printf("Expression evaluation tests passed successfully\n");
-		else printf("%d Errors", cnt_error);
+		else printf("%d Errors\n", cnt_error);
 
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
