@@ -10,7 +10,6 @@
 // this should be enough
 static char buf[65400];
 static int crt_loc = 0;
-static bool of_sign = 0;
 uint32_t choose (uint32_t n) {
 	return rand()%n;
 }
@@ -40,7 +39,7 @@ static char *code_format =
 }*/	
 
 static void gen_num(){
-  bool num_sign = 1;
+  /*bool num_sign = 1;
   if (crt_loc>=4) {
     for (int i = crt_loc; i >= crt_loc-4; i--) {
 	  if (!isdigit(buf[i])) {
@@ -49,15 +48,17 @@ static void gen_num(){
 	  }
     }
   if (num_sign) return;
-  }
-  sprintf(buf+crt_loc, "%d", choose(1<<20));
-  crt_loc += strlen(buf+crt_loc);
+  }*/
+  sprintf(buf+crt_loc, "%d", choose(1<<30));
+  crt_loc += strlen(buf+crt_loc)+1;
+  buf[crt_loc-1] = 'u';
+  buf[crt_loc] = '\0';
 }
 
 static void gen(char gen_arg){
   if (choose(2)) gen(' '); 
-  *(buf+crt_loc) = gen_arg;
-  *(buf+crt_loc+1) = '\0';
+  buf[crt_loc] = gen_arg;
+  buf[crt_loc+1] = '\0';
   crt_loc++;
 }
 
@@ -67,17 +68,17 @@ static void gen_rand_op(){
 	case 0: strcpy(buf+crt_loc, "+\0"); crt_loc++; break;
 	case 1: strcpy(buf+crt_loc, "-\0"); crt_loc++; break;
 	case 2: strcpy(buf+crt_loc, "*\0"); crt_loc++; break;
-	case 3: strcpy(buf+crt_loc, "/\0"); crt_loc++; gen_num(); gen_rand_op(); break;
+	case 3: strcpy(buf+crt_loc, "/\0"); crt_loc++; break;
 	default: assert(0);
   }
   if (choose(2)) gen(' ');
 }
 
 static inline void gen_rand_expr() {
-  if (crt_loc>=65350||of_sign) return;
+  if (crt_loc>=65350) return;
   switch (choose(3)) {
     case 0: gen_num(); break;
-    case 1: gen('('); gen_rand_expr(); if (of_sign) return; gen(')'); break;
+    case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); 
 			 gen_rand_op();
 			 gen_rand_expr();
@@ -105,8 +106,10 @@ int main(int argc, char *argv[]) {
     fclose(fp);
 
     int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
-    if (ret != 0) continue;
-
+    if (ret != 0) {
+		i--;
+		continue;
+	}
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
 
