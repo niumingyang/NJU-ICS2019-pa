@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 			fgets(test_expr, 70000, pf);
 			test_expr[strlen(test_expr)-1] = '\0';
 			int cmd_p_ans = expr(test_expr, &succ);
-			if (succ && result != cmd_p_ans) {
+			if (result != cmd_p_ans||!succ) {
 				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n", i, result, cmd_p_ans, test_expr);
 			    cnt_error++;
 			}
