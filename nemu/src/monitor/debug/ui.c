@@ -63,31 +63,6 @@ static int cmd_p(char *args) {
 	bool succ = true;
 	if (args==NULL) {
 		printf("More subcommand needed\n");
-
-		/*use some examples to test this function*/
-	/*	FILE *pf;
-		pf = fopen("/home/nmy/ics2019/nemu/tools/gen-expr/input", "r");
-		if (pf==NULL) {
-			printf("open failed\n");
-			return 0;
-		}
-		int result = 0, cnt_error = 0;
-		char test_expr[70000];
-		for (int i = 0; i < 100; ++i) {
-			fscanf(pf, "%d ", &result);
-			fgets(test_expr, 70000, pf);
-			test_expr[strlen(test_expr)-1] = '\0';
-			int cmd_p_ans = expr(test_expr, &succ);
-			if (succ && result != cmd_p_ans) {
-				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n", i, result, cmd_p_ans, test_expr);
-			    cnt_error++;
-			}
-			else printf("Expression %d: no error\nExpected %d, get %d\n", i, result, cmd_p_ans);
-		}
-		fclose(pf);
-		if (!cnt_error) printf("Success!!!\n");
-		else printf("%d Errors", cnt_error);*/
-	
 	}
 	else {
 		int  cmd_p_ans = expr(args, &succ);
@@ -108,8 +83,10 @@ static int cmd_x(char *args) {
 		return 0;
 	}
 	int arg_number, arg_addr;
+	bool succ = true;
    	sscanf(arg, "%d", &arg_number);
-   	sscanf(arg_sec+2, "%x", &arg_addr);
+	arg_addr = expr(arg_sec, &succ);
+	if (!succ) return 0;
 	for (int i = 0; i < arg_number; ++i) {
 		printf("0x%08x: 0x%08x %d\n", arg_addr+i*4, isa_vaddr_read(arg_addr+i*4, 4), isa_vaddr_read(arg_addr+i*4, 4));
 	}
