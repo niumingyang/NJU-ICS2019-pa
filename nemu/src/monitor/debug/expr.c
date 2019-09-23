@@ -224,7 +224,7 @@ uint32_t eval(int p, int q) {
   else if (check_parentheses(p, q) == true) 
     return eval(p + 1, q - 1);
   else {
-    int op = main_optr(p, q); assert(op==1);
+    int op = main_optr(p, q); assert(op==0);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
 	if (expr_errorsign) return 0;
