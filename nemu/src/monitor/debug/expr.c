@@ -203,7 +203,7 @@ int main_optr(int m, int n){
   return crt_opnum;
 }
 
-uint32_t eval(int p, int q) {                printf("%d %d\n", p, q);
+uint32_t eval(int p, int q) {
   if (expr_errorsign) return 0;
   if (p > q) {
 	if (tokens[p].type == TK_NEG||tokens[p].type == TK_DREF) return 0;
@@ -221,10 +221,10 @@ uint32_t eval(int p, int q) {                printf("%d %d\n", p, q);
 	sscanf(tokens[p].str, "%d", &tk_num);
 	return tk_num;
   }
-  else if (check_parentheses(p, q) == true)   { if (p==0&&q==3)   assert(0);
-    return eval(p + 1, q - 1);                }
+  else if (check_parentheses(p, q) == true) 
+    return eval(p + 1, q - 1);
   else {
-    int op = main_optr(p, q);
+    int op = main_optr(p, q); assert(op==1);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
 	if (expr_errorsign) return 0;
