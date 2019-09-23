@@ -20,7 +20,8 @@ static struct rule {
   {"==", TK_EQ},         // equal
   {"[0-9]+", TK_NUM},    // number
   {"\\(", TK_LB},        // left-bracket
-  {"\\)", TK_RB}         // right-bracket
+  {"\\)", TK_RB},        // right-bracket
+  {"\\u", TK_NOTYPE}     // unsigned integer
 };
 /*The order is important, do not change it*/
 
@@ -178,8 +179,8 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   else {
     int op = main_optr(p, q);
-    int val1 = eval(p, op - 1);
-    int val2 = eval(op + 1, q);
+    uint32_t val1 = eval(p, op - 1);
+    uint32_t val2 = eval(op + 1, q);
 	if (expr_errorsign) return 0;
     switch (tokens[op].type) {
       case TK_PLUS: return val1 + val2;
