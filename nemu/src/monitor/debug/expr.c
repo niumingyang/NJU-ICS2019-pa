@@ -188,7 +188,7 @@ int main_optr(int m, int n){
 	  case TK_DREF: case TK_EQ: case TK_NEQ: case TK_AND: is_want = 1; break;
 	  default: break;
 	}
-   	if (crt_optr != TK_NEG) {
+   	if (crt_optr != TK_NEG&&crt_optr != TK_DREF) {
       if (bracket_cnt ==  0 && is_want && (tokens[i].type>=crt_optr || tokens[i].type/100==crt_optr/100)) {
 	    crt_optr = tokens[i].type;
 	    crt_opnum = i;
