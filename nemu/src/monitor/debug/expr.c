@@ -118,6 +118,7 @@ static bool make_token(char *e) {
 				sscanf(tokens[nr_token].str+2, "%x", &hnum);	
 				sprintf(tokens[nr_token].str, "%u", hnum);
 				tokens[nr_token++].type = TK_H;
+				break;
 			}
 			case TK_NUM: {
 				if (substr_len>32) {
