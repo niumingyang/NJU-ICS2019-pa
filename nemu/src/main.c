@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n", i, result, cmd_p_ans, test_expr);
 			    cnt_error++;
 			}
-			//else printf("Expression %d: no error\nExpected %d, get %d\n", i, result, cmd_p_ans);
+			//else printf("Expression %d: no error\nExpected %d, get %d\n", i, result, cmd_p_ans);//some details
 		}
 		fclose(pf);
 		if (!cnt_error) printf("Expression evaluation tests passed successfully\n");
