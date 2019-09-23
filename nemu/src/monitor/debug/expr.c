@@ -80,8 +80,8 @@ static bool make_token(char *e) {
 			i = 5; 
 		if (rules[i].token_type==TK_DREF && nr_token>=1 && (tokens[nr_token-1].type==TK_NUM||tokens[nr_token-1].type==TK_RB))
 			i = 4; 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //    i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
         switch (rules[i].token_type) {
 			case TK_NOTYPE: break;
@@ -208,7 +208,7 @@ uint32_t eval(int p, int q) {
   }
   else if (p == q) {
     if (tokens[p].type != TK_NUM&&tokens[p].type != TK_H&&tokens[p].type != TK_REG) {
-	  printf("Illegal expression: tokens[%d] is not a number\n", p);
+	  printf("Illegal expression: tokens[%d] is not a number or register\n", p);
       expr_errorsign = true;
 	  return 0;	  
 	}
