@@ -184,7 +184,8 @@ int main_optr(int m, int n){
 	switch (tokens[i].type) {
 	  case TK_LB: ++bracket_cnt; break;
 	  case TK_RB: --bracket_cnt; break;
-	  case TK_PLUS: case TK_MIN: case TK_MUL: case TK_DIV: case TK_NEG: is_want = 1; break;
+	  case TK_PLUS: case TK_MIN: case TK_MUL: case TK_DIV: case TK_NEG: 
+	  case TK_DREF: case TK_EQ: case TK_NEQ: case TK_AND: is_want = 1; break;
 	  default: break;
 	}
    	if (crt_optr != TK_NEG) {
@@ -224,7 +225,7 @@ uint32_t eval(int p, int q) {
   else if (check_parentheses(p, q) == true) 
     return eval(p + 1, q - 1);
   else {
-    int op = main_optr(p, q); assert(op==0);
+    int op = main_optr(p, q);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
 	if (expr_errorsign) return 0;
