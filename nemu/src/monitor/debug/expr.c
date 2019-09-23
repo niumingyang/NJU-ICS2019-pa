@@ -84,8 +84,8 @@ static bool make_token(char *e) {
 				(tokens[nr_token-1].type==TK_NUM||tokens[nr_token-1].type==TK_REG||
 				 tokens[nr_token-1].type==TK_H||tokens[nr_token-1].type==TK_RB))
 			i = 4; 
-        //Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-        //    i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
         switch (rules[i].token_type) {
 			case TK_NOTYPE: break;
