@@ -221,7 +221,7 @@ uint32_t eval(int p, int q) {                printf("%d %d\n", p, q);
 	sscanf(tokens[p].str, "%d", &tk_num);
 	return tk_num;
   }
-  else if (check_parentheses(p, q) == true)   { assert(0);
+  else if (check_parentheses(p, q) == true)   { if (p==0&&q==3)   assert(0);
     return eval(p + 1, q - 1);                }
   else {
     int op = main_optr(p, q);
