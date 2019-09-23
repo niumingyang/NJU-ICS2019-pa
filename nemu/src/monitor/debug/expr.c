@@ -198,7 +198,7 @@ int main_optr(int m, int n){
   return crt_opnum;
 }
 
-uint32_t eval(int p, int q) {
+uint32_t eval(int p, int q) {                printf("%d %d\n", p, q);
   if (expr_errorsign) return 0;
   if (p > q) {
 	if (tokens[p].type == TK_NEG||tokens[p].type == TK_DREF) return 0;
