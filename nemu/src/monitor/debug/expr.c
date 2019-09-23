@@ -207,7 +207,7 @@ uint32_t eval(int p, int q) {
 	return 0;
   }
   else if (p == q) {
-    if (tokens[p].type != TK_NUM||tokens[p].type != TK_H||tokens[p].type != TK_REG) {
+    if (tokens[p].type != TK_NUM&&tokens[p].type != TK_H&&tokens[p].type != TK_REG) {
 	  printf("Illegal expression: tokens[%d] is not a number\n", p);
       expr_errorsign = true;
 	  return 0;	  
