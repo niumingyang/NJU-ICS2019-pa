@@ -64,3 +64,20 @@ bool wp_delete(int _no) {
 	free_wp(wp_h);
 	return 0;
 }
+
+bool check_wp() {
+	bool wp_suc = 1;
+	if (head!=NULL) {
+		WP* wp_cnt = head;
+		while (wp_cnt!=NULL) {
+			int wp_v = expr(wp_cnt->expr, &wp_suc);
+			assert(wp_suc==1);
+			if (wp_v!=wp_cnt->value) {
+				printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
+				wp_cnt->value = wp_v;
+				wp_suc = 0;	
+			}
+		}
+	}
+	return wp_suc;
+}

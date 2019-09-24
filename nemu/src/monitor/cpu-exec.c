@@ -12,8 +12,7 @@
 /* restrict the size of log file */
 #define LOG_MAX (1024 * 1024)
 
-extern WP *head, *free_;
-uint32_t expr(char *e, bool *success);
+bool check_wp();
 
 NEMUState nemu_state = {.state = NEMU_STOP};
 
@@ -62,19 +61,8 @@ void cpu_exec(uint64_t n) {
   }
 
     /* check watchpoints here. */
-  if (head!=NULL) {
-	WP* wp_cnt = head;
-	while (wp_cnt!=NULL) {
-		 bool wp_suc = 1;
-		int wp_v = expr(wp_cnt->expr, &wp_suc);
-		assert(wp_suc==1);
-		if (wp_v!=wp_cnt->value) {
-			printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
-			wp_cnt->value = wp_v;
-			nemu_state.state = NEMU_STOP;
-		 }
-	 }
-  }
+  if (!check_wp())
+	nemu_state.state = NEMU_STOP;
 
 #endif
 
