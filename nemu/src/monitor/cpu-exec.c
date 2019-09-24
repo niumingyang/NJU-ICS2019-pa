@@ -12,6 +12,9 @@
 /* restrict the size of log file */
 #define LOG_MAX (1024 * 1024)
 
+extern WP *head, *free_;
+uint32_t expr(char *e, bool *success);
+
 NEMUState nemu_state = {.state = NEMU_STOP};
 
 void interpret_rtl_exit(int state, vaddr_t halt_pc, uint32_t halt_ret) {
@@ -58,7 +61,18 @@ void cpu_exec(uint64_t n) {
               "To capture more trace, you can modify the LOG_MAX macro in %s\n\n", __FILE__);
   }
 
-    /* TODO: check watchpoints here. */
+    /* check watchpoints here. */
+  WP* wp_cnt = head;
+  while (wp_cnt!=NULL) {
+	  bool wp_suc = 1;
+	  int wp_v = expr(wp_cnt->expr, &wp_suc);
+	  assert(wp_suc==1);
+	  if (wp_v!=wp_cnt->value) {
+		printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
+		wp_cnt->value = wp_v;
+		nemu_state.state = NEMU_STOP;
+	  }
+  }
 
 #endif
 

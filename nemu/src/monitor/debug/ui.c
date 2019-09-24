@@ -8,8 +8,9 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
-
 void isa_reg_display(void);
+bool wp_delete(int _no);
+int wp_insert(char *wp_s, int wp_val, bool *success);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -94,10 +95,32 @@ static int cmd_x(char *args) {
 }
 
 static int cmd_w(char *args) {
+	char *arg = strtok(NULL, " ");
+	if (arg==NULL) {
+		printf("More subcommand needed\n");
+		return 0;
+	}
+	bool succ = true;
+	int cmd_w_ans = expr(arg, &succ);
+	if (!succ) return 0;
+	succ = 1;
+	int w_no = wp_insert(arg, cmd_w_ans, &succ);
+	if (!succ)
+		printf("No enough space\n");
+	else printf("Watchpoint No.%d: %s\n", w_no, arg);
 	return 0;
 }
 
 static int cmd_d(char *args) {
+	char *arg = strtok(NULL, " ");
+	if (arg==NULL) { 
+		printf("More subcommand needed\n");
+		return 0;
+	}
+	int cmd_d_num;
+   	sscanf(arg, "%d", &cmd_d_num);
+	if (wp_delete(cmd_d_num))
+		printf("No such watchpoint: No.%d\n", cmd_d_num);
 	return 0;
 }
 
