@@ -101,6 +101,10 @@ static int cmd_w(char *args) {
 		printf("More subcommand needed\n");
 		return 0;
 	}
+	if (strlen(arg)>=WP_LEN) {
+		printf("Expression is too long\n");
+		return 0;
+	}
 	bool succ = true;
 	int cmd_w_ans = expr(arg, &succ);
 	if (!succ) return 0;
@@ -118,6 +122,11 @@ static int cmd_d(char *args) {
 		printf("More subcommand needed\n");
 		return 0;
 	}
+	for (int i = 0; i < strlen(arg); ++i)
+		if (!isdigit(arg[i])) {
+			printf("Wrong subcommand\n");
+			return 0;
+		}
 	int cmd_d_num;
    	sscanf(arg, "%d", &cmd_d_num);
 	if (wp_delete(cmd_d_num))
