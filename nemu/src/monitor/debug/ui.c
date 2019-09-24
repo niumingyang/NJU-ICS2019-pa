@@ -107,7 +107,6 @@ static int cmd_w(char *args) {
 	if (!succ) return 0;
 	succ = 1;
 	int w_no = wp_insert(arg, cmd_w_ans, &succ);
-	wp_display();
 	if (!succ)
 		printf("No enough space\n");
 	else printf("Watchpoint No.%d: %s\n", w_no, arg);
@@ -175,7 +174,7 @@ void ui_mainloop(int is_batch_mode) {
     return;
   }
 
-  for (char *str; (str = rl_gets()) != NULL; ) {
+  for (char *str; (str = rl_gets()) != NULL; ) {wp_display();
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
@@ -194,7 +193,7 @@ void ui_mainloop(int is_batch_mode) {
     extern void sdl_clear_event_queue(void);
     sdl_clear_event_queue();
 #endif
-
+wp_display();
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
