@@ -174,7 +174,6 @@ void ui_mainloop(int is_batch_mode) {
   }
 
   for (char *str; (str = rl_gets()) != NULL; ) {
-wp_display();
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
@@ -201,7 +200,6 @@ wp_display();
         break;
       }
     }
-wp_display();
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
 }
