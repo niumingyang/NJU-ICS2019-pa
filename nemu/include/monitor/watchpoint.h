@@ -5,9 +5,9 @@
 
 typedef struct watchpoint {
   int NO;
-  struct watchpoint *next;
   char *expr;
   int value;
+  struct watchpoint *next;
 } WP;
 
 #endif
