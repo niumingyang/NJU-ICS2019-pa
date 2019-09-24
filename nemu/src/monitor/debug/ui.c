@@ -103,7 +103,6 @@ static int cmd_w(char *args) {
 	bool succ = true;
 	int cmd_w_ans = expr(arg, &succ);
 	if (!succ) return 0;
-	printf("%d\n", cmd_w_ans);
 	succ = 1;
 	int w_no = wp_insert(arg, cmd_w_ans, &succ);
 	if (!succ)
