@@ -69,12 +69,12 @@ bool wp_delete(int _no) {
 }
 
 bool check_wp() {
+			printf("%s %d %d\n", head->expr, head->NO, head->value);//test
 	bool wp_suc = 1;
 	if (head!=NULL) {
 		WP* wp_cnt = head;
 		while (wp_cnt!=NULL) {
 			int wp_v = expr(wp_cnt->expr, &wp_suc);
-			printf("%s %d %d\n", wp_cnt->expr, wp_cnt->NO, wp_cnt->value);//test
 			assert(wp_suc==1);
 			if (wp_v!=wp_cnt->value) {
 				printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
