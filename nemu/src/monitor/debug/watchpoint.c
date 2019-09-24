@@ -32,7 +32,7 @@ void free_wp(WP* wp) {
   wp->next = free_;
   free_ = wp;
 }
-void wp_display();
+
 int wp_insert(char *wp_s, int wp_val, bool *success) {
 	WP* wpt = new_wp();
 	if (wpt==NULL) {
@@ -43,7 +43,6 @@ int wp_insert(char *wp_s, int wp_val, bool *success) {
 	wpt->value = wp_val;
 	wpt->next = head;
 	head = wpt;
-	wp_display();
 	return wpt->NO;
 }
 

@@ -43,6 +43,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
+	wp_display();
 	int args_result;
 	if (args==NULL) args_result = 1;
 	else sscanf(args, "%d", &args_result);
