@@ -76,7 +76,7 @@ void wp_display() {
 	}
 	WP* wp_cnt = head;
 	while (wp_cnt!=NULL) {
-		printf("Watchpoint No.%d: %s ***** %d", wp_cnt->NO, wp_cnt->expr, wp_cnt->value);
+		printf("Watchpoint No.%d: %s ***** %d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value);
 		wp_cnt = wp_cnt->next;
 	}
 }
