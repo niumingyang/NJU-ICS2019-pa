@@ -34,6 +34,7 @@ void free_wp(WP* wp) {
 }
 
 int wp_insert(char *wp_s, int wp_val, bool *success) {
+			printf("%s\n", wp_s);//test
 	WP* wpt = new_wp();
 	if (wpt==NULL) {
 		*success = 0;
@@ -42,6 +43,7 @@ int wp_insert(char *wp_s, int wp_val, bool *success) {
 	wpt->expr = wp_s;
 	wpt->value = wp_val;
 	wpt->next = head;
+			printf("%s\n", wpt->expr);//test
 	head = wpt;
 	return wpt->NO;
 }
@@ -71,7 +73,7 @@ bool check_wp() {
 		WP* wp_cnt = head;
 		while (wp_cnt!=NULL) {
 			int wp_v = expr(wp_cnt->expr, &wp_suc);
-			printf("%s\n", wp_cnt->expr);
+			printf("%s\n", wp_cnt->expr);//test
 			assert(wp_suc==1);
 			if (wp_v!=wp_cnt->value) {
 				printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
