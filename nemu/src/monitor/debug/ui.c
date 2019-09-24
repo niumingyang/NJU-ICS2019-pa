@@ -108,7 +108,7 @@ static int cmd_w(char *args) {
 	int w_no = wp_insert(arg, cmd_w_ans, &succ);
 	if (!succ)
 		printf("No enough space\n");
-	else printf("Watchpoint No.%d: %s\n", w_no, arg);
+	else printf("Watchpoint %d: %s\n", w_no, arg);
 	return 0;
 }
 
@@ -121,7 +121,7 @@ static int cmd_d(char *args) {
 	int cmd_d_num;
    	sscanf(arg, "%d", &cmd_d_num);
 	if (wp_delete(cmd_d_num))
-		printf("No such watchpoint: No.%d\n", cmd_d_num);
+		printf("No such watchpoint: %d\n", cmd_d_num);
 	return 0;
 }
 
