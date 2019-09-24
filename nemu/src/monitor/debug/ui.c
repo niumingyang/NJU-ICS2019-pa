@@ -43,7 +43,6 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
-	wp_display();
 	int args_result;
 	if (args==NULL) args_result = 1;
 	else sscanf(args, "%d", &args_result);
@@ -174,7 +173,7 @@ void ui_mainloop(int is_batch_mode) {
     return;
   }
 
-  for (char *str; (str = rl_gets()) != NULL; ) {wp_display();
+  for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
@@ -193,7 +192,7 @@ void ui_mainloop(int is_batch_mode) {
     extern void sdl_clear_event_queue(void);
     sdl_clear_event_queue();
 #endif
-wp_display();
+
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
@@ -201,7 +200,7 @@ wp_display();
         break;
       }
     }
-
+wp_display();
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
 }
