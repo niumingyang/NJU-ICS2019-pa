@@ -9,6 +9,7 @@
 
 void cpu_exec(uint64_t);
 void isa_reg_display(void);
+void wp_display(void);
 bool wp_delete(int _no);
 int wp_insert(char *wp_s, int wp_val, bool *success);
 
@@ -55,7 +56,7 @@ static int cmd_info(char *args) {
 	else if (strcmp(args, "r") == 0)
 		isa_reg_display();
 	else if (strcmp(args, "w") == 0)
-		;
+		wp_display();
 	else printf("Unkown subcommand '%s'\n", args);
 	return 0;
 }

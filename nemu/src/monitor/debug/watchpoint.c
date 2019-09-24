@@ -69,6 +69,18 @@ bool wp_delete(int _no) {
 	return 0;
 }
 
+void wp_display() {
+	if (head==NULL) {
+		printf("No watchpoints\n");
+		return;
+	}
+	WP* wp_cnt = head;
+	while (wp_cnt!=NULL) {
+		printf("Watchpoint No.%d: %s ***** %d", wp_cnt->NO, wp_cnt->expr, wp_cnt->value);
+		wp_cnt = wp_cnt->next;
+	}
+}
+
 bool check_wp() {
 			printf("%s %d %d\n", head->expr, head->NO, head->value);//test
 	bool wp_suc = 1;
@@ -78,10 +90,11 @@ bool check_wp() {
 			int wp_v = expr(wp_cnt->expr, &wp_suc);
 			assert(wp_suc==1);
 			if (wp_v!=wp_cnt->value) {
-				printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
+				printf ("Watchpoint No.%d: '%s' ***** %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
 				wp_cnt->value = wp_v;
 				wp_suc = 0;	
 			}
+			wp_cnt = wp_cnt->next;
 		}
 	}
 	return wp_suc;
