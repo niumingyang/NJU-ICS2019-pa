@@ -62,7 +62,7 @@ void cpu_exec(uint64_t n) {
   }
 
     /* check watchpoints here. */
-  WP* wp_cnt = head;
+  WP* wp_cnt = &(*head);
   while (wp_cnt!=NULL) {
 	  bool wp_suc = 1;
 	  int wp_v = expr(wp_cnt->expr, &wp_suc);
