@@ -62,16 +62,18 @@ void cpu_exec(uint64_t n) {
   }
 
     /* check watchpoints here. */
-  WP* wp_cnt = &(*head);
-  while (wp_cnt!=NULL) {
-	  bool wp_suc = 1;
-	  int wp_v = expr(wp_cnt->expr, &wp_suc);
-	  assert(wp_suc==1);
-	  if (wp_v!=wp_cnt->value) {
-		printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
-		wp_cnt->value = wp_v;
-		nemu_state.state = NEMU_STOP;
-	  }
+  if (head!=NULL) {
+	WP* wp_cnt = head;
+	while (wp_cnt!=NULL) {
+		 bool wp_suc = 1;
+		int wp_v = expr(wp_cnt->expr, &wp_suc);
+		assert(wp_suc==1);
+		if (wp_v!=wp_cnt->value) {
+			printf ("Watchpoint No.%d: '%s' %d-->%d\n", wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
+			wp_cnt->value = wp_v;
+			nemu_state.state = NEMU_STOP;
+		 }
+	 }
   }
 
 #endif
