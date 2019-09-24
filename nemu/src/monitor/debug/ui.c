@@ -174,6 +174,7 @@ void ui_mainloop(int is_batch_mode) {
   }
 
   for (char *str; (str = rl_gets()) != NULL; ) {
+wp_display();
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
@@ -193,6 +194,7 @@ void ui_mainloop(int is_batch_mode) {
     sdl_clear_event_queue();
 #endif
 
+wp_display();
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
