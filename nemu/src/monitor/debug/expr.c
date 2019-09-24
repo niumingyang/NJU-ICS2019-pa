@@ -208,7 +208,7 @@ uint32_t eval(int p, int q) {
   if (expr_errorsign) return 0;
   if (p > q) {
 	if (tokens[p].type == TK_NEG||tokens[p].type == TK_DREF) return 0;
-	printf("\e[1;31millegal expression\n");
+	printf("illegal expression\n");
 	expr_errorsign = true;
 	return 0;
   }
