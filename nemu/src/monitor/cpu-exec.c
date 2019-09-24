@@ -12,6 +12,8 @@
 /* restrict the size of log file */
 #define LOG_MAX (1024 * 1024)
 
+bool check_wp();
+
 NEMUState nemu_state = {.state = NEMU_STOP};
 
 void interpret_rtl_exit(int state, vaddr_t halt_pc, uint32_t halt_ret) {
@@ -36,7 +38,6 @@ void cpu_exec(uint64_t n) {
       return;
     default: nemu_state.state = NEMU_RUNNING;
   }
-
   for (; n > 0; n --) {
     __attribute__((unused)) vaddr_t ori_pc = cpu.pc;
 
@@ -58,7 +59,9 @@ void cpu_exec(uint64_t n) {
               "To capture more trace, you can modify the LOG_MAX macro in %s\n\n", __FILE__);
   }
 
-    /* TODO: check watchpoints here. */
+    /* check watchpoints here. */
+  if (!check_wp())
+	nemu_state.state = NEMU_STOP;
 
 #endif
 

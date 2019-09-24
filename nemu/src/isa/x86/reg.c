@@ -40,9 +40,26 @@ void reg_test() {
   assert(pc_sample == cpu.pc);
 }
 
-void isa_reg_display() {
+void isa_reg_display() {	
+	printf("eax: 0x%08x %d\n", cpu.eax, cpu.eax);
+	printf("ecx: 0x%08x %d\n", cpu.ecx, cpu.ecx);
+	printf("edx: 0x%08x %d\n", cpu.edx, cpu.edx);
+	printf("ebx: 0x%08x %d\n", cpu.ebx, cpu.ebx);
+	printf("esp: 0x%08x %d\n", cpu.esp, cpu.esp);
+	printf("ebp: 0x%08x %d\n", cpu.ebp, cpu.ebp);
+	printf("esi: 0x%08x %d\n", cpu.esi, cpu.esi);
+	printf("edi: 0x%08x %d\n", cpu.edi, cpu.edi);
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {
+  if (strcmp(s, "eax")==0) return cpu.eax;
+  else if (strcmp(s, "ecx")==0) return cpu.ecx;
+  else if (strcmp(s, "edx")==0) return cpu.edx;
+  else if (strcmp(s, "ebx")==0) return cpu.ebx;
+  else if (strcmp(s, "esp")==0) return cpu.esp;
+  else if (strcmp(s, "ebp")==0) return cpu.ebp;
+  else if (strcmp(s, "esi")==0) return cpu.esi;
+  else if (strcmp(s, "edi")==0) return cpu.edi;
+  else *success = 0;
   return 0;
 }
