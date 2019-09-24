@@ -106,6 +106,7 @@ static int cmd_w(char *args) {
 	if (!succ) return 0;
 	succ = 1;
 	int w_no = wp_insert(arg, cmd_w_ans, &succ);
+	wp_display();
 	if (!succ)
 		printf("No enough space\n");
 	else printf("Watchpoint No.%d: %s\n", w_no, arg);
