@@ -78,10 +78,11 @@ void wp_display() {
 }
 
 bool check_wp() {
-	bool wp_suc = 1;
+	bool wp_suc;
 	if (head!=NULL) {
 		WP* wp_cnt = head;
 		while (wp_cnt!=NULL) {
+			wp_suc = 1;
 			int wp_v = expr(wp_cnt->expr, &wp_suc);
 			printf("%s\n", wp_cnt->expr);
 			assert(wp_suc==1);
