@@ -50,6 +50,7 @@ int wp_insert(char *wp_s, int wp_val, bool *success) {
 }
 
 bool wp_delete(int _no) {
+			printf("%s %d %d\n", head->expr, head->NO, head->value);//test
 	if (head==NULL) return 1;
 	WP* wp_h = NULL;
 	if (head->NO==_no) {
