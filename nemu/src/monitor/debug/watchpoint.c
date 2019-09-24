@@ -32,9 +32,8 @@ void free_wp(WP* wp) {
   wp->next = free_;
   free_ = wp;
 }
-
+void wp_display();
 int wp_insert(char *wp_s, int wp_val, bool *success) {
-			printf("%s\n", wp_s);//test
 	WP* wpt = new_wp();
 	if (wpt==NULL) {
 		*success = 0;
@@ -43,14 +42,12 @@ int wp_insert(char *wp_s, int wp_val, bool *success) {
 	wpt->expr = wp_s;
 	wpt->value = wp_val;
 	wpt->next = head;
-			printf("%s\n", wpt->expr);//test
 	head = wpt;
-			printf("%s\n", head->expr);//test
+	wp_display();
 	return wpt->NO;
 }
 
 bool wp_delete(int _no) {
-			printf("%s %d %d\n", head->expr, head->NO, head->value);//test
 	if (head==NULL) return 1;
 	WP* wp_h = NULL;
 	if (head->NO==_no) {
@@ -82,7 +79,6 @@ void wp_display() {
 }
 
 bool check_wp() {
-			printf("%s %d %d\n", head->expr, head->NO, head->value);//test
 	bool wp_suc = 1;
 	if (head!=NULL) {
 		WP* wp_cnt = head;
