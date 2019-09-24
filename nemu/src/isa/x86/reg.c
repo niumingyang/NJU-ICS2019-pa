@@ -60,6 +60,7 @@ uint32_t isa_reg_str2val(const char *s, bool *success) {
   else if (strcmp(s, "ebp")==0) return cpu.ebp;
   else if (strcmp(s, "esi")==0) return cpu.esi;
   else if (strcmp(s, "edi")==0) return cpu.edi;
+  else if (strcmp(s, "pc")==0)  return cpu.pc;
   else *success = 0;
   return 0;
 }
