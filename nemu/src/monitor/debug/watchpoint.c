@@ -48,6 +48,7 @@ int wp_insert(char *wp_s, int wp_val, bool *success) {
 
 bool wp_delete(int _no) {
 	if (head==NULL) return 1;
+	if (_no>=NR_WP) return 1;
 	WP* wp_h = NULL;
 	if (head->NO==_no) {
 		wp_h = head;

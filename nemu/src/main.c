@@ -26,14 +26,15 @@ int main(int argc, char *argv[]) {
 			test_expr[strlen(test_expr)-1] = '\0';
 			int cmd_p_ans = expr(test_expr, &succ);
 			if (result != cmd_p_ans||!succ) {
-				printf("Expression %d: error\nExpected %d, get %d\nExpression: %s\n", i, result, cmd_p_ans, test_expr);
-			    cnt_error++;
+			  printf("Expression %d: \e[1;31merror\e[0m\nExpected %d, get %d\nExpression: %s\n", 
+					  i, result, cmd_p_ans, test_expr);
+		      cnt_error++;
 			}
 			//else printf("Expression %d: no error\nExpected %d, get %d\n", i, result, cmd_p_ans);//some details
 		}
 		fclose(pf);
-		if (!cnt_error) printf("Expression evaluation tests passed successfully\n");
-		else printf("%d Errors\n", cnt_error);
+		if (!cnt_error) printf("\e[1;34mExpression evaluation tests passed successfully\e[0m\n");
+		else printf("%d \e[1;31mErrors\e[0m\n", cnt_error);
 
   /* Receive commands from user. */
   ui_mainloop(is_batch_mode);
