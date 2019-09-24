@@ -39,7 +39,7 @@ int wp_insert(char *wp_s, int wp_val, bool *success) {
 		*success = 0;
 		return 0;
 	}
-	wpt->expr = wp_s;
+	strcpy(wpt->expr, wp_s);
 	wpt->value = wp_val;
 	wpt->next = head;
 	head = wpt;

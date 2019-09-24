@@ -194,7 +194,6 @@ wp_display();
     sdl_clear_event_queue();
 #endif
 
-wp_display();
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
