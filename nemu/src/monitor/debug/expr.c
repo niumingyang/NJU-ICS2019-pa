@@ -18,22 +18,22 @@ static struct rule {
   char *regex;
   int token_type;
 } rules[] = {
-  {" +", TK_NOTYPE},                // spaces
-  {"\\-", TK_NEG},                  // negtive
-  {"\\*", TK_DREF},                 // structure dereference
-  {"\\+", TK_PLUS},                 // plus
-  {"\\*", TK_MUL},                  // multiply
-  {"\\-", TK_MIN},                  // minus
-  {"\\/", TK_DIV},                  // divide
-  {"\\$([a-z]|[A-Z])+", TK_REG},    // register
-  {"==", TK_EQ},                    // equal
-  {"!=", TK_NEQ},                   // not equal
-  {"&&", TK_AND},                   // logic and
-  {"\\0\\x([0-9]|[a-f])+", TK_H},   // hexadecimal number
-  {"[0-9]+", TK_NUM},               // number
-  {"\\(", TK_LB},                   // left-bracket
-  {"\\)", TK_RB},                   // right-bracket
-  {"\\u", TK_NOTYPE}                // unsigned integer
+  {" +", TK_NOTYPE},                      // spaces
+  {"\\-", TK_NEG},                        // negtive
+  {"\\*", TK_DREF},                       // structure dereference
+  {"\\+", TK_PLUS},                       // plus
+  {"\\*", TK_MUL},                        // multiply
+  {"\\-", TK_MIN},                        // minus
+  {"\\/", TK_DIV},                        // divide
+  {"\\$([a-z]|[A-Z])+", TK_REG},          // register
+  {"==", TK_EQ},                          // equal
+  {"!=", TK_NEQ},                         // not equal
+  {"&&", TK_AND},                         // logic and
+  {"\\0\\x([0-9]|[a-f]|[A-F])+", TK_H},   // hexadecimal number
+  {"[0-9]+", TK_NUM},                     // number
+  {"\\(", TK_LB},                         // left-bracket
+  {"\\)", TK_RB},                         // right-bracket
+  {"\\u", TK_NOTYPE}                      // unsigned integer
 };
 /*The order is important, do not change it*/
 
