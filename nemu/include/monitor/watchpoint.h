@@ -2,14 +2,13 @@
 #define __WATCHPOINT_H__
 
 #include "common.h"
+#define WP_LEN 100
 
 typedef struct watchpoint {
   int NO;
+  char expr[WP_LEN];
+  int value;
   struct watchpoint *next;
-
-  /* TODO: Add more members if necessary */
-
-
 } WP;
 
 #endif
