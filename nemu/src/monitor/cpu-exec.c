@@ -59,7 +59,7 @@ void cpu_exec(uint64_t n) {
               "To capture more trace, you can modify the LOG_MAX macro in %s\n\n", __FILE__);
   }
 
-printf("%d", nemu_state.state);
+printf("%d\n", nemu_state.state);
     /* check watchpoints here. */
   if (!check_wp())
 	nemu_state.state = NEMU_STOP;
@@ -68,11 +68,13 @@ printf("%d", nemu_state.state);
 
   g_nr_guest_instr ++;
 
+printf("%d\n", nemu_state.state);
 #ifdef HAS_IOE
     extern void device_update();
     device_update();
+printf("%d\n", nemu_state.state);
 #endif
-printf("%d", nemu_state.state);
+printf("%d\n", nemu_state.state);
     if (nemu_state.state != NEMU_RUNNING) break;
   }
 
