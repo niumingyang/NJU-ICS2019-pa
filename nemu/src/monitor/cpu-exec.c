@@ -83,6 +83,6 @@ printf("ppp\n");
           (nemu_state.state == NEMU_ABORT ? "\33[1;31mABORT" :
            (nemu_state.halt_ret == 0 ? "\33[1;32mHIT GOOD TRAP" : "\33[1;31mHIT BAD TRAP")),
           nemu_state.halt_pc);
-      monitor_statistic();
+      monitor_statistic();default:assert(0);
   }
 }
