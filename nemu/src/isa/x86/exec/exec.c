@@ -197,5 +197,4 @@ void isa_exec(vaddr_t *pc) {
   decinfo.opcode = opcode;
   set_width(opcode_table[opcode].width);
   idex(pc, &opcode_table[opcode]);
-  assert(0);
 }

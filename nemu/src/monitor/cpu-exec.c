@@ -85,4 +85,5 @@ void cpu_exec(uint64_t n) {
           nemu_state.halt_pc);
       monitor_statistic();
   }
+  assert(0);
 }
