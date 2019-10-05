@@ -71,7 +71,7 @@ void cpu_exec(uint64_t n) {
     extern void device_update();
     device_update();
 #endif
-
+printf("ppp\n");
     if (nemu_state.state != NEMU_RUNNING) break;
   }
 
