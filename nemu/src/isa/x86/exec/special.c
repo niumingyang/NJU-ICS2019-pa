@@ -24,7 +24,7 @@ make_EHelper(inv) {
   print_asm("invalid opcode");
 }
 
-make_EHelper(nemu_trap) {
+make_EHelper(nemu_trap) {printf("ppp\n");
   difftest_skip_ref();
 
   rtl_exit(NEMU_END, cpu.pc, cpu.eax);
