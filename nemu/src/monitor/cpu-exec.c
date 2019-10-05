@@ -71,7 +71,7 @@ void cpu_exec(uint64_t n) {
     extern void device_update();
     device_update();
 #endif
-printf("ppp\n");
+printf("%d", nemu_state.state);
     if (nemu_state.state != NEMU_RUNNING) break;
   }
 
@@ -83,6 +83,6 @@ printf("ppp\n");
           (nemu_state.state == NEMU_ABORT ? "\33[1;31mABORT" :
            (nemu_state.halt_ret == 0 ? "\33[1;32mHIT GOOD TRAP" : "\33[1;31mHIT BAD TRAP")),
           nemu_state.halt_pc);
-      monitor_statistic();default:assert(0);
+      monitor_statistic();
   }
 }
