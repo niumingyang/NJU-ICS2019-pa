@@ -49,7 +49,6 @@ void cpu_exec(uint64_t n) {
   difftest_step(ori_pc, cpu.pc);
 #endif
 
-printf("z%d\n", nemu_state.state);
 #ifdef DEBUG
   if (g_nr_guest_instr < LOG_MAX) {
     asm_print(ori_pc, seq_pc - ori_pc, n < MAX_INSTR_TO_PRINT);
@@ -60,7 +59,6 @@ printf("z%d\n", nemu_state.state);
               "To capture more trace, you can modify the LOG_MAX macro in %s\n\n", __FILE__);
   }
 
-printf("a%d\n", nemu_state.state);
     /* check watchpoints here. */
   if (!check_wp())
 	nemu_state.state = NEMU_STOP;
@@ -69,7 +67,6 @@ printf("a%d\n", nemu_state.state);
 
   g_nr_guest_instr ++;
 
-printf("b%d\n", nemu_state.state);
 #ifdef HAS_IOE
     extern void device_update();
     device_update();

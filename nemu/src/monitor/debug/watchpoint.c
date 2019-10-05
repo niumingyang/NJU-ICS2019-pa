@@ -79,7 +79,7 @@ void wp_display() {
 }
 
 bool check_wp() {
-	bool wp_suc;
+	bool wp_suc=1;
 	if (head!=NULL) {
 		WP* wp_cnt = head;
 		while (wp_cnt!=NULL) {
