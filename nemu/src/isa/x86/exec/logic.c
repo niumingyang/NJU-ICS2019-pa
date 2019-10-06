@@ -8,19 +8,55 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-  TODO();
+  rtl_and(&s0, &id_src->val, &id_dest->val);
+  operand_write(id_dest, &s0);
+
+  if (id_dest->width != 4) {
+	rtl_andi(&s0, &s0, 0xffffffffu >> ((4 - id_dest->width)*8));
+  }
+
+  rtl_update_ZFSF(&s0, id_dest->width);
+  
+  // update CF and OF
+  s0 = 0;
+  rtl_set_CF(&s0);
+  rtl_set_OF(&s0);
 
   print_asm_template2(and);
 }
 
 make_EHelper(xor) {
-  TODO();
+  rtl_xor(&s0, &id_src->val, &id_dest->val);
+  operand_write(id_dest, &s0);
+
+  if (id_dest->width != 4) {
+	rtl_andi(&s0, &s0, 0xffffffffu >> ((4 - id_dest->width)*8));
+  }
+
+  rtl_update_ZFSF(&s0, id_dest->width);
+  
+  // update CF and OF
+  s0 = 0;
+  rtl_set_CF(&s0);
+  rtl_set_OF(&s0);
 
   print_asm_template2(xor);
 }
 
 make_EHelper(or) {
-  TODO();
+  rtl_or(&s0, &id_src->val, &id_dest->val);
+  operand_write(id_dest, &s0);
+
+  if (id_dest->width != 4) {
+	rtl_andi(&s0, &s0, 0xffffffffu >> ((4 - id_dest->width)*8));
+  }
+
+  rtl_update_ZFSF(&s0, id_dest->width);
+  
+  // update CF and OF
+  s0 = 0;
+  rtl_set_CF(&s0);
+  rtl_set_OF(&s0);
 
   print_asm_template2(or);
 }
