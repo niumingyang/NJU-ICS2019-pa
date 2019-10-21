@@ -52,8 +52,8 @@ make_group(gp7,
 /* TODO: Add more instructions!!! */
 
 static OpcodeEntry opcode_table [512] = {
-  /* 0x00 */	EMPTY,                   IDEX(E2G, gp7),          EMPTY,                   EMPTY,
-  /* 0x04 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
+  /* 0x00 */	IDEXW(G2E, add, 1),      IDEX(G2E, gp7),          IDEXW(E2G, add, 1),       IDEX(E2G, add),
+  /* 0x04 */	IDEXW(I2a, add, 1),      IDEX(I2a, add),          EMPTY,                   EMPTY,
   /* 0x08 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
   /* 0x0c */	EMPTY,                   EMPTY,                   EMPTY,                   EX(2byte_esc),
   /* 0x10 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
@@ -65,9 +65,9 @@ static OpcodeEntry opcode_table [512] = {
   /* 0x28 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
   /* 0x2c */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
   /* 0x30 */	IDEXW(G2E, xor, 1),      IDEX(G2E, xor),          IDEXW(E2G, xor, 1),      IDEX(E2G, xor),
-  /* 0x34 */	IDEXW(I2a, xor, 1),      IDEX(I2r, xor),          EMPTY,                   EMPTY,
-  /* 0x38 */	EMPTY,                   EMPTY,                   EMPTY,                   IDEX(G2E, cmp),
-  /* 0x3c */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
+  /* 0x34 */	IDEXW(I2a, xor, 1),      IDEX(I2a, xor),          EMPTY,                   EMPTY,
+  /* 0x38 */	IDEXW(G2E, cmp, 1),      IDEX(G2E, cmp),          IDEXW(E2G, cmp, 1),      IDEX(E2G, cmp),
+  /* 0x3c */	IDEXW(I2a, cmp, 1),      IDEX(I2a, cmp),          EMPTY,                   EMPTY,
   /* 0x40 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
   /* 0x44 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
   /* 0x48 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
