@@ -2,7 +2,17 @@
 #include "cc.h"
 
 make_EHelper(test) {
-  TODO();
+  rtl_and(&s0, &id_src->val, &id_dest->val);
+  if (id_dest->width != 4) {
+	rtl_andi(&s0, &s0, 0xffffffffu >> ((4 - id_dest->width)*8));
+  }
+
+  rtl_update_ZFSF(&s0, id_dest->width);
+  
+  // update CF and OF
+  s0 = 0;
+  rtl_set_CF(&s0);
+  rtl_set_OF(&s0);
 
   print_asm_template2(test);
 }
