@@ -47,12 +47,12 @@ make_group(gp5,
 /* 0x0f 0x01*/
 make_group(gp7,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    EMPTY, EMPTY, EX(add), EMPTY)
 
 /* TODO: Add more instructions!!! */
 
 static OpcodeEntry opcode_table [512] = {
-  /* 0x00 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
+  /* 0x00 */	EMPTY,                   IDEX(E2G, gp7),          EMPTY,                   EMPTY,
   /* 0x04 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
   /* 0x08 */	EMPTY,                   EMPTY,                   EMPTY,                   EMPTY,
   /* 0x0c */	EMPTY,                   EMPTY,                   EMPTY,                   EX(2byte_esc),
