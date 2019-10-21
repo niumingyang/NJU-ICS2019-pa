@@ -66,13 +66,13 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  TODO();
+  
 
   print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  TODO();
+  
 
   print_asm_template1(dec);
 }

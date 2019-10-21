@@ -12,7 +12,7 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-  TODO();
+  
 
   print_asm_template1(pop);
 }
