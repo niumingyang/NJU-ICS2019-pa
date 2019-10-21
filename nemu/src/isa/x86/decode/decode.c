@@ -22,10 +22,10 @@ static inline make_DopHelper(I) {
 /* sign immediate */
 static inline make_DopHelper(SI) {
   assert(op->width == 1 || op->width == 4);
-
   op->type = OP_TYPE_IMM;
 
-  op->simm = (int32_t)instr_fetch(pc, op->width);
+  if (op->width == 1) op->simm = (int8_t)instr_fetch(pc, op->width);
+  else op->simm = (int32_t)instr_fetch(pc, op->width);
   rtl_li(&op->val, op->simm);
 
   print_Dop(op->str, OP_STR_SIZE, "$0x%x", op->simm);
