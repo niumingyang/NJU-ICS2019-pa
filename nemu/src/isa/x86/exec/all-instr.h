@@ -9,7 +9,7 @@ make_EHelper(pop);
 //make_EHelper(cltd);
 //make_EHelper(cwtl);
 //make_EHelper(movsx);
-//make_EHelper(movzx);
+make_EHelper(movzx);
 make_EHelper(lea);
 
 // control.c
