@@ -100,7 +100,7 @@ static int cmd_w(char *args) {
 		printf("More subcommand needed\n");
 		return 0;
 	}
-	char* arg = args + strlen(args);
+	char* arg = args + strlen(args) + 1;
 	if (strlen(args)>=WP_LEN) {
 		printf("Expression is too long\n");
 		return 0;
