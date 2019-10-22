@@ -72,7 +72,7 @@ make_EHelper(or) {
 }
 
 make_EHelper(sar) {
-  TODO();
+  
   // unnecessary to update CF and OF in NEMU
 
   print_asm_template2(sar);
