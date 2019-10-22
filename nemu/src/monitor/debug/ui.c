@@ -96,12 +96,12 @@ static int cmd_x(char *args) {
 }
 
 static int cmd_w(char *args) {
-	char *arg = strtok(NULL, " ");
-	if (arg==NULL) {
+	if (args==NULL) {
 		printf("More subcommand needed\n");
 		return 0;
 	}
-	if (strlen(arg)>=WP_LEN) {
+	char* arg = args + strlen(args);
+	if (strlen(args)>=WP_LEN) {
 		printf("Expression is too long\n");
 		return 0;
 	}
