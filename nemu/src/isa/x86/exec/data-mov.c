@@ -31,7 +31,20 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
-  TODO();
+  if (decinfo.isa.is_operand_size_16) {
+    rtl_mv(&s0, &cpu.ebp);
+    rtl_andi(&cpu.esp, &cpu.esp, 0xffff0000);
+    rtl_andi(&s0, &s0, 0xffff);
+    rtl_or(&cpu.esp, &cpu.esp, &s0);
+    rtl_pop(&s0);
+    rtl_andi(&cpu.esp, &cpu.esp, 0xffff0000);
+    rtl_andi(&s0, &s0, 0xffff);
+    rtl_or(&cpu.ebp, &cpu.ebp, &s0);
+  }
+  else {
+    rtl_mv(&cpu.esp, &cpu.ebp);
+    rtl_pop(&cpu.ebp);
+  }
 
   print_asm("leave");
 }
