@@ -21,20 +21,19 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-  for (int i = 0; s1[i] != '\0'&&s2[i] != '\0'; ++i) {
-    if (s1[i]==s2[i]) continue;
-    else if (s1[i]-s2[i] < 0) return -1;
+  int dif;
+  unsigned char* ss1 = (unsigned char*)s1; 
+  unsigned char* ss2 = (unsigned char*)s2;
+  for (int i = 0; *(ss1+i) != '\0'&&*(ss2+i) != '\0'; ++i) {
+    dif = *(ss1+i) - *(ss2+i);
+    if (dif==0) continue;
+    else if (dif < 0) return -1;
     else return 1;
   }
   return 0;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
-  for (int i = 0; s1[i] != '\0'&&s2[i] != '\0'&&i < n; ++i) {
-    if (s1[i]==s2[i]) continue;
-    else if (s1[i]-s2[i] < 0) return -1;
-    else return 1;
-  }
   return 0;
 }
 
