@@ -52,8 +52,10 @@ void* memcpy(void* out, const void* in, size_t n) {
 
 int memcmp(const void* s1, const void* s2, size_t n){
   int dif;
+  unsigned char* ss1 = (unsigned char*)s1; 
+  unsigned char* ss2 = (unsigned char*)s2;
   for (int i = 0; i < n; ++i) {
-    dif = (unsigned char)*((unsigned char*)s1+i) - (unsigned char)*((unsigned char*)s2+i);
+    dif = *(ss1+i) - *(ss2+i);
     if (dif == 0) continue;
     else return dif;
   }
