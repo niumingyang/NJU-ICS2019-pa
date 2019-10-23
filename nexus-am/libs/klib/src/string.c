@@ -39,7 +39,11 @@ int strncmp(const char* s1, const char* s2, size_t n) {
 }
 
 void* memset(void* v,int c,size_t n) {
-  return NULL;
+  uint8_t cc = c;
+  uint8_t *i;
+  for (i = v; n > 0; ++i, --n)
+    *i = cc;
+  return v;
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
