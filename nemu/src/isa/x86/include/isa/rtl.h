@@ -42,7 +42,7 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
   // dest <- is_overflow(src1 - src2)
   *dest = ((int32_t)*src1>=0&&(int32_t)*src2<0&&(int32_t)*res<0&&*src2!=0x80000000u)||
 	  ((int32_t)*src1<0&&(int32_t)*src2>=0&&(int32_t)*res>=0)||
-	  (*src2==0x80000000u&&(int32_t)*src2>=0);
+	  (*src2==0x80000000u&&(int32_t)*src1>=0);
 }
 
 static inline void rtl_is_sub_carry(rtlreg_t* dest,
