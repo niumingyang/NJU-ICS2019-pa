@@ -8,40 +8,42 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  int d, len, ret = 0;
-  char c, *s;
-  while (*fmt) 
-    switch (*fmt++) {
-      case 's':{
-        s = va_arg(ap, char *);
+  char *str;
+  int len, d;
+  char* s;
+  char d_num[30];
+  for (str = out; *fmt; ++fmt) {
+    if (*fmt != '%') {
+      *str++ = *fmt;
+      continue;
+    }
+    fmt++;
+    switch (*fmt) {
+      case 'c': {
+        *str++ = (char) va_arg(ap, int);
+        break;
+      }
+      case 's': {
+        s = va_arg(ap, char*);
         len = strlen(s);
-        for (int i = 0; i < len; ++i) *out++ = *s++;
-        ret += len;
+        for (int i = 0; i < len; ++i) *str++ = *s++;
         break;
       }
       case 'i':
-      case 'd':{
+      case 'd': {
         d = va_arg(ap, int);
-        char tmp[100];
-        int cnt = 0;
+        len = 0;
         while (d) {
-          tmp[cnt++] = '0' + d%10;
+          d_num[len++] = '0' + d%10;
           d /= 10;
         }
-        ret += cnt;
-        while (cnt--)
-          *out++ = tmp[cnt];
+        for (int i = 0; i < len; ++i) *str++ = d_num[len-i-1];
         break;
       }
-      case 'c':{
-        c = (char)va_arg(ap, int);
-        *out++ = c;
-        ret++;
-        break;
-      }
-      default: assert(0);
     }
-  return ret;
+  }
+  *str = '\0';
+  return str - out;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
