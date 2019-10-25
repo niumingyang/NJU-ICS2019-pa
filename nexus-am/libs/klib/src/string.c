@@ -3,12 +3,12 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
-  return 0;
+  int ret = 0;
+  while (*s++) ++ret;
+  return ret;
 }
 
 char *strcpy(char* dst,const char* src) {
-  if (src == NULL || dst == NULL)
-    return NULL;
   char* tmp = dst;
   while (*src != '\0')
     *dst++ = *src++;
@@ -17,8 +17,6 @@ char *strcpy(char* dst,const char* src) {
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
-  if (src == NULL || dst == NULL)
-    return NULL;
   char* tmp = dst;
   while (*src != '\0'&&n-- > 0)
     *dst++ = *src++;
@@ -62,7 +60,12 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  return NULL;
+  unsigned char* dst = (unsigned char*)out;
+  unsigned char* src = (unsigned char*)in;
+  unsigned char* tmp = dst;
+  while (n-- > 0)
+    *dst++ = *src++;
+  return tmp;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
