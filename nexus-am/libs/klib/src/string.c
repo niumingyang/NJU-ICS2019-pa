@@ -7,36 +7,58 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-  return NULL;
+  if (src == NULL || dst == NULL)
+    return NULL;
+  char* tmp = dst;
+  while (*src != '\0')
+    *dst++ = *src++;
+  *dst = '\0';
+  return tmp;
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
-  return NULL;
+  if (src == NULL || dst == NULL)
+    return NULL;
+  char* tmp = dst;
+  while (*src != '\0'&&n-- > 0)
+    *dst++ = *src++;
+  *dst = '\0';
+  return tmp;
 }
 
 char* strcat(char* dst, const char* src) {
-  return NULL;
+  char* tmp = dst;
+  while(*dst) dst++;
+  while (*src != '\0')
+    *dst++ = *src++;
+  *dst = '\0';
+  return tmp;
 }
 
 int strcmp(const char* s1, const char* s2) {
-  int dif;
-  unsigned char* ss1 = (unsigned char*)s1; 
-  unsigned char* ss2 = (unsigned char*)s2;
-  for (int i = 0; *(ss1+i)&&*(ss2+i); ++i) {
-    dif = *(ss1+i) - *(ss2+i);
-    if (dif==0) continue;
-    else if (dif < 0) return -1;
-    else return 1;
-  }
+  int ret = 0;
+  while (!(ret = *(unsigned char*)s1 - *(unsigned char*)s2)&&*s2)
+    ++s1, ++s2;
+  if (ret < 0) return -1;
+  else if (ret > 0) return 1;
   return 0;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
+  int ret = 0;
+  while (!(ret = *(unsigned char*)s1 - *(unsigned char*)s2)&&*s2&&n>0)
+    ++s1, ++s2, --n;
+  if (ret < 0) return -1;
+  else if (ret > 0) return 1;
   return 0;
 }
 
 void* memset(void* v,int c,size_t n) {
-  return NULL;
+  unsigned char uc = c;
+  unsigned char *s;
+  for (s = v; n > 0; ++s, --n)
+    *s = uc;
+  return v;
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
@@ -44,7 +66,14 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-  return 0;
+  if (!n)
+    return 0;
+  unsigned char* v1 = (unsigned char*)s1;
+  unsigned char* v2 = (unsigned char*)s2;
+  while (*v1 == *v2 && n > 0)
+    v1++, v2++, --n;
+  if (n == 0) return 0; 
+  return *v1 - *v2;
 }
 
 #endif
