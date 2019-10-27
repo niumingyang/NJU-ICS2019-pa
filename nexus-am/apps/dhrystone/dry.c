@@ -753,7 +753,7 @@ int main ()
         One_Fifty       Int_1_Loc;
   REG   One_Fifty       Int_2_Loc;
         One_Fifty       Int_3_Loc;
-  //REG   char            Ch_Index;
+  REG   char            Ch_Index;
         Enumeration     Enum_Loc;
         Str_30          Str_1_Loc;
         Str_30          Str_2_Loc;
@@ -795,8 +795,8 @@ int main ()
     /***************/
 
     Start_Timer();
-
-    for (Run_Index = 1; Run_Index <= Number_Of_Runs; ++Run_Index)
+Run_Index = 1;
+    //for ( Run_Index <= Number_Of_Runs; ++Run_Index)
     {
 
       Proc_5();
@@ -820,7 +820,18 @@ int main ()
       Proc_8 (Arr_1_Glob, Arr_2_Glob, Int_1_Loc, Int_3_Loc);
 	/* Int_Glob == 5 */
       Proc_1 (Ptr_Glob);
-     _putc(Ch_1_Glob); _putc(Ch_2_Glob);
+      for (Ch_Index = 'A'; Ch_Index <= Ch_2_Glob; ++Ch_Index)
+			       /* loop body executed twice */
+      {
+	if (Enum_Loc == Func_1 (Ch_Index, 'C'))
+	    /* then, not executed */
+	  {
+	  Proc_6 (Ident_1, &Enum_Loc);
+	  strcpy (Str_2_Loc, "DHRYSTONE PROGRAM, 3'RD STRING");
+	  Int_2_Loc = Run_Index;
+	  Int_Glob = Run_Index;
+	  }
+      }
 	/* Int_1_Loc == 3, Int_2_Loc == 3, Int_3_Loc == 7 */
       Int_2_Loc = Int_2_Loc * Int_1_Loc;
       Int_1_Loc = Int_2_Loc / Int_3_Loc;
