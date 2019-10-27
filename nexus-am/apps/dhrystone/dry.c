@@ -799,12 +799,12 @@ int main ()
     for (Run_Index = 1; Run_Index <= Number_Of_Runs; ++Run_Index)
     {
 
-    //  Proc_5();
-     // Proc_4();
+      Proc_5();
+      Proc_4();
 	/* Ch_1_Glob == 'A', Ch_2_Glob == 'B', Bool_Glob == true */
       Int_1_Loc = 2;
       Int_2_Loc = 3;
-      strcpy (Str_2_Loc, "DHRYSTONE PROGRAM, 2'ND STRING");
+      strcpy (Str_2_Loc, "DHRYSTONE PROGRAM, 2'ND STRING"); return 0;
       Enum_Loc = Ident_2;
       Bool_Glob = ! Func_2 (Str_1_Loc, Str_2_Loc);
 	/* Bool_Glob == 1 */
