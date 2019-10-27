@@ -27,6 +27,14 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
       continue;
     }
     fmt++;
+
+    if (*fmt=='c') {
+      c = (char) va_arg(ap, int);
+      func_op(str, c, func_num);
+      if (str != NULL) str++;
+      ret++;
+    }
+
     switch (*fmt) {
       case 's': {
         s = va_arg(ap, char*);
@@ -38,13 +46,13 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
         }
         break;
       }
-      case 'c': {
+      /*case 'c': {
         c = (char) va_arg(ap, int);
         func_op(str, c, func_num);
         if (str != NULL) str++;
         ret++;
         break;
-      }
+      }*/
       case 'i':
       case 'd': {
         d = va_arg(ap, int);
