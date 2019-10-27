@@ -110,7 +110,20 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
+  s0 = -id_dest->val;
+  operand_write(id_dest, &s0);
+
+  rtl_update_ZFSF(&s0, id_dest->width);
+
+  // update CF
+  if (id_dest->val == 0) rtl_li(&ir, 0);
+  else rtl_li(&ir, 1);
+  rtl_set_CF(&ir);
+
+  // update OF
+  if (id_dest->val == 1 << (id_dest->width * 8 - 1)) rtl_li(&ir, 1);
+  else rtl_li(&ir, 0);
+  rtl_set_OF(&ir);
 
   print_asm_template1(neg);
 }
