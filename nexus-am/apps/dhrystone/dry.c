@@ -811,9 +811,9 @@ int main ()
       while (Int_1_Loc < Int_2_Loc)  /* loop body executed once */
       {
 	Int_3_Loc = 5 * Int_1_Loc - Int_2_Loc;
+	  /* Int_3_Loc == 7 */_putc('1');
+	Proc_7 (Int_1_Loc, Int_2_Loc, &Int_3_Loc);_putc('2');
 	  /* Int_3_Loc == 7 */
-	Proc_7 (Int_1_Loc, Int_2_Loc, &Int_3_Loc);
-	  /* Int_3_Loc == 7 */printf("%d", Int_1_Loc);
 	Int_1_Loc += 1;
       } /* while */
 	/* Int_1_Loc == 3, Int_2_Loc == 3, Int_3_Loc == 7 */
