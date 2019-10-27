@@ -9,11 +9,11 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-  char* tmp = dst;
+  /*char* tmp = dst;
   while (*src != '\0')
     *dst++ = *src++;
   *dst = '\0';
-  return tmp;
+  return tmp;*/ return NULL;
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
