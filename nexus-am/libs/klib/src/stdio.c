@@ -28,7 +28,7 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
     }
     fmt++;
     switch (*fmt) {
-      case 'x': {_putc('x');
+      case 'c': {_putc('x');
         c = (char) va_arg(ap, int);
         func_op(str, c, func_num);
         if (str != NULL) str++;
