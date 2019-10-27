@@ -23,6 +23,6 @@ int main() {
 	
 	nemu_assert(memcmp(memset(str, '#', 5), s[5], 5) == 0);
 
-printf("my big");
+printf("my big\n%s%c%d\n", "your", 'j', 2233);
 	return 0;
 }
