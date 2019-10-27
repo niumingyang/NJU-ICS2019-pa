@@ -819,7 +819,7 @@ int main ()
 	/* Int_1_Loc == 3, Int_2_Loc == 3, Int_3_Loc == 7 */
       Proc_8 (Arr_1_Glob, Arr_2_Glob, Int_1_Loc, Int_3_Loc);
 	/* Int_Glob == 5 */
-      Proc_1 (Ptr_Glob);
+      //Proc_1 (Ptr_Glob);
       for (Ch_Index = 'A'; Ch_Index <= Ch_2_Glob; ++Ch_Index)
 			       /* loop body executed twice */
       {

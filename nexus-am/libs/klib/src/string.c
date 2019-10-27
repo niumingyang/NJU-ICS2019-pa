@@ -3,14 +3,12 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
-  assert(s != NULL);
   int ret = 0;
   while (*s++) ++ret;
   return ret;
 }
 
 char *strcpy(char* dst,const char* src) {
-  assert(dst != NULL);
   char* tmp = dst;
   while (*src != '\0')
     *dst++ = *src++;
