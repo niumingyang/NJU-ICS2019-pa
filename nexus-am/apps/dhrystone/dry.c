@@ -798,18 +798,18 @@ int main ()
 
     for (Run_Index = 1; Run_Index <= Number_Of_Runs; ++Run_Index)
     {
-
-      Proc_5();
-      Proc_4();
+_putc('1');
+      Proc_5();_putc('2');
+      Proc_4();_putc('3');
 	/* Ch_1_Glob == 'A', Ch_2_Glob == 'B', Bool_Glob == true */
-      Int_1_Loc = 2;_putc('1');
+      Int_1_Loc = 2;
       Int_2_Loc = 3;
       strcpy (Str_2_Loc, "DHRYSTONE PROGRAM, 2'ND STRING");
       Enum_Loc = Ident_2;
       Bool_Glob = ! Func_2 (Str_1_Loc, Str_2_Loc);
 	/* Bool_Glob == 1 */
       while (Int_1_Loc < Int_2_Loc)  /* loop body executed once */
-      {_putc('0');
+      {
 	Int_3_Loc = 5 * Int_1_Loc - Int_2_Loc;
 	  /* Int_3_Loc == 7 */
 	Proc_7 (Int_1_Loc, Int_2_Loc, &Int_3_Loc);
