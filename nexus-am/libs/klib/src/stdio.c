@@ -44,7 +44,7 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
           ret++;
         }
         break;
-      }
+      },
       case 'i':
       case 'd': {
         d = va_arg(ap, int);
