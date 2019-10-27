@@ -822,7 +822,7 @@ int main ()
       Proc_1 (Ptr_Glob);
       for (Ch_Index = 'A'; Ch_Index <= Ch_2_Glob; ++Ch_Index)
 			       /* loop body executed twice */
-      {return 0;
+      {
 	if (Enum_Loc == Func_1 (Ch_Index, 'C'))
 	    /* then, not executed */
 	  {
@@ -830,7 +830,7 @@ int main ()
 	  strcpy (Str_2_Loc, "DHRYSTONE PROGRAM, 3'RD STRING");
 	  Int_2_Loc = Run_Index;
 	  Int_Glob = Run_Index;
-	  }
+	  }return 0;
       }
 	/* Int_1_Loc == 3, Int_2_Loc == 3, Int_3_Loc == 7 */
       Int_2_Loc = Int_2_Loc * Int_1_Loc;
