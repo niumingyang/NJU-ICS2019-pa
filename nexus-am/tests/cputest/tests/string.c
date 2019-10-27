@@ -25,6 +25,5 @@ int main() {
 char cccc = 'g';
 char a[2] = "sj";
 sprintf(a,"%c", cccc );
-printf("%s",a);
 	return 0;
 }
