@@ -60,7 +60,7 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
         }
         break;
       }
-      default: assert(0);
+      //default: assert(0);
     }
   }
   if (str != NULL) *str = '\0';
