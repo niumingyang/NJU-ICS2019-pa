@@ -7,7 +7,7 @@ enum {Printf, Vsprintf};
 
 void func_op(char *s1, const char s2, int func_num) {
   switch (func_num) {
-    case Printf:   _putc(*s2);
+    case Printf:   _putc(s2);
     case Vsprintf: *s1 = s2; break;
     default: assert(0);
   }
@@ -44,7 +44,7 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
           ret++;
         }
         break;
-      },
+      }
       case 'i':
       case 'd': {
         d = va_arg(ap, int);
