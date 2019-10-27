@@ -822,7 +822,7 @@ int main ()
       Proc_1 (Ptr_Glob);
       for (Ch_Index = 'A'; Ch_Index <= Ch_2_Glob; ++Ch_Index)
 			       /* loop body executed twice */
-      {
+      {return 0;
 	if (Enum_Loc == Func_1 (Ch_Index, 'C'))
 	    /* then, not executed */
 	  {
@@ -838,7 +838,7 @@ int main ()
       Int_2_Loc = 7 * (Int_2_Loc - Int_3_Loc) - Int_1_Loc;
 	/* Int_1_Loc == 1, Int_2_Loc == 13, Int_3_Loc == 7 */
       Proc_2 (&Int_1_Loc);
-	/* Int_1_Loc == 5 */return 0;
+	/* Int_1_Loc == 5 */
 
     } /* loop "for Run_Index" */
 
