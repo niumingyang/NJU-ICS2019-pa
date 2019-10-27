@@ -19,7 +19,7 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
   char* s;
   char c;
   char d_num[30];
-  for (str = out; *fmt; ++fmt) {
+  for (str = out; *fmt; ++fmt) {_putc(*fmt);
     if (*fmt != '%') {
       func_op(str, *fmt, func_num);
       if (str != NULL) str++;
