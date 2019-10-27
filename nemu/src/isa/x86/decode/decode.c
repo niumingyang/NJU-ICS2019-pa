@@ -24,7 +24,7 @@ static inline make_DopHelper(SI) {
   assert(op->width == 1 || op->width == 4);
   op->type = OP_TYPE_IMM;
 
-  s0 = instr_fetch(pc, op->width);
+  s0 = (int32_t)instr_fetch(pc, op->width);
   rtl_sext(&s1, &s0, op->width);
   op->simm = s1;
   
