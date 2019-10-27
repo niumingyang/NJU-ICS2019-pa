@@ -19,14 +19,14 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
   char* s;
   char c;
   char d_num[30];
-  for (str = out; *fmt; ++fmt) {_putc(*fmt);continue;
+  for (str = out; *fmt; ++fmt) {_putc(*fmt);
     if (*fmt != '%') {
       func_op(str, *fmt, func_num);
       if (str != NULL) str++;
       ret++;
       continue;
     }
-    fmt++;
+    fmt++;if (*fmt=='c') _putc('s');
     switch (*fmt) {
       case 'c': {_putc('x');
         c = (char) va_arg(ap, int);
