@@ -815,7 +815,7 @@ int main ()
 	Proc_7 (Int_1_Loc, Int_2_Loc, &Int_3_Loc);
 	  /* Int_3_Loc == 7 */
 	Int_1_Loc += 1;
-      } /* while */return 0;
+      } /* while */
 	/* Int_1_Loc == 3, Int_2_Loc == 3, Int_3_Loc == 7 */
       Proc_8 (Arr_1_Glob, Arr_2_Glob, Int_1_Loc, Int_3_Loc);
 	/* Int_Glob == 5 */
@@ -838,7 +838,7 @@ int main ()
       Int_2_Loc = 7 * (Int_2_Loc - Int_3_Loc) - Int_1_Loc;
 	/* Int_1_Loc == 1, Int_2_Loc == 13, Int_3_Loc == 7 */
       Proc_2 (&Int_1_Loc);
-	/* Int_1_Loc == 5 */
+	/* Int_1_Loc == 5 */return 0;
 
     } /* loop "for Run_Index" */
 
