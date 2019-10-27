@@ -23,6 +23,8 @@ int main() {
 	
 	nemu_assert(memcmp(memset(str, '#', 5), s[5], 5) == 0);
 char cccc = 'g';
-printf("%c\n",cccc);
+char a[2] = "sj";
+sprintf(a,"%c", cccc );
+printf("%s",a);
 	return 0;
 }
