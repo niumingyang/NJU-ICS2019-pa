@@ -795,8 +795,8 @@ int main ()
     /***************/
 
     Start_Timer();
-Run_Index = 1;
-    //for ( Run_Index <= Number_Of_Runs; ++Run_Index)
+
+    for (Run_Index = 1; Run_Index <= Number_Of_Runs; ++Run_Index)
     {
 
       Proc_5();
