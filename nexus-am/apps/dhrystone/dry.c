@@ -808,7 +808,7 @@ int main ()
       Enum_Loc = Ident_2;
       Bool_Glob = ! Func_2 (Str_1_Loc, Str_2_Loc);
 	/* Bool_Glob == 1 */
-      while (Int_1_Loc < Int_2_Loc)  /* loop body executed once */
+      while (Int_1_Loc < Int_2_Loc)  /* loop body executed once */_putc('v');
       {
 	Int_3_Loc = 5 * Int_1_Loc - Int_2_Loc;
 	  /* Int_3_Loc == 7 */
@@ -819,7 +819,7 @@ int main ()
 	/* Int_1_Loc == 3, Int_2_Loc == 3, Int_3_Loc == 7 */
       Proc_8 (Arr_1_Glob, Arr_2_Glob, Int_1_Loc, Int_3_Loc);
 	/* Int_Glob == 5 */
-      //Proc_1 (Ptr_Glob);
+      Proc_1 (Ptr_Glob);
       for (Ch_Index = 'A'; Ch_Index <= Ch_2_Glob; ++Ch_Index)
 			       /* loop body executed twice */
       {
