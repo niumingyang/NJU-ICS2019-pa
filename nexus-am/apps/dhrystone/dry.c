@@ -793,9 +793,9 @@ int main ()
     /***************/
     /* Start timer */
     /***************/
-_putc('1');
+
     Start_Timer();
-_putc('2');
+
     for (Run_Index = 1; Run_Index <= Number_Of_Runs; ++Run_Index)
     {
 
