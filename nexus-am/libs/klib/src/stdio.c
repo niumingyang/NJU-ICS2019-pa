@@ -28,13 +28,6 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
     }
     fmt++;if (*fmt=='c') _putc('/');
     switch (*fmt) {
-      case 'c': {
-        c = (char) va_arg(ap, int);
-        func_op(str, c, func_num);
-        if (str != NULL) str++;
-        ret++;
-        break;
-      }
       case 's': {
         s = va_arg(ap, char*);
         len = strlen(s);
@@ -43,6 +36,13 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
           if (str != NULL) str++;
           ret++;
         }
+        break;
+      }
+      case 'c': {
+        c = (char) va_arg(ap, int);
+        func_op(str, c, func_num);
+        if (str != NULL) str++;
+        ret++;
         break;
       }
       case 'i':
