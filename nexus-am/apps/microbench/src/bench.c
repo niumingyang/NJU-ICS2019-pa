@@ -66,7 +66,7 @@ int main(const char *args) {
     setting_name = "ref";
   }
   int setting_id = -1;
-assert(args!=NULL&&strcmp(args, ""));
+assert(args!=NULL);
   if      (strcmp(setting_name, "test" ) == 0) setting_id = 0;
   else if (strcmp(setting_name, "train") == 0) setting_id = 1;
   else if (strcmp(setting_name, "ref"  ) == 0) setting_id = 2;
