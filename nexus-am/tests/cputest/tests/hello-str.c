@@ -11,6 +11,6 @@ int main() {
 	
 	sprintf(buf, "%d + %d = %d\n", 2, 10, 12);
 	nemu_assert(strcmp(buf, "2 + 10 = 12\n") == 0);
-printf("%c", 'x');
+printf("3e%s %c\n","abc", 'x');
 	return 0;
 }
