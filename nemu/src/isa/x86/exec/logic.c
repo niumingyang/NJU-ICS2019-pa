@@ -101,6 +101,17 @@ make_EHelper(shr) {
   print_asm_template2(shr);
 }
 
+make_EHelper(rol) {
+  for (s0 = 0; s0 < id_src->val; s0++) {
+    rtl_shri(&s1, &id_dest->val, id_dest->width * 8 - 1);
+    rtl_shli(&id_dest->val, &id_dest->val, 1);
+    rtl_xori(&id_dest->val, &id_dest->val, s1);
+  }
+  rtl_li(&s0, id_dest->val);
+  rtl_set_CF(&s1);
+  operand_write(id_dest, &s0);
+}
+
 make_EHelper(setcc) {
   uint32_t cc = decinfo.opcode & 0xf;
 
