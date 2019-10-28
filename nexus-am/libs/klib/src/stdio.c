@@ -3,7 +3,7 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-enum {Printf, Vsprintf};
+enum { Printf, Vsprintf };
 
 void func_op(char *s1, const char s2, int func_num) {
   switch (func_num) {
