@@ -70,13 +70,11 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   va_end(ap);
-  return 0;
-  //return fmtop(NULL, fmt, ap, Printf);
+  return fmtop(NULL, fmt, ap, Printf);
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  return 0;
-  //return fmtop(out, fmt, ap, Vsprintf);
+  return fmtop(out, fmt, ap, Vsprintf);
 }
 
 int sprintf(char *out, const char *fmt, ...) {
