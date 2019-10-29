@@ -24,7 +24,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_VIDEO_FBCTL: {
       _DEV_VIDEO_FBCTL_t *ctl = (_DEV_VIDEO_FBCTL_t *)buf;
-      /*int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
+      int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
       uint32_t *pixels = ctl->pixels;
       uint32_t wh = inl(0x100);
       int W = (wh & 0xffff0000) >> 16;
@@ -34,7 +34,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
       for (int j = 0; j < h && y + j < H; j ++) {
         memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
         pixels += w;
-      }*/
+      }
       if (ctl->sync) {
         outl(SYNC_ADDR, ctl->sync);
       }

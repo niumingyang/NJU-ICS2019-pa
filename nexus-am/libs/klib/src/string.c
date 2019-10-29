@@ -60,9 +60,9 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  unsigned char* dst = (unsigned char*)out;
-  unsigned char* src = (unsigned char*)in;
-  unsigned char* tmp = dst;
+  char* dst = (char*)out;
+  char* src = (char*)in;
+  char* tmp = dst;
   while (n-- > 0)
     *dst++ = *src++;
   return tmp;
