@@ -34,7 +34,7 @@ void device_update() {
     return;
   }
   device_update_flag = false;
-
+assert(0);
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
