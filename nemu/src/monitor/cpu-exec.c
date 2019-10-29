@@ -68,7 +68,7 @@ void cpu_exec(uint64_t n) {
   g_nr_guest_instr ++;
 
 #ifdef HAS_IOE
-    extern void device_update();assert(0);
+    extern void device_update();
     device_update();
 #endif
 
