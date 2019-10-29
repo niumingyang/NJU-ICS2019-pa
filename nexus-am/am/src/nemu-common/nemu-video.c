@@ -30,9 +30,10 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
       int W = (wh & 0xffff0000) >> 16;
       int H = wh & 0xffff;
       uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-      int cp_bytes = sizeof(uint32_t) * min(w, W - x);
+      int cp_4bytes = min(w, W - x);
       for (int j = 0; j < h && y + j < H; j ++) {
-        memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
+        for (int i = 0; i < cp_4bytes; ++i)
+          fb[(y + j) * W + x + i] = pixels[i];
         pixels += w;
       }
       if (ctl->sync) {
