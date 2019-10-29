@@ -40,7 +40,7 @@ void device_update() {
     switch (event.type) {
       case SDL_QUIT: {
                        void monitor_statistic();
-                       monitor_statistic();assert(0);
+                       monitor_statistic();
                        exit(0);
                      }
 
