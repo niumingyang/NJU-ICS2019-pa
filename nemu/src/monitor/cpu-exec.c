@@ -27,7 +27,7 @@ void asm_print(vaddr_t ori_pc, int instr_len, bool print_flag);
 static uint64_t g_nr_guest_instr = 0;
 
 void monitor_statistic(void) {
-  Log("total guest instructions = %ld", g_nr_guest_instr);
+  //Log("total guest instructions = %ld", g_nr_guest_instr);
 }
 
 /* Simulate how the CPU works. */
