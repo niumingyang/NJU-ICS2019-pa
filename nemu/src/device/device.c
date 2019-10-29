@@ -38,14 +38,14 @@ void device_update() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
-      case SDL_QUIT: {
+      case SDL_QUIT: {assert(0);
                        void monitor_statistic();
                        monitor_statistic();
                        exit(0);
                      }
 
                      // If a key was pressed
-      case SDL_KEYDOWN:assert(0);
+      case SDL_KEYDOWN:
       case SDL_KEYUP: {
                         uint8_t k = event.key.keysym.scancode;
                         bool is_keydown = (event.key.type == SDL_KEYDOWN);
