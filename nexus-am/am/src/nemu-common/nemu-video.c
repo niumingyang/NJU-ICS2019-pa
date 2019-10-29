@@ -3,6 +3,12 @@
 #include <nemu.h>
 #include <klib.h>
 
+static inline int min(int x, int y) {
+  return (x < y) ? x : y;
+}
+
+extern uint32_t *fb;
+
 size_t __am_video_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_VIDEO_INFO: {
@@ -20,7 +26,22 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_VIDEO_FBCTL: {
       _DEV_VIDEO_FBCTL_t *ctl = (_DEV_VIDEO_FBCTL_t *)buf;
-
+      int x, y, w, h;
+      uint32_t* pixels;
+      ctl->x = x = inl(0x104);
+      ctl->y = y = inl(0x108);
+      ctl->pixels = pixels = (void *)inl(0x10c);
+      ctl->w = w = inl(0x110);
+      ctl->h = h = inl(0x114);
+      _DEV_VIDEO_INFO_t *_info = {0};
+      __am_video_read(_DEVREG_VIDEO_INFO, _info, 0);
+      int W = _info->width;
+      int H = _info->height;
+      int cp_bytes = sizeof(uint32_t) * min(w, W - x);
+      for (int j = 0; j < h && y + j < H; j ++) {
+        memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
+        pixels += w;
+      }
       if (ctl->sync) {
         outl(SYNC_ADDR, 0);
       }
