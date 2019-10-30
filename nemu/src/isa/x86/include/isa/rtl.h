@@ -41,7 +41,7 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
   rtl_msb(&t0, src1, width);
-  rtl_msb(&t1, src2, width);if (*src1==0x80000000) assert(t0==1&&(int32_t)*src1<0);
+  rtl_msb(&t1, src2, width);if (*src1==0x80000000) assert(t0==1);
   assert((t0==0&&(int32_t)*src1>=0)||(t0==1&&(int32_t)*src1<0));
   *dest = ((int32_t)*src1>=0&&(int32_t)*src2<0&&(int32_t)*res<0&&*src2!=0x80000000u)||
 	  ((int32_t)*src1<0&&(int32_t)*src2>=0&&(int32_t)*res>=0)||
