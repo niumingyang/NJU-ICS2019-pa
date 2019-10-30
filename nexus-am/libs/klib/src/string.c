@@ -61,10 +61,13 @@ void* memset(void* v,int c,size_t n) {
 
 void* memcpy(void* out, const void* in, size_t n) {
   char* dst = (char*)out;
-  //char* src = (char*)in;
+  char* src = (char*)in;
   char* tmp = dst;
-  //while (n-- > 0)
-  //  *dst++ = *src++;
+  while (n-- > 0) {
+    *dst = *src;
+    dst++;
+    src++;
+  }
   return tmp;
 }
 
