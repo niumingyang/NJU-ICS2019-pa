@@ -22,9 +22,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
       _DEV_VIDEO_FBCTL_t *ctl = (_DEV_VIDEO_FBCTL_t *)buf;
       int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
       uint32_t *pixels = ctl->pixels;
-      //uint32_t wh = inl(0x100);
-      int W = 400;//(wh & 0xffff0000) >> 16;
-      int H = 300;//wh & 0xffff;
+      int W = 400, H = 300;
       uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
       for (int j = 0; j < h && y + j < H; j ++) {
         for (int i = 0; i < w && x + i < W; ++i)
