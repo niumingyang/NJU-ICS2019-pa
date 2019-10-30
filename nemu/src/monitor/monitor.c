@@ -95,7 +95,7 @@ int init_monitor(int argc, char *argv[]) {
 
   /* Perform ISA dependent initialization. */
   init_isa();
-
+#ifdef DEBUG
   /* Compile the regular expressions. */
   init_regex();
   
@@ -104,7 +104,7 @@ int init_monitor(int argc, char *argv[]) {
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
-
+#endif
   /* Initialize devices. */
   init_device();
 
