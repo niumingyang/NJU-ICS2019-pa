@@ -50,18 +50,18 @@ void cpu_exec(uint64_t n) {
 #endif
 
 #ifdef DEBUG
-  /*if (g_nr_guest_instr < LOG_MAX) {
+  if (g_nr_guest_instr < LOG_MAX) {
     asm_print(ori_pc, seq_pc - ori_pc, n < MAX_INSTR_TO_PRINT);
   }
   else if (g_nr_guest_instr == LOG_MAX) {
     log_write("\n[Warning] To restrict the size of log file, "
               "we do not record more instruction trace beyond this point.\n"
               "To capture more trace, you can modify the LOG_MAX macro in %s\n\n", __FILE__);
-  }*/
+  }
 
     /* check watchpoints here. */
-  if (!check_wp())
-	nemu_state.state = NEMU_STOP;
+  /*if (!check_wp())
+	nemu_state.state = NEMU_STOP;*/
 
 #endif
 
