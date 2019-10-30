@@ -40,9 +40,22 @@ static inline void rtl_pop(rtlreg_t* dest) {
 static inline void rtl_is_sub_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
-  *dest = ((int32_t)*src1>=0&&(int32_t)*src2<0&&(int32_t)*res<0&&*src2!=0x80000000u)||
-	  ((int32_t)*src1<0&&(int32_t)*src2>=0&&(int32_t)*res>=0)||
-	  (*src2==0x80000000u&&(int32_t)*src2>=0);
+  rtl_msb(&t0, src1, width);
+  rtl_msb(&t1, src2, width);
+  if (t0 == t1) {
+    rtl_li(dest, 0);
+    return;
+  }
+  if (*src2 == 1 << (width * 8 - 1) && t0 == 0) {
+    rtl_li(dest, 1);
+    return;
+  }
+  rtl_msb(&t0, res, width);
+  if (t0 == t1) {
+    rtl_li(dest, 1);
+    return;
+  }
+  rtl_li(dest, 0);
 }
 
 static inline void rtl_is_sub_carry(rtlreg_t* dest,
@@ -54,8 +67,18 @@ static inline void rtl_is_sub_carry(rtlreg_t* dest,
 static inline void rtl_is_add_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 + src2)
-  *dest = ((int32_t)*src1>=0&&(int32_t)*src2>=0&&(int32_t)*res<0)||
-	  ((int32_t)*src1<0&&(int32_t)*src2<0&&(int32_t)*res>=0);
+  rtl_msb(&t0, src1, width);
+  rtl_msb(&t1, src2, width);
+  if (t0 != t1) {
+    rtl_li(dest, 0);
+    return;
+  }
+  rtl_msb(&t0, res, width);
+  if (t0 != t1) {
+    rtl_li(dest, 1);
+    return;
+  }
+  rtl_li(dest, 0);
 }
 
 static inline void rtl_is_add_carry(rtlreg_t* dest,
@@ -80,15 +103,14 @@ make_rtl_setget_eflags(SF)
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   t0 = 32 - 8*width;
-  t1 = !(*result << t0 >> t0);
+  t1 = !(*result << t0);
   rtl_set_ZF(&t1);
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  t0 = 32 - 8*width;
-  t1 = (*result << t0 >> t0)<0;
-  rtl_set_SF(&t1);
+  rtl_msb(&t0, result, width);
+  rtl_set_SF(&t0);
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {

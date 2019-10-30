@@ -30,7 +30,7 @@ static inline void update_screen() {
 
 static void vga_io_handler(uint32_t offset, int len, bool is_write) {
   // TODO: call `update_screen()` when writing to the sync register
-  TODO();
+  if (screensize_port_base[1] == 1) update_screen();
 }
 
 void init_vga() {
@@ -45,6 +45,7 @@ void init_vga() {
 
   screensize_port_base = (void *)new_space(8);
   screensize_port_base[0] = ((SCREEN_W) << 16) | (SCREEN_H);
+  screensize_port_base[1] = 0;
   add_pio_map("screen", SCREEN_PORT, (void *)screensize_port_base, 8, vga_io_handler);
   add_mmio_map("screen", SCREEN_MMIO, (void *)screensize_port_base, 8, vga_io_handler);
 

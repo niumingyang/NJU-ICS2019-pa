@@ -96,23 +96,22 @@ static int cmd_x(char *args) {
 }
 
 static int cmd_w(char *args) {
-	char *arg = strtok(NULL, " ");
-	if (arg==NULL) {
+	if (args==NULL) {
 		printf("More subcommand needed\n");
 		return 0;
 	}
-	if (strlen(arg)>=WP_LEN) {
+	if (strlen(args)>=WP_LEN) {
 		printf("Expression is too long\n");
 		return 0;
 	}
 	bool succ = true;
-	int cmd_w_ans = expr(arg, &succ);
+	int cmd_w_ans = expr(args, &succ);
 	if (!succ) return 0;
 	succ = 1;
-	int w_no = wp_insert(arg, cmd_w_ans, &succ);
+	int w_no = wp_insert(args, cmd_w_ans, &succ);
 	if (!succ)
 		printf("No enough space\n");
-	else printf("Watchpoint %d: %s\n", w_no, arg);
+	else printf("Watchpoint %d: %s\n", w_no, args);
 	return 0;
 }
 

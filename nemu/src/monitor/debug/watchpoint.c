@@ -83,9 +83,8 @@ bool check_wp() {
 	if (head!=NULL) {
 		WP* wp_cnt = head;
 		while (wp_cnt!=NULL) {
-			wp_suc = 1;
-			int wp_v = expr(wp_cnt->expr, &wp_suc);
-			assert(wp_suc==1);
+			bool wp_s = 1;
+			int wp_v = expr(wp_cnt->expr, &wp_s);
 			if (wp_v!=wp_cnt->value) {
 				printf ("\e[0;31mWatchpoint %d changed\e[0m: '%s' ********** %d-->%d\n", 
 						wp_cnt->NO, wp_cnt->expr, wp_cnt->value, wp_v);
