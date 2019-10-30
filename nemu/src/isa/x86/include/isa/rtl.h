@@ -67,8 +67,18 @@ static inline void rtl_is_sub_carry(rtlreg_t* dest,
 static inline void rtl_is_add_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 + src2)
-  *dest = ((int32_t)*src1>=0&&(int32_t)*src2>=0&&(int32_t)*res<0)||
-	  ((int32_t)*src1<0&&(int32_t)*src2<0&&(int32_t)*res>=0);
+  rtl_msb(&t0, src1, width);
+  rtl_msb(&t1, src2, width);
+  if (t0 != t1) {
+    rtl_li(dest, 0);
+    return;
+  }
+  rtl_msb(&t0, res, width);
+  if (t0 != t1) {
+    rtl_li(dest, 1);
+    return;
+  }
+  rtl_li(dest, 0);
 }
 
 static inline void rtl_is_add_carry(rtlreg_t* dest,
