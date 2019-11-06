@@ -17,6 +17,7 @@ static void restart() {
   /* Set the initial program counter. */
   cpu.pc = PC_START;
   cpu.eflags.value = 2;
+  cpu.cs = 8;
 }
 
 void init_isa(void) {
