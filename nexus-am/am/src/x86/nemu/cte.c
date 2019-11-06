@@ -43,7 +43,7 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
 
   // register event handler
   user_handler = handler;
-
+_putc('\n');_putc('\n');_putc('\n');_putc('\n');
   return 0;
 }
 
