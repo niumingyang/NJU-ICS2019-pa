@@ -22,17 +22,14 @@ static inline make_DopHelper(I) {
 /* sign immediate */
 static inline make_DopHelper(SI) {
   assert(op->width == 1 || op->width == 4);
-
   op->type = OP_TYPE_IMM;
 
-  /* TODO: Use instr_fetch() to read `op->width' bytes of memory
-   * pointed by 'pc'. Interpret the result as a signed immediate,
-   * and assign it to op->simm.
-   *
-   op->simm = ???
-   */
-  TODO();
-
+  if (op->width == 4) op->simm = instr_fetch(pc, op->width);
+  else {
+    s0 = (uint8_t)instr_fetch(pc, op->width);
+    rtl_sext(&s1, &s0, 1);
+    op->simm = s1;
+  }
   rtl_li(&op->val, op->simm);
 
   print_Dop(op->str, OP_STR_SIZE, "$0x%x", op->simm);

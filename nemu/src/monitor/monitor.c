@@ -8,6 +8,7 @@ void init_regex();
 void init_wp_pool();
 void init_device();
 void init_difftest(char *ref_so_file, long img_size);
+void expr_test();
 
 static char *mainargs = "";
 static char *log_file = NULL;
@@ -55,6 +56,9 @@ static inline long load_img() {
     assert(ret == 1);
 
     fclose(fp);
+
+	// mainargs
+	strcpy(guest_to_host(0), mainargs);
   }
   return size;
 }
@@ -77,10 +81,6 @@ static inline void parse_args(int argc, char *argv[]) {
   }
 }
 
-char* get_mainargs(void) {
-  return mainargs;
-}
-
 int init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
 
@@ -98,6 +98,9 @@ int init_monitor(int argc, char *argv[]) {
 
   /* Compile the regular expressions. */
   init_regex();
+  
+  /* Test the expression evaluation function. */
+  expr_test();
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();

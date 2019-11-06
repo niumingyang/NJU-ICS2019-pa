@@ -6,13 +6,14 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  TODO();
+  rtl_push(&id_dest->val);
 
   print_asm_template1(push);
 }
 
 make_EHelper(pop) {
-  TODO();
+  rtl_pop(&s0);
+  operand_write(id_dest, &s0);
 
   print_asm_template1(pop);
 }
@@ -30,17 +31,34 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
-  TODO();
+  if (decinfo.isa.is_operand_size_16) {
+    rtl_mv(&s0, &cpu.ebp);
+    rtl_andi(&cpu.esp, &cpu.esp, 0xffff0000);
+    rtl_andi(&s0, &s0, 0xffff);
+    rtl_or(&cpu.esp, &cpu.esp, &s0);
+    rtl_pop(&s0);
+    rtl_andi(&cpu.esp, &cpu.esp, 0xffff0000);
+    rtl_andi(&s0, &s0, 0xffff);
+    rtl_or(&cpu.ebp, &cpu.ebp, &s0);
+  }
+  else {
+    rtl_mv(&cpu.esp, &cpu.ebp);
+    rtl_pop(&cpu.ebp);
+  }
 
   print_asm("leave");
 }
 
 make_EHelper(cltd) {
   if (decinfo.isa.is_operand_size_16) {
-    TODO();
+    rtl_msb(&s0, &cpu.eax, 2);
+    if (s0) rtl_ori(&cpu.edx, &cpu.edx, 0xffff);
+    else rtl_andi(&cpu.edx, &cpu.edx, 0xffff0000);
   }
   else {
-    TODO();
+    rtl_msb(&s0, &cpu.eax, 4);
+    if (s0) rtl_li(&cpu.edx, 0xffffffff);
+    else rtl_li(&cpu.edx, 0x0);
   }
 
   print_asm(decinfo.isa.is_operand_size_16 ? "cwtl" : "cltd");
@@ -48,10 +66,14 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decinfo.isa.is_operand_size_16) {
-    TODO();
+    rtl_msb(&s0, &cpu.eax, 1);
+    if (s0) rtl_ori(&cpu.eax, &cpu.eax, 0xff00);
+    else rtl_andi(&cpu.eax, &cpu.eax, 0xffff00ff);
   }
   else {
-    TODO();
+    rtl_msb(&s0, &cpu.eax, 2);
+    if (s0) rtl_ori(&cpu.eax, &cpu.eax, 0xffff0000);
+    else rtl_andi(&cpu.eax, &cpu.eax, 0xffff);
   }
 
   print_asm(decinfo.isa.is_operand_size_16 ? "cbtw" : "cwtl");

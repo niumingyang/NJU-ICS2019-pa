@@ -90,29 +90,28 @@ static int cmd_x(char *args) {
 	arg_addr = expr(arg_sec, &succ);
 	if (!succ) return 0;
 	for (int i = 0; i < arg_number; ++i) {
-		printf("0x%08x: 0x%08x %d\n", arg_addr+i*4, isa_vaddr_read(arg_addr+i*4, 4), isa_vaddr_read(arg_addr+i*4, 4));
+		printf("0x%08x: 0x%08x %d\n", arg_addr+i*4, vaddr_read(arg_addr+i*4, 4), vaddr_read(arg_addr+i*4, 4));
 	}
 	return 0;
 }
 
 static int cmd_w(char *args) {
-	char *arg = strtok(NULL, " ");
-	if (arg==NULL) {
+	if (args==NULL) {
 		printf("More subcommand needed\n");
 		return 0;
 	}
-	if (strlen(arg)>=WP_LEN) {
+	if (strlen(args)>=WP_LEN) {
 		printf("Expression is too long\n");
 		return 0;
 	}
 	bool succ = true;
-	int cmd_w_ans = expr(arg, &succ);
+	int cmd_w_ans = expr(args, &succ);
 	if (!succ) return 0;
 	succ = 1;
-	int w_no = wp_insert(arg, cmd_w_ans, &succ);
+	int w_no = wp_insert(args, cmd_w_ans, &succ);
 	if (!succ)
 		printf("No enough space\n");
-	else printf("Watchpoint %d: %s\n", w_no, arg);
+	else printf("Watchpoint %d: %s\n", w_no, args);
 	return 0;
 }
 

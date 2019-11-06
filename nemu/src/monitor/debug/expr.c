@@ -236,7 +236,7 @@ uint32_t eval(int p, int q) {
 	  case TK_EQ: return val1 == val2;
 	  case TK_NEQ: return val1 != val2;
 	  case TK_AND: return val1 && val2;
-	  case TK_DREF: return isa_vaddr_read(val2, 4);
+	  case TK_DREF: return vaddr_read(val2, 4);
       case TK_DIV: if (val2==0) {
 				     printf("Overflow: some divisor is zero\n");
 					 expr_errorsign = true;

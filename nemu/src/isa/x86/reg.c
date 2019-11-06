@@ -50,6 +50,7 @@ void isa_reg_display() {
 	printf("$esi: 0x%08x %d\n", cpu.esi, cpu.esi);
 	printf("$edi: 0x%08x %d\n", cpu.edi, cpu.edi);
 	printf("$pc:  0x%08x %d\n", cpu.pc,  cpu.pc);
+  printf("$eflags: CF: %01x  OF: %01x  ZF: %01x  SF: %01x\n", cpu.eflags.CF, cpu.eflags.OF, cpu.eflags.ZF, cpu.eflags.SF);
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {

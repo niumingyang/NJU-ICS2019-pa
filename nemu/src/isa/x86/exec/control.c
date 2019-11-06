@@ -25,14 +25,17 @@ make_EHelper(jmp_rm) {
 }
 
 make_EHelper(call) {
-  // the target address is calculated at the decode stage
-  TODO();
-
+  rtl_li(&ir, decinfo.seq_pc);
+  rtl_push(&ir);
+  rtl_j(decinfo.jmp_pc);
+  
   print_asm("call %x", decinfo.jmp_pc);
 }
 
 make_EHelper(ret) {
-  TODO();
+  rtl_pop(&decinfo.jmp_pc);
+  decinfo.is_jmp = 1;
+  rtl_j(decinfo.jmp_pc);
 
   print_asm("ret");
 }
@@ -44,7 +47,9 @@ make_EHelper(ret_imm) {
 }
 
 make_EHelper(call_rm) {
-  TODO();
+  rtl_li(&ir, decinfo.seq_pc);
+  rtl_push(&ir);
+  rtl_jr(&id_dest->val);
 
   print_asm("call *%s", id_dest->str);
 }
