@@ -27,7 +27,7 @@ _Context* __am_irq_handle(_Context *c) {
 
 int _cte_init(_Context*(*handler)(_Event, _Context*)) {
   static GateDesc idt[NR_IRQ];
-
+_putc('\n');_putc('\n');_putc('\n');_putc('\n');
   // initialize IDT
   for (unsigned int i = 0; i < NR_IRQ; i ++) {
     idt[i] = GATE(STS_TG32, KSEL(SEG_KCODE), __am_vecnull, DPL_KERN);
@@ -43,7 +43,7 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
 
   // register event handler
   user_handler = handler;
-_putc('\n');_putc('\n');_putc('\n');_putc('\n');
+
   return 0;
 }
 
