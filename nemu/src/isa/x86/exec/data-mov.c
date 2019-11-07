@@ -20,15 +20,15 @@ make_EHelper(pop) {
 
 make_EHelper(pusha) {
   if (decinfo.isa.is_operand_size_16) {
-    s1 = (uint32_t)reg_w(cpu.esp);
-    s0 = (uint32_t)reg_w(cpu.eax); rtl_push(&s0);
-    s0 = (uint32_t)reg_w(cpu.ecx); rtl_push(&s0);
-    s0 = (uint32_t)reg_w(cpu.edx); rtl_push(&s0);
-    s0 = (uint32_t)reg_w(cpu.ebx); rtl_push(&s0); 
+    s1 = (uint32_t)reg_w(R_SP);
+    s0 = (uint32_t)reg_w(R_AX); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(R_CX); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(R_DX); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(R_BX); rtl_push(&s0); 
     rtl_push(&s1);
-    s0 = (uint32_t)reg_w(cpu.ebp); rtl_push(&s0);
-    s0 = (uint32_t)reg_w(cpu.esi); rtl_push(&s0);
-    s0 = (uint32_t)reg_w(cpu.edi); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(R_BP); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(R_SI); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(R_DI); rtl_push(&s0);
   }
   else {
     s0 = cpu.esp;
@@ -46,7 +46,26 @@ make_EHelper(pusha) {
 }
 
 make_EHelper(popa) {
-  TODO();
+  if (decinfo.isa.is_operand_size_16) {
+    rtl_pop(&s0); reg_w(R_DI) = s0;
+    rtl_pop(&s0); reg_w(R_SI) = s0;
+    rtl_pop(&s0); reg_w(R_BP) = s0;
+    rtl_pop(&s0);
+    rtl_pop(&s0); reg_w(R_BX) = s0;
+    rtl_pop(&s0); reg_w(R_DX) = s0;
+    rtl_pop(&s0); reg_w(R_CX) = s0;
+    rtl_pop(&s0); reg_w(R_AX) = s0;
+  }
+  else {
+    rtl_pop(&s0); cpu.edi = s0;
+    rtl_pop(&s0); cpu.esi = s0;
+    rtl_pop(&s0); cpu.ebp = s0;
+    rtl_pop(&s0);
+    rtl_pop(&s0); cpu.ebx = s0;
+    rtl_pop(&s0); cpu.edx = s0;
+    rtl_pop(&s0); cpu.ecx = s0;
+    rtl_pop(&s0); cpu.eax = s0;
+  }
 
   print_asm("popa");
 }
