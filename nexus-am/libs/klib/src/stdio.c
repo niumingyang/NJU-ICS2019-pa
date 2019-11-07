@@ -49,7 +49,8 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
       case 'd': {
         d = va_arg(ap, int);
         len = 0;
-        while (d) {
+        if (d == 0) d_num[len++] = '0';
+        else while (d) {
           d_num[len++] = '0' + d%10;
           d /= 10;
         }
