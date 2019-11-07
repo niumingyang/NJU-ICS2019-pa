@@ -12,8 +12,7 @@ void raise_intr(uint32_t NO, vaddr_t ret_addr) {
   s0 = vaddr_read(ir + NO * 8, 4)     & 0x0000ffff;
   s1 = vaddr_read(ir + NO * 8 + 4, 4) & 0xffff0000;
   rtl_or(&s0, &s0, &s1);
-  decinfo.jmp_pc = s0;
-  rtl_j(decinfo.jmp_pc);
+  rtl_j(s0);
 }
 
 bool isa_query_intr(void) {
