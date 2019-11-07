@@ -13,13 +13,10 @@ _Context* __am_irq_handle(_Context *c) {
   if (user_handler) {
     _Event ev = {0};
     switch (c->irq) {
-      case _EVENT_NULL:      ev.event = _EVENT_NULL;      break;
-      case _EVENT_ERROR:     ev.event = _EVENT_ERROR;     break;
-      case _EVENT_IRQ_TIMER: ev.event = _EVENT_IRQ_TIMER; break;
-      case _EVENT_IRQ_IODEV: ev.event = _EVENT_IRQ_IODEV; break;
-      case _EVENT_PAGEFAULT: ev.event = _EVENT_PAGEFAULT; break;
-      case _EVENT_YIELD:     ev.event = _EVENT_YIELD;     break;
-      case _EVENT_SYSCALL:   ev.event = _EVENT_SYSCALL;   break;
+      case 32:   ev.event = 0xff;             break;
+      case 0x80: ev.event = _EVENT_SYSCALL;   break;
+      case 0x81: ev.event = _EVENT_YIELD;     break;
+      default:   ev.event = _EVENT_NULL;
     }
 
     next = user_handler(ev, c);
