@@ -7,17 +7,8 @@ void __am_irq0();
 void __am_vecsys();
 void __am_vectrap();
 void __am_vecnull();
-#include <klib.h>
+
 _Context* __am_irq_handle(_Context *c) {
-  printf("%d\n", c->irq);
-  printf("%d\n",c->eax);
-  printf("%d\n",c->ecx);
-  printf("%d\n",c->edx);
-  printf("%d\n",c->ebx);
-  printf("%d\n",c->esp);
-  printf("%d\n",c->ebp);
-  printf("%d\n",c->esi);
-  printf("%d\n",c->edi);
   _Context *next = c;
   if (user_handler) {
     _Event ev = {0};
