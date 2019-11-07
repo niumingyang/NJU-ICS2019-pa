@@ -9,6 +9,7 @@ void __am_vectrap();
 void __am_vecnull();
 #include <klib.h>
 _Context* __am_irq_handle(_Context *c) {
+  assert(c->irq);
   printf("%d\n", c->irq);
   printf("%d\n",c->eax);
   printf("%d\n",c->ecx);
