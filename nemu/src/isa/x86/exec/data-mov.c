@@ -20,15 +20,15 @@ make_EHelper(pop) {
 
 make_EHelper(pusha) {
   if (decinfo.isa.is_operand_size_16) {
-    s0 = (uint32_t)reg_w(cpu.esp);
-    rtl_push((uint32_t *)&reg_w(cpu.eax));
-    rtl_push((uint32_t *)&reg_w(cpu.ecx));
-    rtl_push((uint32_t *)&reg_w(cpu.edx));
-    rtl_push((uint32_t *)&reg_w(cpu.ebx));
-    rtl_push(&s0);
-    rtl_push((uint32_t *)&reg_w(cpu.ebp));
-    rtl_push((uint32_t *)&reg_w(cpu.esi));
-    rtl_push((uint32_t *)&reg_w(cpu.edi));
+    s1 = (uint32_t)reg_w(cpu.esp);
+    s0 = (uint32_t)reg_w(cpu.eax); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(cpu.ecx); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(cpu.edx); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(cpu.ebx); rtl_push(&s0); 
+    rtl_push(&s1);
+    s0 = (uint32_t)reg_w(cpu.ebp); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(cpu.esi); rtl_push(&s0);
+    s0 = (uint32_t)reg_w(cpu.edi); rtl_push(&s0);
   }
   else {
     s0 = cpu.esp;
