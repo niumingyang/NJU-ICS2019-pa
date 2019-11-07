@@ -4,8 +4,10 @@
 #include <klib.h>
 
 uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-static int W = 400;
-static int H = 300;
+/*static int W = 400;
+static int H = 300;*/
+#define W screen_width()
+#define H screen_height()
 
 size_t __am_video_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
