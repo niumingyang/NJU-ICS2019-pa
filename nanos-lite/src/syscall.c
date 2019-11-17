@@ -21,6 +21,7 @@ void sys_write(_Context *c) {
     c->GPRx = c->GPR4;
   }
   else c->GPRx = -1;
+  Log();
 }
 
 _Context* do_syscall(_Context *c) {
