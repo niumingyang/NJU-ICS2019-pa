@@ -1,6 +1,11 @@
 #include "common.h"
 #include "syscall.h"
 
+void sys_exit(_Context *c) {
+  _halt(c->GPR1);
+  assert(0);
+}
+
 void sys_yield(_Context *c) {
   _yield();
   c->GPRx = 0;
@@ -11,26 +16,26 @@ _Context* do_syscall(_Context *c) {
   a[0] = c->GPR1;
 
   switch (a[0]) {
-    //case SYS_exit:
-    case SYS_yield:          sys_yield(c); break;
-    //case SYS_open:
-    //case SYS_read:
-    //case SYS_write:
-    //case SYS_kill:
-    //case SYS_getpid:
-    //case SYS_close:
-    //case SYS_lseek:
-    //case SYS_brk:
-    //case SYS_fstat:
-    //case SYS_time:
-    //case SYS_signal:
-    //case SYS_execve:
-    //case SYS_fork:
-    //case SYS_link:
-    //case SYS_unlink:
-    //case SYS_wait:
-    //case SYS_times:
-    //case SYS_gettimeofday:
+    case SYS_exit:           sys_exit(c);         break;
+    case SYS_yield:          sys_yield(c);        break;
+    //case SYS_open:         sys_open(c);         break;
+    //case SYS_read:         sys_read(c);         break;
+    //case SYS_write:        sys_write(c);        break;
+    //case SYS_kill:         sys_kill(c);         break;
+    //case SYS_getpid:       sys_getpid(c);       break;
+    //case SYS_close:        sys_close(c);        break;
+    //case SYS_lseek:        sys_lseek(c);        break;
+    //case SYS_brk:          sys_brk(c);          break;
+    //case SYS_fstat:        sys_fstat(c);        break;
+    //case SYS_time:         sys_time(c);         break;
+    //case SYS_signal:       sys_signal(c);       break;
+    //case SYS_execve:       sys_execve(c);       break;
+    //case SYS_fork:         sys_fork(c);         break;
+    //case SYS_link:         sys_link(c);         break;
+    //case SYS_unlink:       sys_unlink(c);       break;
+    //case SYS_wait:         sys_wait(c);         break;
+    //case SYS_times:        sys_times(c);        break;
+    //case SYS_gettimeofday: sys_gettimeofday(c); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
