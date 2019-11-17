@@ -30,6 +30,12 @@
 extern "C" {
 #endif
 
+#ifdef __ISA_NATIVE__
+# define ptrlen uint64_t
+#else 
+# define ptrlen uint32_t
+#endif
+
 // am devices
 
 uint32_t uptime();

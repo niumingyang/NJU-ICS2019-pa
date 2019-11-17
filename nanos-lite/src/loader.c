@@ -16,8 +16,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr Phdr_info;
   ramdisk_read(&Phdr_info, sizeof(Elf_Ehdr), sizeof(Elf_Phdr));
   printf("\n\n\n1\n\n\n\n\n\n%x",Phdr_info.p_vaddr);
-  ramdisk_read((uint32_t *)Phdr_info.p_vaddr, Phdr_info.p_offset, Phdr_info.p_filesz);
-  memset((uint32_t *)(Phdr_info.p_vaddr + Phdr_info.p_filesz), 0, Phdr_info.p_memsz - Phdr_info.p_filesz);
+  ramdisk_read((ptrlen *)Phdr_info.p_vaddr, Phdr_info.p_offset, Phdr_info.p_filesz);
+  memset((ptrlen *)(Phdr_info.p_vaddr + Phdr_info.p_filesz), 0, Phdr_info.p_memsz - Phdr_info.p_filesz);
   return Phdr_info.p_vaddr;
 }
 

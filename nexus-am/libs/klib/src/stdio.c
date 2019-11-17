@@ -3,13 +3,6 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-#ifdef __ISA_NATIVE__
-# define ptrlen uint64_t
-#else 
-# define ptrlen uint32_t
-#endif
-
-
 enum { Printf, Vsprintf };
 
 void func_op(char *s1, const char s2, int func_num) {
