@@ -9,16 +9,19 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-extern uint8_t ramdisk_start;
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  ramdisk_read(&ramdisk_start, 0, get_ramdisk_size());
-  return ramdisk_start;
+  Elf_Phdr Phdr_info;
+  ramdisk_read(&Phdr_info, sizeof(Elf_Ehdr), sizeof(Elf_Phdr));
+  printf("\n\n\n1\n\n\n\n\n\n%x", Phdr_info.p_vaddr);
+  ramdisk_read((uint32_t *)Phdr_info.p_vaddr, Phdr_info.p_offset, Phdr_info.p_filesz);
+  memset((uint32_t *)(Phdr_info.p_vaddr + Phdr_info.p_filesz), 0, Phdr_info.p_memsz - Phdr_info.p_filesz);
+  return Phdr_info.p_vaddr;
 }
 
-void naive_uload(PCB *pcb, const char *filename) {
+void naive_uload(PCB *pcb, const char *filename) { 
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %x", entry);
   ((void(*)())entry) ();
