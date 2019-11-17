@@ -2,7 +2,7 @@
 #include "syscall.h"
 
 void sys_exit(_Context *c) {
-  _halt(c->GPR2);
+  _halt(c->GPR3);
   assert(0);
 }
 
