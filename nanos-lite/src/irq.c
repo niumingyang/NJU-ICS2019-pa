@@ -1,13 +1,14 @@
 #include "common.h"
 
+_Context* do_syscall(_Context *c);
+
 static _Context* do_event(_Event e, _Context* c) {
   switch (e.event) {
     case _EVENT_NULL:    panic("Unhandled event ID = %d", e.event); break;
     case _EVENT_YIELD:   printf("This is event yield\n");           break;
-    case _EVENT_SYSCALL: printf("This is event syscall\n");         break;
+    case _EVENT_SYSCALL: do_syscall(c);                             break;
     default: panic("no event ID = %d", e.event);
   }
-
   return NULL;
 }
 
