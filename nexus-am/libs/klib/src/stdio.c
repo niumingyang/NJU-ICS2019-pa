@@ -16,7 +16,7 @@ void func_op(char *s1, const char s2, int func_num) {
 int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
   char *str;
   int len, d, ret = 0, base = 10;
-  ptrlen p;
+  uintptr_t p;
   char* s;
   char c;
   char d_num[30];
@@ -64,7 +64,7 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
         break;
       }
       case 'p': {
-        p = (ptrlen)va_arg(ap, void *);
+        p = (uintptr_t)va_arg(ap, void *);
         len = 0;
         if (p == 0) d_num[len++] = '0';
         else while (p) {
