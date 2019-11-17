@@ -1,8 +1,9 @@
 #include "common.h"
 #include "syscall.h"
 
-void sys_yield() {
+void sys_yield(_Context *c) {
   _yield();
+  c->GPRx = 0;
 }
 
 _Context* do_syscall(_Context *c) {
@@ -11,7 +12,7 @@ _Context* do_syscall(_Context *c) {
 
   switch (a[0]) {
     //case SYS_exit:
-    case SYS_yield:          sys_yield(); break;
+    case SYS_yield:          sys_yield(c); break;
     //case SYS_open:
     //case SYS_read:
     //case SYS_write:
