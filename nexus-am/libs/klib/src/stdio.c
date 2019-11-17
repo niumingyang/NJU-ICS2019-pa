@@ -3,6 +3,13 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+#ifdef __ISA_NATIVE__
+# define ptrlen uint64_t
+#else 
+# define ptrlen uint32_t
+#endif
+
+
 enum { Printf, Vsprintf };
 
 void func_op(char *s1, const char s2, int func_num) {
@@ -15,7 +22,8 @@ void func_op(char *s1, const char s2, int func_num) {
 
 int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
   char *str;
-  int len, d, ret = 0;
+  int len, d, ret = 0, base = 10;
+  ptrlen p;
   char* s;
   char c;
   char d_num[30];
@@ -45,14 +53,15 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
         ret++;
         break;
       }
+      case 'x': base = 16;
       case 'i':
       case 'd': {
         d = va_arg(ap, int);
         len = 0;
         if (d == 0) d_num[len++] = '0';
         else while (d) {
-          d_num[len++] = '0' + d%10;
-          d /= 10;
+          d_num[len++] = (d%base < 10) ? ('0' + d%base) : ('a' + d%base - 10);
+          d /= base;
         }
         for (int i = 0; i < len; ++i) {
           func_op(str, *(d_num+len-i-1), func_num);
@@ -60,6 +69,27 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
           ret++;
         }
         break;
+      }
+      case 'p': {
+        p = (ptrlen)va_arg(ap, void *);
+        len = 0;
+        if (p == 0) d_num[len++] = '0';
+        else while (p) {
+          d_num[len++] = (p%16 < 10) ? ('0' + p%16) : ('a' + p%16 - 10);
+          p /= 16;
+        }
+        func_op(str, '0', func_num);
+        func_op(str, 'x', func_num);
+        for (int i = 0; i < len; ++i) {
+          func_op(str, *(d_num+len-i-1), func_num);
+          if (str != NULL) str++;
+          ret++;
+        }
+        break;
+      }
+      default: {
+        printf("\n\n'%c' is not implemented\n\n", *fmt);
+        assert(0);
       }
     }
   }
