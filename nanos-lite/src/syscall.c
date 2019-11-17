@@ -13,6 +13,16 @@ void sys_yield(_Context *c) {
   c->GPRx = 0;
 }
 
+void sys_write(_Context *c) {
+  if(c->GPR2 == 1 || c->GPR2 == 2) {
+    char *buf = (char *)c->GPR3;
+    for (int i = 0; i < c->GPR4; ++i)
+      _putc(buf[i]);
+    c->GPRx = c->GPR4;
+  }
+  else c->GPRx = -1;
+}
+
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -20,9 +30,9 @@ _Context* do_syscall(_Context *c) {
   switch (a[0]) {
     case SYS_exit:           sys_exit(c);         break;
     case SYS_yield:          sys_yield(c);        break;
-    //case SYS_open:         sys_open(c);         break;
+    //case SYS_open          sys_open(c);         break;
     //case SYS_read:         sys_read(c);         break;
-    //case SYS_write:        sys_write(c);        break;
+    case SYS_write:          sys_write(c);        break;
     //case SYS_kill:         sys_kill(c);         break;
     //case SYS_getpid:       sys_getpid(c);       break;
     //case SYS_close:        sys_close(c);        break;
