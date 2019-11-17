@@ -3,6 +3,8 @@
 
 void sys_exit(_Context *c) {
   _halt(c->GPR2);
+
+  // should not reach here
   assert(0);
 }
 
