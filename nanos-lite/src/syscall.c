@@ -3,7 +3,6 @@
 
 void sys_exit(_Context *c) {
   _halt(c->GPR2);
-
   // should not reach here
   assert(0);
 }
@@ -24,6 +23,11 @@ void sys_write(_Context *c) {
   Log();
 }
 
+void sys_brk(_Context *c) {
+  pgm_bk = c->GPR2;
+  c->GPRx = 0;
+}
+
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -38,7 +42,7 @@ _Context* do_syscall(_Context *c) {
     //case SYS_getpid:       sys_getpid(c);       break;
     //case SYS_close:        sys_close(c);        break;
     //case SYS_lseek:        sys_lseek(c);        break;
-    //case SYS_brk:          sys_brk(c);          break;
+    case SYS_brk:            sys_brk(c);          break;
     //case SYS_fstat:        sys_fstat(c);        break;
     //case SYS_time:         sys_time(c);         break;
     //case SYS_signal:       sys_signal(c);       break;
