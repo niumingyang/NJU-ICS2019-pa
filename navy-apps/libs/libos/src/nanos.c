@@ -62,11 +62,13 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
 
+extern char _end;
+static intptr_t brk = (intptr_t)&_end;
 void *_sbrk(intptr_t increment) {
   intptr_t now = brk;
   intptr_t res = brk + increment;
   if(_syscall_(SYS_brk, res, 0, 0) == 0) {
-    //brk = res;
+    brk = res;
     return (void *)now;
   }
   else return (void *)-1;
