@@ -61,9 +61,10 @@ int _open(const char *path, int flags, mode_t mode) {
 int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
-
+#include <stdio.h>
 void *_sbrk(intptr_t increment) {
   if (pgm_bk == -1) pgm_bk = end;
+  printf("\n\n%x\n\n", pgm_bk);assert(0);
   /*if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
     return (intptr_t *)(pgm_bk - increment);
   else*/ return (void *)-1;
