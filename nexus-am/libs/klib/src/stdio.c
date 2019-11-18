@@ -15,7 +15,7 @@ void func_op(char *s1, const char s2, int func_num) {
 
 int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
   char *str;
-  int len, d, ret = 0, base = 10;
+  int len, d, ret = 0, base;
   uintptr_t p;
   char* s;
   char c;
@@ -46,9 +46,11 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
         ret++;
         break;
       }
-      case 'x': base = 16;
+      case 'x': 
       case 'i':
       case 'd': {
+        if (*fmt == 'x') base = 16;
+        else base = 10;
         d = va_arg(ap, int);
         len = 0;
         if (d == 0) d_num[len++] = '0';
@@ -56,12 +58,11 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
           d_num[len++] = (d%base < 10) ? ('0' + d%base) : ('a' + d%base - 10);
           d /= base;
         }
-        for (int i = 0; i < len; ++i) {
-          //func_op(str, d_num[len-i-1], func_num);
+        /*for (int i = 0; i < len; ++i) {
+          func_op(str, d_num[len-i-1], func_num);
           if (str != NULL) str++;
           ret++;
-        }
-        base = 10;
+        }*/
         break;
       }
       case 'p': {
