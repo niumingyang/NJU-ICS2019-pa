@@ -20,7 +20,7 @@ void sys_write(_Context *c) {
     c->GPRx = c->GPR4;
   }
   else c->GPRx = -1;
-  Log();
+  //Log();
 }
 
 void sys_brk(_Context *c) {
