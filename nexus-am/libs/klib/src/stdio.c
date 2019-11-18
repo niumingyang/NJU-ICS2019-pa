@@ -55,7 +55,7 @@ int fmtop(char *out, const char *fmt, va_list ap, int func_num) {
         else while (d) {
           d_num[len++] = (d%base < 10) ? ('0' + d%base) : ('a' + d%base - 10);
           d /= base;
-        }
+        }assert(0);
         for (int i = 0; i < len; ++i) {
           func_op(str, *(d_num+len-i-1), func_num);
           if (str != NULL) str++;
