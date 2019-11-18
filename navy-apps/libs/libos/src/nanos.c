@@ -63,8 +63,18 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
-    return (void *)3243243;//(pgm_bk - increment);
+  if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0){
+    uint32_t d = pgm_bk;int len = 0;
+    char buf[30];
+    if (d == 0) buf[len++] = '0';
+        else while (d) {
+          buf[len++] = '0' + d%10;
+          d /= 10;
+        }
+        buf[len++] = '\n';
+      _syscall_(SYS_write, 1, (intptr_t)buf, len);return (void *)(pgm_bk - increment);
+  }
+    
   else return (void *)-1;;
 }
 
