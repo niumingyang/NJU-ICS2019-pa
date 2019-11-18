@@ -63,9 +63,11 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
+  /*if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
     return (void *)(pgm_bk - increment);
-  else return (void *)-1;;
+  else return (void *)-1;;*/
+  _syscall_(SYS_brk, pgm_bk + increment, 0, 0);
+  assert(pgm_bk>0x30000);
 }
 
 int _read(int fd, void *buf, size_t count) {
