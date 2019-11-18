@@ -24,7 +24,7 @@ enum {
   SYS_gettimeofday
 };
 
-extern char end;
-uintptr_t pgm_bk = (uintptr_t)&end;
+//extern char end;
+uintptr_t pgm_bk = (uintptr_t)0;
 
 #endif
