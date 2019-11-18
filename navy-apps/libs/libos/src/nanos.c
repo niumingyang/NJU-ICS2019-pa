@@ -65,7 +65,7 @@ extern char end;
 void *_sbrk(intptr_t increment) {
   intptr_t now = pgm_bk;
   if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
-    return &end+1;
+    return (&end)+1;
   else return (void *)-1;
 }
 
