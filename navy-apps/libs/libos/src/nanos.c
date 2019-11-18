@@ -64,7 +64,7 @@ int _write(int fd, void *buf, size_t count) {
 
 void *_sbrk(intptr_t increment) {
   if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
-    return (void *)0;//(pgm_bk - increment);
+    return (void *)3243243;//(pgm_bk - increment);
   else return (void *)-1;;
 }
 
