@@ -63,10 +63,6 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  if (pgm_bk == -1) {
-    extern char end;
-    uintptr_t pgm_bk = (uintptr_t)&end;
-  }
   intptr_t now = pgm_bk;
   if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
     return (void *)now;
