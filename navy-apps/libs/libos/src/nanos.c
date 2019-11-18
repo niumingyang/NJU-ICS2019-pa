@@ -63,8 +63,8 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  /*if (pgm_bk == -1) pgm_bk = end;
-  if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
+  if (pgm_bk == -1) pgm_bk = end;
+  /*if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
     return (intptr_t *)(pgm_bk - increment);
   else*/ return (void *)-1;
 }
