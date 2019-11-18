@@ -24,7 +24,7 @@ void sys_write(_Context *c) {
 }
 
 void sys_brk(_Context *c) {
-  pgm_bk = c->GPR2;
+  pgm_bk = (uintptr_t *)(c->GPR2);
   c->GPRx = 0;
 }
 
