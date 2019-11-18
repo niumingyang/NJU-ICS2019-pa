@@ -72,7 +72,7 @@ void *_sbrk(intptr_t increment) {
           d /= 10;
         }
         buf[len++] = '\n';
-      _syscall_(SYS_write, 1, (intptr_t)buf, len);return (void *)(pgm_bk - increment);
+      _syscall_(SYS_write, 1, (intptr_t)buf, len);assert(0);return (void *)(pgm_bk - increment);
   }
     
   else return (void *)-1;;
