@@ -64,7 +64,7 @@ int _write(int fd, void *buf, size_t count) {
 
 void *_sbrk(intptr_t increment) {
   if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0){
-    uint32_t d = pgm_bk;int len = 0;
+    /*uint32_t d = pgm_bk;int len = 0;
     char buf[30];
     if (d == 0) buf[len++] = '0';
         else while (d) {
@@ -72,7 +72,8 @@ void *_sbrk(intptr_t increment) {
           d /= 10;
         }
         buf[len++] = '\n';
-      _syscall_(SYS_write, 1, (intptr_t)buf, len);assert(0);return (void *)(pgm_bk - increment);
+      _syscall_(SYS_write, 1, (intptr_t)buf, len);assert(0);return (void *)(pgm_bk - increment);*/
+      return 61707305;
   }
     
   else return (void *)-1;;
