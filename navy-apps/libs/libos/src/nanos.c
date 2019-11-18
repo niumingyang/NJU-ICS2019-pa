@@ -66,7 +66,7 @@ void *_sbrk(intptr_t increment) {
   /*if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
     return (void *)(pgm_bk - increment);
   else return (void *)-1;;*/
-  _syscall_(SYS_brk, pgm_bk + increment, 0, 0);
+  //_syscall_(SYS_brk, pgm_bk + increment, 0, 0);
 }
 
 int _read(int fd, void *buf, size_t count) {
