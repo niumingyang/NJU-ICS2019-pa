@@ -64,7 +64,7 @@ int _write(int fd, void *buf, size_t count) {
 #include <stdio.h>
 void *_sbrk(intptr_t increment) {
   if (pgm_bk == -1) pgm_bk = end;
-  printf("%x", pgm_bk);
+  printf("\n\n\n%x\n\n\n\n", pgm_bk);
   if(_syscall_(SYS_brk, pgm_bk + increment, 0, 0) == 0)
     return (intptr_t *)(pgm_bk - increment);
   else return (void *)-1;
