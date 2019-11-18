@@ -11,6 +11,6 @@ int main() {
       printf("Hello World from Navy-apps for the %dth time!\n", i ++);
       j = 0;
     }
-  }*/printf("%x",_sbrk(0));
+  }*/printf("%x",malloc(1));
   return 0;
 }
