@@ -23,6 +23,8 @@ enum {
   SYS_times,
   SYS_gettimeofday
 };
-extern uintptr_t *end;
-uintptr_t *pgm_bk = NULL;
+
+extern char end;
+uintptr_t pgm_bk = (uintptr_t)&end;
+
 #endif
