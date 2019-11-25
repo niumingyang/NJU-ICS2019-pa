@@ -1,4 +1,5 @@
 #include "fs.h"
+#include <unistd.h>
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
@@ -41,7 +42,7 @@ void init_fs() {
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
-intptr_t fs_open(const char *path, int flags, int mode) {
+int fs_open(const char *path, int flags, int mode) {
   for (int i = 0; i < NR_FILES; ++i)
     if (strcmp(file_table[i].name, path) == 0) return i;
   // should not reach here
@@ -49,7 +50,7 @@ intptr_t fs_open(const char *path, int flags, int mode) {
   return -1;
 }
 
-intptr_t fs_read(int fd, void *buf, size_t count) {
+ssize_t fs_read(int fd, void *buf, size_t count) {
   if(fd == FD_STDOUT || fd == FD_STDERR || fd == FD_STDIN) {
     return count;
   }
@@ -66,7 +67,7 @@ intptr_t fs_read(int fd, void *buf, size_t count) {
   return -1;
 }
 
-intptr_t fs_write(int fd, const void *buf, size_t count) {
+ssize_t fs_write(int fd, const void *buf, size_t count) {
   if(fd == FD_STDOUT || fd == FD_STDERR) {
     for (int i = 0; i < count; ++i)
       _putc(((const char *)buf)[i]);
@@ -87,6 +88,10 @@ intptr_t fs_write(int fd, const void *buf, size_t count) {
   //Log();
 }
 
-intptr_t fs_close(int fd) {
+int fs_close(int fd) {
+  return 0;
+}
+
+off_t fs_lseek(int fd, off_t offset, int whence) {
   return 0;
 }

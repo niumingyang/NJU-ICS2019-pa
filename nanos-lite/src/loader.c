@@ -1,5 +1,6 @@
 #include "proc.h"
 #include <elf.h>
+#include <unistd.h>
 
 #ifdef __ISA_AM_NATIVE__
 # define Elf_Ehdr Elf64_Ehdr
@@ -9,20 +10,24 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-size_t ramdisk_read(void *buf, size_t offset, size_t len);
-size_t get_ramdisk_size();
+int fs_open(const char *path, int flags, int mode);
+ssize_t fs_read(int fd, void *buf, size_t count);
+ssize_t fs_write(int fd, const void *buf, size_t count);
+int fs_close(int fd);
+off_t fs_lseek(int fd, off_t offset, int whence);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  int fd = fs_open(filename, 0, 0);
+  assert(fd!=-1);
   Elf_Ehdr Ehdr_info;
   Elf_Phdr Phdr_info;
-  ramdisk_read(&Ehdr_info, 0, sizeof(Elf_Ehdr));
-  size_t offset = Ehdr_info.e_phoff;
+  fs_read(fd, &Ehdr_info, sizeof(Elf_Ehdr));
   for (int i = 0; i < Ehdr_info.e_phnum; ++i) {
-    ramdisk_read(&Phdr_info, offset, Ehdr_info.e_phentsize);
-    ramdisk_read((uintptr_t *)Phdr_info.p_vaddr, Phdr_info.p_offset, Phdr_info.p_filesz);
+    fs_read(fd, &Phdr_info, Ehdr_info.e_phentsize);
+    //fs_read((uintptr_t *)Phdr_info.p_vaddr, Phdr_info.p_offset, Phdr_info.p_filesz);
     memset((uintptr_t *)(Phdr_info.p_vaddr + Phdr_info.p_filesz), 0, Phdr_info.p_memsz - Phdr_info.p_filesz);
-    offset += Ehdr_info.e_phentsize;
   }
+  fs_close(fd);
   return Ehdr_info.e_entry;
 }
 

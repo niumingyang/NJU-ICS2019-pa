@@ -1,5 +1,6 @@
 #include "common.h"
 #include "syscall.h"
+#include <unistd.h>
 
 void sys_exit(int status) {
   _halt(status);
@@ -12,9 +13,11 @@ intptr_t sys_yield() {
   return 0;
 }
 
-intptr_t fs_open(const char *path, int flags, int mode);
-intptr_t fs_write(int fd, const char *buf, size_t count);
-intptr_t fs_close(int fd);
+int fs_open(const char *path, int flags, int mode);
+ssize_t fs_read(int fd, void *buf, size_t count);
+ssize_t fs_write(int fd, const void *buf, size_t count);
+int fs_close(int fd);
+off_t fs_lseek(int fd, off_t offset, int whence);
 
 intptr_t sys_brk(intptr_t _brk_) {
   return 0;
@@ -31,12 +34,12 @@ _Context* do_syscall(_Context *c) {
     case SYS_exit:           sys_exit(a[1]);                                  break;
     case SYS_yield:          c->GPRx = sys_yield();                           break;
     case SYS_open:           c->GPRx = fs_open((const char *)a[1],a[2],a[3]); break;
-    //case SYS_read:         c->GPRx = fs_read();                             break;
+    case SYS_read:           c->GPRx = fs_read(a[1],(void *)a[2],a[3]);       break;
     case SYS_write:          c->GPRx = fs_write(a[1],(void *)a[2],a[3]);      break;
     //case SYS_kill:         c->GPRx = sys_kill();                            break;
     //case SYS_getpid:       c->GPRx = sys_getpid();                          break;
     case SYS_close:          c->GPRx = fs_close(a[1]);                        break;
-    //case SYS_lseek:        c->GPRx = sys_lseek();                           break;
+    //case SYS_lseek:          c->GPRx = fs_lseek();                            break;
     case SYS_brk:            c->GPRx = sys_brk(a[1]);                         break;
     //case SYS_fstat:        c->GPRx = sys_fstat();                           break;
     //case SYS_time:         c->GPRx = sys_time();                            break;
