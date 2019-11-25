@@ -38,6 +38,8 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
 
+size_t ramdisk_read(void *buf, size_t offset, size_t len);
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
 intptr_t fs_open(const char *path, int flags, int mode) {
   for (int i = 0; i < NR_FILES; ++i)
@@ -53,7 +55,18 @@ intptr_t fs_write(int fd, const char *buf, size_t count) {
       _putc(buf[i]);
     return count;
   }
-  else return -1;
+  else if(fd == FD_STDIN) return count;
+  else {
+    size_t start_oft = file_table[fd].disk_offset + file_table[fd].open_offset;
+    if(file_table[fd].open_offset + count > file_table[fd].size)
+      count = file_table[fd].size - file_table[fd].open_offset;
+    if (file_table[fd].write != NULL)
+      file_table[fd].write(buf, start_oft, count);
+    else ramdisk_write(buf, start_oft, count);
+    file_table[fd].open_offset += count;
+    return count;
+  }
+  return -1;
   //Log();
 }
 
