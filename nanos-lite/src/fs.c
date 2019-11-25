@@ -49,10 +49,14 @@ intptr_t fs_open(const char *path, int flags, int mode) {
   return -1;
 }
 
-intptr_t fs_write(int fd, const char *buf, size_t count) {
+intptr_t fs_read(int fd, void *buf, size_t count) {
+  return 0;
+}
+
+intptr_t fs_write(int fd, const void *buf, size_t count) {
   if(fd == FD_STDOUT || fd == FD_STDERR) {
     for (int i = 0; i < count; ++i)
-      _putc(buf[i]);
+      _putc(((const char *)buf)[i]);
     return count;
   }
   else if(fd == FD_STDIN) return count;
