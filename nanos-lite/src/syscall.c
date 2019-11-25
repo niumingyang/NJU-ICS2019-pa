@@ -1,57 +1,53 @@
 #include "common.h"
 #include "syscall.h"
 
-void sys_exit(_Context *c) {
-  _halt(c->GPR2);
+void sys_exit(int status) {
+  _halt(status);
   // should not reach here
   assert(0);
 }
 
-void sys_yield(_Context *c) {
+intptr_t sys_yield() {
   _yield();
-  c->GPRx = 0;
+  return 0;
 }
 
-void sys_write(_Context *c) {
-  if(c->GPR2 == 1 || c->GPR2 == 2) {
-    char *buf = (char *)c->GPR3;
-    for (int i = 0; i < c->GPR4; ++i)
-      _putc(buf[i]);
-    c->GPRx = c->GPR4;
-  }
-  else c->GPRx = -1;
-  //Log();
-}
+intptr_t fs_open(const char *path, int flags, int mode);
+intptr_t fs_write(int fd, const char *buf, size_t count);
+intptr_t fs_close(int fd);
 
-void sys_brk(_Context *c) {
-  c->GPRx = 0;
+intptr_t sys_brk(intptr_t _brk_) {
+  return 0;
 }
 
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
+  a[1] = c->GPR2;
+  a[2] = c->GPR3;
+  a[3] = c->GPR4;
 
   switch (a[0]) {
-    case SYS_exit:           sys_exit(c);         break;
-    case SYS_yield:          sys_yield(c);        break;
-    //case SYS_open          sys_open(c);         break;
-    //case SYS_read:         sys_read(c);         break;
-    case SYS_write:          sys_write(c);        break;
-    //case SYS_kill:         sys_kill(c);         break;
-    //case SYS_getpid:       sys_getpid(c);       break;
-    //case SYS_close:        sys_close(c);        break;
-    //case SYS_lseek:        sys_lseek(c);        break;
-    case SYS_brk:            sys_brk(c);          break;
-    //case SYS_fstat:        sys_fstat(c);        break;
-    //case SYS_time:         sys_time(c);         break;
-    //case SYS_signal:       sys_signal(c);       break;
-    //case SYS_execve:       sys_execve(c);       break;
-    //case SYS_fork:         sys_fork(c);         break;
-    //case SYS_link:         sys_link(c);         break;
-    //case SYS_unlink:       sys_unlink(c);       break;
-    //case SYS_wait:         sys_wait(c);         break;
-    //case SYS_times:        sys_times(c);        break;
-    //case SYS_gettimeofday: sys_gettimeofday(c); break;
+    case SYS_exit:           sys_exit(a[1]);                                  break;
+    case SYS_yield:          c->GPRx = sys_yield();                           break;
+    case SYS_open:           c->GPRx = fs_open((const char *)a[1],a[2],a[3]); break;
+    //case SYS_read:         c->GPRx = fs_read();                             break;
+    case SYS_write:          c->GPRx = fs_write(a[1],(void *)a[2],a[3]);      break;
+    //case SYS_kill:         c->GPRx = sys_kill();                            break;
+    //case SYS_getpid:       c->GPRx = sys_getpid();                          break;
+    case SYS_close:          c->GPRx = fs_close(a[1]);                        break;
+    //case SYS_lseek:        c->GPRx = sys_lseek();                           break;
+    case SYS_brk:            c->GPRx = sys_brk(a[1]);                         break;
+    //case SYS_fstat:        c->GPRx = sys_fstat();                           break;
+    //case SYS_time:         c->GPRx = sys_time();                            break;
+    //case SYS_signal:       c->GPRx = sys_signal();                          break;
+    //case SYS_execve:       c->GPRx = sys_execve();                          break;
+    //case SYS_fork:         c->GPRx = sys_fork();                            break;
+    //case SYS_link:         c->GPRx = sys_link();                            break;
+    //case SYS_unlink:       c->GPRx = sys_unlink();                          break;
+    //case SYS_wait:         c->GPRx = sys_wait();                            break;
+    //case SYS_times:        c->GPRx = sys_times();                           break;
+    //case SYS_gettimeofday: c->GPRx = sys_gettimeofday();                    break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 

@@ -7,6 +7,7 @@ typedef struct {
   char *name;
   size_t size;
   size_t disk_offset;
+  size_t open_offset;
   ReadFn read;
   WriteFn write;
 } Finfo;
@@ -25,9 +26,9 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
-  {"stdin", 0, 0, invalid_read, invalid_write},
-  {"stdout", 0, 0, invalid_read, invalid_write},
-  {"stderr", 0, 0, invalid_read, invalid_write},
+  {"stdin", 0, 0, 0, invalid_read, invalid_write},
+  {"stdout", 0, 0, 0, invalid_read, invalid_write},
+  {"stderr", 0, 0, 0, invalid_read, invalid_write},
 #include "files.h"
 };
 
@@ -35,4 +36,27 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+}
+
+
+intptr_t fs_open(const char *path, int flags, int mode) {
+  for (int i = 0; i < NR_FILES; ++i)
+    if (strcmp(file_table[i].name, path) == 0) return i;
+  // should not reach here
+  panic("File not found: %s\n", path);
+  return -1;
+}
+
+intptr_t fs_write(int fd, const char *buf, size_t count) {
+  if(fd == FD_STDOUT || fd == FD_STDERR) {
+    for (int i = 0; i < count; ++i)
+      _putc(buf[i]);
+    return count;
+  }
+  else return -1;
+  //Log();
+}
+
+intptr_t fs_close(int fd) {
+  return 0;
 }
