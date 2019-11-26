@@ -53,20 +53,14 @@ int fs_open(const char *path, int flags, int mode) {
 }
 
 ssize_t fs_read(int fd, void *buf, size_t count) {
-  if(fd == FD_STDOUT || fd == FD_STDERR || fd == FD_STDIN) {
-    return count;
-  }
-  else {
-    size_t start_oft = file_table[fd].disk_offset + file_table[fd].open_offset;
-    if(file_table[fd].open_offset + count > file_table[fd].size)
-      count = file_table[fd].size - file_table[fd].open_offset;
-    if (file_table[fd].read != NULL)
-      file_table[fd].read(buf, start_oft, count);
-    else ramdisk_read(buf, start_oft, count);
-    file_table[fd].open_offset += count;
-    return count;
-  }
-  return -1;
+  size_t start_oft = file_table[fd].disk_offset + file_table[fd].open_offset;
+  if(file_table[fd].open_offset + count > file_table[fd].size)
+    count = file_table[fd].size - file_table[fd].open_offset;
+  if (file_table[fd].read != NULL)
+    file_table[fd].read(buf, start_oft, count);
+  else ramdisk_read(buf, start_oft, count);    
+  file_table[fd].open_offset += count;
+  return count;
 }
 
 ssize_t fs_write(int fd, const void *buf, size_t count) {
