@@ -70,16 +70,16 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
 }
 
 ssize_t fs_write(int fd, const void *buf, size_t count) {
-  if(fd == FD_STDOUT || fd == FD_STDERR)
-    return serial_write(buf, 0, count);
-  else if(fd == FD_STDIN) return count;
+  size_t start_oft = file_table[fd].disk_offset + file_table[fd].open_offset;
+  if(file_table[fd].open_offset + count > file_table[fd].size)
+    count = file_table[fd].size - file_table[fd].open_offset;
+  if (file_table[fd].write != NULL) {
+    file_table[fd].write(buf, start_oft, count);
+    file_table[fd].open_offset += count;
+    return count;
+  }  
   else {
-    size_t start_oft = file_table[fd].disk_offset + file_table[fd].open_offset;
-    if(file_table[fd].open_offset + count > file_table[fd].size)
-      count = file_table[fd].size - file_table[fd].open_offset;
-    if (file_table[fd].write != NULL)
-      file_table[fd].write(buf, start_oft, count);
-    else ramdisk_write(buf, start_oft, count);
+    ramdisk_write(buf, start_oft, count);
     file_table[fd].open_offset += count;
     return count;
   }
