@@ -17,8 +17,8 @@ int fs_close(int fd);
 off_t fs_lseek(int fd, off_t offset, int whence);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  int fd = fs_open(filename, 0, 0);assert(0)
-;  assert(fd!=-1);
+  int fd = fs_open(filename, 0, 0);
+  assert(fd!=-1);
   Elf_Ehdr Ehdr_info;
   Elf_Phdr Phdr_info;
   size_t rd_offset = sizeof(Elf_Ehdr);
