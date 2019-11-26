@@ -21,11 +21,16 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert(fd!=-1);
   Elf_Ehdr Ehdr_info;
   Elf_Phdr Phdr_info;
+  size_t rd_offset = sizeof(Elf_Ehdr);
+  fs_lseek(fd, 0, SEEK_SET);
   fs_read(fd, &Ehdr_info, sizeof(Elf_Ehdr));
   for (int i = 0; i < Ehdr_info.e_phnum; ++i) {
     fs_read(fd, &Phdr_info, Ehdr_info.e_phentsize);
-    //fs_read((uintptr_t *)Phdr_info.p_vaddr, Phdr_info.p_offset, Phdr_info.p_filesz);
+    fs_lseek(fd, Phdr_info.p_offset, SEEK_SET);
+    fs_read(fd, (uintptr_t *)Phdr_info.p_vaddr, Phdr_info.p_filesz);
     memset((uintptr_t *)(Phdr_info.p_vaddr + Phdr_info.p_filesz), 0, Phdr_info.p_memsz - Phdr_info.p_filesz);
+    rd_offset += Ehdr_info.e_phentsize;
+    fs_lseek(fd, rd_offset, SEEK_SET);
   }
   fs_close(fd);
   return Ehdr_info.e_entry;

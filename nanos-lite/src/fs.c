@@ -93,5 +93,13 @@ int fs_close(int fd) {
 }
 
 off_t fs_lseek(int fd, off_t offset, int whence) {
-  return 0;
+  size_t oft;
+  switch(whence){
+    case SEEK_SET: oft = offset; break;
+    case SEEK_CUR: oft = offset + file_table[fd].open_offset; break;
+    case SEEK_END: oft = offset + file_table[fd].size; break;
+    default: return -1;
+  }
+  file_table[fd].open_offset = oft;
+  return oft;
 }

@@ -39,7 +39,7 @@ _Context* do_syscall(_Context *c) {
     //case SYS_kill:         c->GPRx = sys_kill();                            break;
     //case SYS_getpid:       c->GPRx = sys_getpid();                          break;
     case SYS_close:          c->GPRx = fs_close(a[1]);                        break;
-    //case SYS_lseek:          c->GPRx = fs_lseek();                            break;
+    case SYS_lseek:          c->GPRx = fs_lseek(a[1],a[2],a[3]);              break;
     case SYS_brk:            c->GPRx = sys_brk(a[1]);                         break;
     //case SYS_fstat:        c->GPRx = sys_fstat();                           break;
     //case SYS_time:         c->GPRx = sys_time();                            break;
