@@ -73,17 +73,11 @@ ssize_t fs_write(int fd, const void *buf, size_t count) {
   size_t start_oft = file_table[fd].disk_offset + file_table[fd].open_offset;
   if(file_table[fd].open_offset + count > file_table[fd].size)
     count = file_table[fd].size - file_table[fd].open_offset;
-  if (file_table[fd].write != NULL) {
+  if (file_table[fd].write != NULL)
     file_table[fd].write(buf, start_oft, count);
-    file_table[fd].open_offset += count;
-    return count;
-  }  
-  else {
-    ramdisk_write(buf, start_oft, count);
-    file_table[fd].open_offset += count;
-    return count;
-  }
-  return -1;
+  else ramdisk_write(buf, start_oft, count);
+  file_table[fd].open_offset += count;
+  return count;
   //Log();
 }
 
