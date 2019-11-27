@@ -101,7 +101,7 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
 }
 
 ssize_t fs_write(int fd, const void *buf, size_t count) {
-  Finfo now = file_table[fd];
+  /*Finfo now = file_table[fd];
   size_t start_oft = now.open_offset;
 
   if (now.write != NULL)
@@ -113,8 +113,15 @@ ssize_t fs_write(int fd, const void *buf, size_t count) {
 
   ramdisk_write(buf, start_oft, count);    
   fs_lseek(fd, count, SEEK_CUR);
-  return count;
+  return count;*/
   //Log();
+  WriteFn write = file_table[fd].write == NULL ? (WriteFn) ramdisk_write : file_table[fd].write;
+    if (file_table[fd].open_offset + count > file_table[fd].size) {
+        count = file_table[fd].size - file_table[fd].open_offset;
+    }
+    int ret = write(buf, file_table[fd].open_offset + file_table[fd].disk_offset, count);
+    file_table[fd].open_offset += count;
+return ret;
 }
 
 int fs_close(int fd) {
