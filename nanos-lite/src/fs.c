@@ -76,7 +76,7 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
     count = now.size - now.open_offset;
 
   ramdisk_read(buf, start_oft, count);    
-  /*file_table[fd].open_offset += count;*/
+  file_table[fd].open_offset += count;
   return count;
 }
 
