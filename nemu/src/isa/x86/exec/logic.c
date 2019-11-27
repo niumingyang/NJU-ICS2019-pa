@@ -95,6 +95,8 @@ make_EHelper(rol) {
   rtl_li(&s0, id_dest->val);
   rtl_set_CF(&s1);
   operand_write(id_dest, &s0);
+
+  print_asm_template2(rol);
 }
 
 make_EHelper(setcc) {
