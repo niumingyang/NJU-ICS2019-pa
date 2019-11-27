@@ -64,7 +64,7 @@ int fs_open(const char *path, int flags, int mode) {
   return -1;
 }
 
-ssize_t fs_read(int fd, void *buf, size_t count) {if(fd==20)assert(0);
+ssize_t fs_read(int fd, void *buf, size_t count) {
   Finfo now = file_table[fd];
   size_t start_oft = now.open_offset;
 
@@ -76,7 +76,7 @@ ssize_t fs_read(int fd, void *buf, size_t count) {if(fd==20)assert(0);
     count = now.size - now.open_offset;
 
   ramdisk_read(buf, start_oft, count);    
-  file_table[fd].open_offset += count;
+  file_table[fd].open_offset += count;if(fd==20)assert(0);
   return count;
 }
 
