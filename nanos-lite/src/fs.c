@@ -55,7 +55,10 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
 int fs_open(const char *path, int flags, int mode) {
   for (int i = 0; i < NR_FILES; ++i)
-    if (strcmp(file_table[i].name, path) == 0) return i;
+    if (strcmp(file_table[i].name, path) == 0) {
+      file_table[i].open_offset = 0;
+      return i;
+    }
   // should not reach here
   panic("File not found: %s\n", path);
   return -1;

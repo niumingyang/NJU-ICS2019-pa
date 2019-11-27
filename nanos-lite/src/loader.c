@@ -21,7 +21,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr Ehdr_info;
   Elf_Phdr Phdr_info;
   size_t rd_offset = sizeof(Elf_Ehdr);
-  fs_lseek(fd, 0, SEEK_SET);
   fs_read(fd, &Ehdr_info, sizeof(Elf_Ehdr));
   for (int i = 0; i < Ehdr_info.e_phnum; ++i) {
     fs_read(fd, &Phdr_info, Ehdr_info.e_phentsize);
