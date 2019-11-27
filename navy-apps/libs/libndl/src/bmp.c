@@ -23,14 +23,14 @@ int NDL_LoadBitmap(NDL_Bitmap *bmp, const char *filename) {
   FILE *fp;
   int w = 0, h = 0;
   uint32_t *pixels = NULL;
-
+assert(0);
   w = h = 0;
   if (!(fp = fopen(filename, "r"))) return -1;
 
   struct BitmapHeader hdr;
   assert(sizeof(hdr) == 54);
   assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
-assert(0);
+
   if (hdr.bitcount != 24) return -1;
   if (hdr.compression != 0) return -1;
   pixels = (uint32_t*)malloc(hdr.width * hdr.height * sizeof(uint32_t));
