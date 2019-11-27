@@ -151,7 +151,7 @@ _fread_r (struct _reent * ptr,
   register char *p;
   register int r;
   size_t total;
-
+assert(0);
   if ((resid = count * size) == 0)
     return 0;
 
