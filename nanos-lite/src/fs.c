@@ -66,12 +66,12 @@ int fs_open(const char *path, int flags, int mode) {
 
 ssize_t fs_read(int fd, void *buf, size_t count) {
   Finfo now = file_table[fd];
-  size_t start_oft = 0;
+  size_t start_oft = now.open_offset;
 
   if (now.read != NULL)
     return now.read(buf, start_oft, count);
   
-  start_oft = now.disk_offset + now.open_offset;
+  start_oft += now.disk_offset;
   if(now.open_offset + count > now.size)
     count = now.size - now.open_offset;
 
@@ -82,12 +82,12 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
 
 ssize_t fs_write(int fd, const void *buf, size_t count) {
   Finfo now = file_table[fd];
-  size_t start_oft = 0;
+  size_t start_oft = now.open_offset;
 
   if (now.write != NULL)
     return now.write(buf, start_oft, count);
   
-  start_oft = now.disk_offset + now.open_offset;
+  start_oft += now.disk_offset;
   if(now.open_offset + count > now.size)
     count = now.size - now.open_offset;
 
