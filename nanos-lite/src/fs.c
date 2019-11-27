@@ -68,8 +68,8 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
   Finfo now = file_table[fd];
   size_t start_oft = now.open_offset;
 
-  /*if (now.read != NULL)
-    return now.read(buf, start_oft, count);*/
+  if (now.read != NULL)
+    return now.read(buf, start_oft, count);
   
   start_oft += now.disk_offset;
   /*if(now.open_offset + count > now.size)
