@@ -53,6 +53,18 @@ void init_fs() {
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
+off_t fs_lseek(int fd, off_t offset, int whence) {
+  size_t oft;
+  switch(whence){
+    case SEEK_SET: oft = offset; break;
+    case SEEK_CUR: oft = offset + file_table[fd].open_offset; break;
+    case SEEK_END: oft = offset + file_table[fd].size; break;
+    default: return -1;
+  }
+  file_table[fd].open_offset = oft;
+  return oft;
+}
+
 int fs_open(const char *path, int flags, int mode) {
   for (int i = 0; i < NR_FILES; ++i)
     if (strcmp(file_table[i].name, path) == 0) {
@@ -75,8 +87,8 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
   if(now.open_offset + count > now.size)
     count = now.size - now.open_offset;
 
-  ramdisk_read(buf, start_oft, count);    
-  file_table[fd].open_offset += count;
+  ramdisk_read(buf, start_oft, count); 
+  fs_lseek(fd, count, SEEK_CUR);
   return count;
 }
 
@@ -92,23 +104,11 @@ ssize_t fs_write(int fd, const void *buf, size_t count) {
     count = now.size - now.open_offset;
 
   ramdisk_write(buf, start_oft, count);    
-  file_table[fd].open_offset += count;
+  fs_lseek(fd, count, SEEK_CUR);
   return count;
   //Log();
 }
 
 int fs_close(int fd) {
   return 0;
-}
-
-off_t fs_lseek(int fd, off_t offset, int whence) {
-  size_t oft;
-  switch(whence){
-    case SEEK_SET: oft = offset; break;
-    case SEEK_CUR: oft = offset + file_table[fd].open_offset; break;
-    case SEEK_END: oft = offset + file_table[fd].size; break;
-    default: return -1;
-  }
-  file_table[fd].open_offset = oft;
-  return oft;
 }
