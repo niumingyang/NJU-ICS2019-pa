@@ -151,7 +151,7 @@ _fread_r (struct _reent * ptr,
   register char *p;
   register int r;
   size_t total;
-assert(0);
+
   if ((resid = count * size) == 0)
     return 0;
 
@@ -262,7 +262,7 @@ fread (void *__restrict  buf,
        size_t size,
        size_t count,
        FILE *__restrict fp)
-{
+{assert(0);
    return _fread_r (_REENT, buf, size, count, fp);
 }
 #endif
