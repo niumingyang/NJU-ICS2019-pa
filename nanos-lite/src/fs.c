@@ -70,11 +70,11 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
 
   if (now.read != NULL)
     return now.read(buf, start_oft, count);
-  if (fd == 20) assert(0);
+  
   start_oft = now.disk_offset + now.open_offset;
   if(now.open_offset + count > now.size)
     count = now.size - now.open_offset;
-
+if (fd == 20) assert(0);
   ramdisk_read(buf, start_oft, count);    
   file_table[fd].open_offset += count;
   return count;
