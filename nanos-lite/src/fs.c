@@ -47,7 +47,7 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-  //file_table[FD_FB].size = screen_height() * screen_width() * 4;
+  file_table[FD_FB].size = screen_height() * screen_width() * 4;
 }
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
