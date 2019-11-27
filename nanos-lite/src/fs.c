@@ -77,7 +77,7 @@ int fs_open(const char *path, int flags, int mode) {
 }
 
 ssize_t fs_read(int fd, void *buf, size_t count) {
-  Finfo now = file_table[fd];
+  /*Finfo now = file_table[fd];
   size_t start_oft = now.open_offset;
 
   if (now.read != NULL)
@@ -88,7 +88,7 @@ ssize_t fs_read(int fd, void *buf, size_t count) {
     count = now.size - now.open_offset;
 
   ramdisk_read(buf, start_oft, count); 
-  fs_lseek(fd, count, SEEK_CUR);
+  fs_lseek(fd, count, SEEK_CUR);*/
   return count;
 }
 
