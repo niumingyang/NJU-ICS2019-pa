@@ -140,8 +140,8 @@ make_EHelper(movsb) {
     cpu.esi++;
     cpu.edi++;
   }
-  
-  print_asm(movsb);
+
+  //print_asm(movsb);
 }
 
 make_EHelper(movzx) {
