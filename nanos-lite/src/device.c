@@ -31,6 +31,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 static char dispinfo[128] __attribute__((used)) = {};
+static int W, H;
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   memcpy(buf, dispinfo + offset, len);
@@ -38,8 +39,6 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  //int W = screen_width();
-  int W = 400;
   offset /= 4;
   int x = offset % W, y = offset / W;
   draw_rect((uint32_t *)buf, x, y, len/4, 1);
@@ -54,7 +53,9 @@ size_t fbsync_write(const void *buf, size_t offset, size_t len) {
 void init_device() {
   Log("Initializing devices...");
   _ioe_init();
-  sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", screen_width(), screen_height());
+  W = screen_width();
+  H = screen_height();
+  sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", W, H);
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
 }
