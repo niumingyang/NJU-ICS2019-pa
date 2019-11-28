@@ -154,7 +154,7 @@ _fread_r (struct _reent * ptr,
 
   if ((resid = count * size) == 0)
     return 0;
-assert(0);
+
   CHECK_INIT(ptr, fp);
 
   _newlib_flockfile_start (fp);
@@ -171,7 +171,7 @@ assert(0);
     {
       /* First copy any available characters from ungetc buffer.  */
       int copy_size = resid > fp->_r ? fp->_r : resid;
-      (void) memcpy ((void *) p, (void *) fp->_p, (size_t) copy_size);
+      (void) memcpy ((void *) p, (void *) fp->_p, (size_t) copy_size);assert(0);
       fp->_p += copy_size;
       fp->_r -= copy_size;
       p += copy_size;
