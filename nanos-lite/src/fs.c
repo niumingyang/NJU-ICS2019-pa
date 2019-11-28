@@ -71,7 +71,6 @@ int fs_open(const char *path, int flags, int mode) {
       file_table[i].open_offset = 0;
       return i;
     }
-  assert(0);
   // should not reach here
   panic("File not found: %s\n", path);
   return -1;
@@ -80,7 +79,7 @@ int fs_open(const char *path, int flags, int mode) {
 ssize_t fs_read(int fd, void *buf, size_t count) {
   Finfo now = file_table[fd];
   size_t start_oft = now.open_offset;
-
+assert(0);
   if (now.read != NULL)
     return now.read(buf, start_oft, count);
   
