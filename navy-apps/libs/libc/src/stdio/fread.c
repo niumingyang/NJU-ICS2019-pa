@@ -257,6 +257,7 @@ _fread_r (struct _reent * ptr,
 }
 
 #ifndef _REENT_ONLY
+#include <assert.h>
 size_t
 fread (void *__restrict  buf,
        size_t size,
