@@ -71,7 +71,7 @@ memcpy (void *__restrict dst0,
   /* If the size is small, or either SRC or DST is unaligned,
      then punt into the byte copy loop.  This should be rare.  */
   if (!TOO_SMALL(len0) && !UNALIGNED (src, dst))
-    {assert(0);
+    {
       aligned_dst = (long*)dst;
       aligned_src = (long*)src;
 
@@ -99,7 +99,7 @@ memcpy (void *__restrict dst0,
 
   while (len0--)
     *dst++ = *src++;
-
+assert(0);
   return dst0;
 #endif /* not PREFER_SIZE_OVER_SPEED */
 }
