@@ -238,7 +238,7 @@ _fread_r (struct _reent * ptr,
 	      _newlib_flockfile_exit (fp);
 	      return (total - resid) / size;
 	    }
-	}
+	}assert(0);
       (void) memcpy ((void *) p, (void *) fp->_p, resid);assert(0);
       fp->_r -= resid;
       fp->_p += resid;
