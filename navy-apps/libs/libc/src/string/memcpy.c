@@ -67,11 +67,11 @@ memcpy (void *__restrict dst0,
   const char *src = src0;
   long *aligned_dst;
   const long *aligned_src;
-
+#include <assert.h>
   /* If the size is small, or either SRC or DST is unaligned,
      then punt into the byte copy loop.  This should be rare.  */
   if (!TOO_SMALL(len0) && !UNALIGNED (src, dst))
-    {
+    {assert(0);
       aligned_dst = (long*)dst;
       aligned_src = (long*)src;
 
