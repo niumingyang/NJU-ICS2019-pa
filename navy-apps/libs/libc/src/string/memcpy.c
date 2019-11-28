@@ -49,7 +49,7 @@ __inhibit_loop_to_libcall
 memcpy (void *__restrict dst0,
 	const void *__restrict src0,
 	size_t len0)
-{assert(0);
+{
 #if defined(PREFER_SIZE_OVER_SPEED) || defined(__OPTIMIZE_SIZE__)
   char *dst = (char *) dst0;
   char *src = (char *) src0;
@@ -67,7 +67,7 @@ memcpy (void *__restrict dst0,
   const char *src = src0;
   long *aligned_dst;
   const long *aligned_src;
-
+assert(0);
   /* If the size is small, or either SRC or DST is unaligned,
      then punt into the byte copy loop.  This should be rare.  */
   if (!TOO_SMALL(len0) && !UNALIGNED (src, dst))
