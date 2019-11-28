@@ -99,7 +99,12 @@ memcpy (void *__restrict dst0,
 
   //while (len0--)
   //  *dst++ = *src++;
-  while (len0--) {*dst=*src;dst++;src++;}
+  //comment this because it will be compiled as 'movsb'
+  while (len0--) {
+    *dst = *src;
+    dst++;
+    src++;
+  }
 
   return dst0;
 #endif /* not PREFER_SIZE_OVER_SPEED */
