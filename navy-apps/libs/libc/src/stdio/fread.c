@@ -239,7 +239,7 @@ _fread_r (struct _reent * ptr,
 	      return (total - resid) / size;
 	    }
 	}
-      (void) memcpy ((void *) p, (void *) fp->_p, resid);
+      (void) memcpy ((void *) p, (void *) fp->_p, resid);assert(0);
       fp->_r -= resid;
       fp->_p += resid;
     }
