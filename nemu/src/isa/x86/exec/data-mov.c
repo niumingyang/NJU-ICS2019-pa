@@ -129,21 +129,6 @@ make_EHelper(movsx) {
 uint32_t pio_read_l(ioaddr_t);
 void pio_write_l(ioaddr_t, uint32_t);
 
-make_EHelper(movsb) {
-  s0 = pio_read_l(cpu.esi);
-  pio_write_l(cpu.edi, s0);
-  if (cpu.eflags.DF){
-    cpu.esi--;
-    cpu.edi--;
-  }
-  else {
-    cpu.esi++;
-    cpu.edi++;
-  }
-
-  //print_asm(movsb);
-}
-
 make_EHelper(movzx) {
   id_dest->width = decinfo.isa.is_operand_size_16 ? 2 : 4;
   operand_write(id_dest, &id_src->val);
