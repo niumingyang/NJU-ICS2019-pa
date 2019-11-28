@@ -217,7 +217,7 @@ _fread_r (struct _reent * ptr,
     }
   else
 #endif /* !PREFER_SIZE_OVER_SPEED && !__OPTIMIZE_SIZE__ */
-    {assert(0);
+    {
       while (resid > (r = fp->_r))
 	{
 	  (void) memcpy ((void *) p, (void *) fp->_p, (size_t) r);
@@ -238,7 +238,7 @@ _fread_r (struct _reent * ptr,
 	      _newlib_flockfile_exit (fp);
 	      return (total - resid) / size;
 	    }
-	}
+	}assert(0);
       (void) memcpy ((void *) p, (void *) fp->_p, resid);
       fp->_r -= resid;
       fp->_p += resid;
