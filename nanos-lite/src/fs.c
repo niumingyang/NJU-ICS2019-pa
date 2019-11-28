@@ -71,6 +71,7 @@ int fs_open(const char *path, int flags, int mode) {
       file_table[i].open_offset = 0;
       return i;
     }
+  assert(0);
   // should not reach here
   panic("File not found: %s\n", path);
   return -1;
