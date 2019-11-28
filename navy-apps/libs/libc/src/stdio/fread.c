@@ -165,13 +165,13 @@ _fread_r (struct _reent * ptr,
   p = buf;
 
 #if !defined(PREFER_SIZE_OVER_SPEED) && !defined(__OPTIMIZE_SIZE__)
-
+assert(0);
   /* Optimize unbuffered I/O.  */
   if (fp->_flags & __SNBF)
     {
       /* First copy any available characters from ungetc buffer.  */
       int copy_size = resid > fp->_r ? fp->_r : resid;
-      (void) memcpy ((void *) p, (void *) fp->_p, (size_t) copy_size);assert(0);
+      (void) memcpy ((void *) p, (void *) fp->_p, (size_t) copy_size);
       fp->_p += copy_size;
       fp->_r -= copy_size;
       p += copy_size;
