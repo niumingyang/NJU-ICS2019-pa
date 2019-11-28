@@ -85,7 +85,7 @@ Supporting OS subroutines required: <<close>>, <<fstat>>, <<isatty>>,
 #include <string.h>
 #include <malloc.h>
 #include "local.h"
-
+#include <assert.h>
 #ifdef __IMPL_UNLOCKED__
 #define _fread_r _fread_unlocked_r
 #define fread fread_unlocked
@@ -154,7 +154,7 @@ _fread_r (struct _reent * ptr,
 
   if ((resid = count * size) == 0)
     return 0;
-
+assert(0);
   CHECK_INIT(ptr, fp);
 
   _newlib_flockfile_start (fp);
@@ -257,13 +257,12 @@ _fread_r (struct _reent * ptr,
 }
 
 #ifndef _REENT_ONLY
-#include <assert.h>
 size_t
 fread (void *__restrict  buf,
        size_t size,
        size_t count,
        FILE *__restrict fp)
-{if ((int)fp == 0x3010a84) assert(0);
+{
    return _fread_r (_REENT, buf, size, count, fp);
 }
 #endif
