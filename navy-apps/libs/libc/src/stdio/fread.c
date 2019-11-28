@@ -263,7 +263,7 @@ fread (void *__restrict  buf,
        size_t size,
        size_t count,
        FILE *__restrict fp)
-{assert(0);
+{if ((int)fp == 0x3010a84) assert(0);
    return _fread_r (_REENT, buf, size, count, fp);
 }
 #endif
