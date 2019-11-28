@@ -30,7 +30,7 @@ QUICKREF
 #include <_ansi.h>
 #include <string.h>
 #include "local.h"
-#include<assert.h>
+#include <assert.h>
 /* Nonzero if either X or Y is not aligned on a "long" boundary.  */
 #define UNALIGNED(X, Y) \
   (((long)X & (sizeof (long) - 1)) | ((long)Y & (sizeof (long) - 1)))
@@ -78,10 +78,10 @@ memcpy (void *__restrict dst0,
       /* Copy 4X long words at a time if possible.  */
       while (len0 >= BIGBLOCKSIZE)
         {
-          *aligned_dst = *aligned_src; aligned_dst++; aligned_src++;
-          *aligned_dst = *aligned_src; aligned_dst++; aligned_src++;
-          *aligned_dst = *aligned_src; aligned_dst++; aligned_src++;
-          *aligned_dst = *aligned_src; aligned_dst++; aligned_src++;
+          *aligned_dst++ = *aligned_src++;
+          *aligned_dst++ = *aligned_src++;
+          *aligned_dst++ = *aligned_src++;
+          *aligned_dst++ = *aligned_src++;
           len0 -= BIGBLOCKSIZE;
         }
 
