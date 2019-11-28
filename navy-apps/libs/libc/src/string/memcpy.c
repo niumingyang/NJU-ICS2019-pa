@@ -96,10 +96,10 @@ memcpy (void *__restrict dst0,
       dst = (char*)aligned_dst;
       src = (char*)aligned_src;
     }
-assert(0);
+
   while (len0--)
     *dst++ = *src++;
-
+assert(0);
   return dst0;
 #endif /* not PREFER_SIZE_OVER_SPEED */
 }
