@@ -49,7 +49,7 @@ __inhibit_loop_to_libcall
 memcpy (void *__restrict dst0,
 	const void *__restrict src0,
 	size_t len0)
-{
+{assert(0);
 #if defined(PREFER_SIZE_OVER_SPEED) || defined(__OPTIMIZE_SIZE__)
   char *dst = (char *) dst0;
   char *src = (char *) src0;
@@ -77,7 +77,7 @@ memcpy (void *__restrict dst0,
 
       /* Copy 4X long words at a time if possible.  */
       while (len0 >= BIGBLOCKSIZE)
-        {assert(0);
+        {
           *aligned_dst = *aligned_src; aligned_dst++; aligned_src++;
           *aligned_dst = *aligned_src; aligned_dst++; aligned_src++;
           *aligned_dst = *aligned_src; aligned_dst++; aligned_src++;
