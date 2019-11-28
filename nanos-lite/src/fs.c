@@ -79,7 +79,7 @@ int fs_open(const char *path, int flags, int mode) {
 ssize_t fs_read(int fd, void *buf, size_t count) {
   Finfo now = file_table[fd];
   size_t start_oft = now.open_offset;
-Log();
+
   if (now.read != NULL)
     return now.read(buf, start_oft, count);
   
