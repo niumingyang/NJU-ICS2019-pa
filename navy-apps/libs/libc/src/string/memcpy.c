@@ -62,7 +62,7 @@ memcpy (void *__restrict dst0,
     }
 
   return save;
-#else
+#else assert(0);
   char *dst = dst0;
   const char *src = src0;
   long *aligned_dst;
