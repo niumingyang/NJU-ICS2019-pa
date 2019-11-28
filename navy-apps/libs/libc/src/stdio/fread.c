@@ -85,7 +85,7 @@ Supporting OS subroutines required: <<close>>, <<fstat>>, <<isatty>>,
 #include <string.h>
 #include <malloc.h>
 #include "local.h"
-#include <assert.h>
+
 #ifdef __IMPL_UNLOCKED__
 #define _fread_r _fread_unlocked_r
 #define fread fread_unlocked
