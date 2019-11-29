@@ -40,7 +40,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 #include <stdio.h>
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   offset /= 4;
-  int x = offset % W, y = offset / W;printf("x %d, y %d, len/4 %d\n",x, y,len/4);
+  int x = offset % W, y = offset / W;
   draw_rect((uint32_t *)buf, x, y, len/4, 1);
   return len;
 }
