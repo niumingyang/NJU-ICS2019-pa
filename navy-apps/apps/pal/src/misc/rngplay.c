@@ -193,7 +193,7 @@ PAL_RNGBlitToSurface(
    {
       return -1;
    }
-
+assert(0);
    //
    // Read the frame.
    //
@@ -445,14 +445,14 @@ PAL_RNGPlay(
       iTime = SDL_GetTicks() + iDelay;
 
       if (PAL_RNGBlitToSurface(iNumRNG, iStartFrame, gpScreen, fp) == -1)
-      {assert(0);
+      {
          //
          // Failed to get the frame, don't go further
          //
          fclose(fp);
          return;
       }
-assert(0);
+
       //
       // Update the screen
       //
