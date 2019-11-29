@@ -162,6 +162,7 @@ PAL_Init(
    SDL_WM_SetCaption("Pal", NULL);
 #endif
 #endif
+assert(0);
 }
 
 VOID
