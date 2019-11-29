@@ -18,7 +18,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-
+#include <assert.h>
 #include "main.h"
 #include "getopt.h"
 #include <assert.h>
@@ -148,7 +148,7 @@ PAL_Init(
    PAL_InitResources();
    Log("PAL_InitResources success");
    SOUND_OpenAudio();
-#include <assert.h>assert(0);
+assert(0);
 #ifdef PAL_WIN95
 #ifdef _DEBUG
    SDL_WM_SetCaption("Pal WIN95 (Debug Build)", NULL);
