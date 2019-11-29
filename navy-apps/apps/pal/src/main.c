@@ -529,7 +529,7 @@ main_loop() {
    SDL_SetHint(SDL_HINT_WINRT_HANDLE_BACK_BUTTON, "1");
 #endif
 
-   UTIL_OpenLog();assert(0);
+   UTIL_OpenLog();
 
 #ifdef _WIN32
 #if SDL_MAJOR_VERSION == 1 && SDL_MINOR_VERSION <= 2
@@ -546,7 +546,7 @@ main_loop() {
 #ifdef PSP
    sdlpal_psp_init();
 #endif
-   PAL_Init(wScreenWidth, wScreenHeight, fFullScreen);
+   PAL_Init(wScreenWidth, wScreenHeight, fFullScreen);assert(0);
 
 
    //
