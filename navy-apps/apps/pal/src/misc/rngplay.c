@@ -443,7 +443,7 @@ PAL_RNGPlay(
    for (; iStartFrame <= iEndFrame; iStartFrame++)
    {
       iTime = SDL_GetTicks() + iDelay;
-
+assert(0);
       if (PAL_RNGBlitToSurface(iNumRNG, iStartFrame, gpScreen, fp) == -1)
       {
          //
