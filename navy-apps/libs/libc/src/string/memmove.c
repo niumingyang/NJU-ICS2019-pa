@@ -117,7 +117,7 @@ memmove (void *dst_void,
           /* Copy one long word at a time if possible.  */
           while (length >= LITTLEBLOCKSIZE)
             {
-              *aligned_dst++ = *aligned_src++;
+              *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
               length -= LITTLEBLOCKSIZE;
             }
 

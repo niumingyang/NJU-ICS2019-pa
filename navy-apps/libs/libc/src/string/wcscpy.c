@@ -55,11 +55,11 @@ No supporting OS subroutines are required.
 
 #include <_ansi.h>
 #include <wchar.h>
-#include <assert.h>
+
 wchar_t *
 wcscpy (wchar_t *__restrict s1,
 	const wchar_t *__restrict s2)
-{assert(0);
+{
   wchar_t *p;
   const wchar_t *q;
 
