@@ -113,7 +113,7 @@ memccpy (void *__restrict dst0,
           buffer ^=  mask;
           if (DETECTNULL (buffer))
             break; /* endchar is found, go byte by byte from here */
-          *aligned_dst++ = *aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
           len0 -= LITTLEBLOCKSIZE;
         }
 
@@ -124,11 +124,13 @@ memccpy (void *__restrict dst0,
 
   while (len0--)
     {
-      if ((*dst++ = *src++) == endchar)
+      if ((*dst = *src) == endchar)
         {
+          dst++;src++;
           ptr = dst;
           break;
         }
+        dst++;src++;
     }
 
   return ptr;
