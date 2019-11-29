@@ -58,7 +58,9 @@ memcpy (void *__restrict dst0,
 
   while (len0--)
     {
-      *dst++ = *src++;
+      *dst = *src;
+      dst++;
+      src++;
     }
 
   return save;
