@@ -70,7 +70,9 @@ stpcpy (char *__restrict dst,
          sized copies.  */
       while (!DETECTNULL(*aligned_src))
         {
-          *aligned_dst++ = *aligned_src++;
+          *aligned_dst = *aligned_src;
+          aligned_dst++;
+          aligned_src++;
         }
 
       dst = (char*)aligned_dst;
