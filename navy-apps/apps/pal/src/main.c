@@ -551,10 +551,10 @@ main_loop() {
 
    //
    // Show the trademark screen and splash screen
-   assert(0);
+   
    PAL_TrademarkScreen();
    PAL_SplashScreen();
-
+assert(0);
    //
    // Run the main game routine
    //
