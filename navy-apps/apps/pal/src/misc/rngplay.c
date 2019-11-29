@@ -198,11 +198,11 @@ PAL_RNGBlitToSurface(
    // Read the frame.
    //
    if (PAL_RNGReadFrame(buf, 65000, iNumRNG, iNumFrame, fpRngMKF) < 0)
-   {assert(0);
+   {
       free(buf);
       return -1;
    }
-assert(0);
+
    //
    // Decompress the frame.
    //
@@ -212,7 +212,7 @@ assert(0);
       free(buf);
       return -1;
    }
-   Decompress(buf, rng, 65000);
+   Decompress(buf, rng, 65000);assert(0);
    free(buf);
 
    //
