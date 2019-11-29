@@ -18,7 +18,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-#include <assert.h>
+
 #include "main.h"
 #include "getopt.h"
 #include <assert.h>
@@ -162,7 +162,6 @@ PAL_Init(
    SDL_WM_SetCaption("Pal", NULL);
 #endif
 #endif
-assert(0);
 }
 
 VOID
@@ -552,7 +551,7 @@ main_loop() {
 
    //
    // Show the trademark screen and splash screen
-   //
+   assert(0);
    PAL_TrademarkScreen();
    PAL_SplashScreen();
 
