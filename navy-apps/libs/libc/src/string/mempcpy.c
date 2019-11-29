@@ -53,7 +53,9 @@ mempcpy (void *dst0,
 
   while (len0--)
     {
-      *dst++ = *src++;
+      *dst = *src;
+      dst++;
+      src++;
     }
 
   return dst;
@@ -73,10 +75,10 @@ mempcpy (void *dst0,
       /* Copy 4X long words at a time if possible.  */
       while (len0 >= BIGBLOCKSIZE)
         {
-          *aligned_dst++ = *aligned_src++;
-          *aligned_dst++ = *aligned_src++;
-          *aligned_dst++ = *aligned_src++;
-          *aligned_dst++ = *aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
           len0 -= BIGBLOCKSIZE;
         }
 
@@ -92,8 +94,11 @@ mempcpy (void *dst0,
       src = (char*)aligned_src;
     }
 
-  while (len0--)
-    *dst++ = *src++;
+  while (len0--) {
+    *dst = *src;
+    dst++;
+    src++;
+  }
 
   return dst;
 #endif /* not PREFER_SIZE_OVER_SPEED */
