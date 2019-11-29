@@ -159,8 +159,7 @@ PAL_Init(
 #ifdef _DEBUG
    SDL_WM_SetCaption("Pal (Debug Build)", NULL);
 #else
-
-   SDL_WM_SetCaption("Pal", NULL);assert(0);
+   SDL_WM_SetCaption("Pal", NULL);
 #endif
 #endif
 }
