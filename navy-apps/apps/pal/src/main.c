@@ -82,9 +82,10 @@ PAL_Init(
 #elif defined (__WINPHONE__)
    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == -1)
 #else
+assert(0);
    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_CDROM | SDL_INIT_NOPARACHUTE | SDL_INIT_JOYSTICK) == -1)
 #endif
-   {assert(0);
+   {
 #if defined (_WIN32) && SDL_MAJOR_VERSION == 1 && SDL_MINOR_VERSION <= 2
       //
       // Try the WINDIB driver if DirectX failed.
