@@ -129,7 +129,7 @@ memmove (void *dst_void,
       while (length--)
         {
           
-          *dst = *src;dst++;src+;
+          *dst = *src;dst++;src++;
         }
     }
 
