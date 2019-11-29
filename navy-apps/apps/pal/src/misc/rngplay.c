@@ -443,16 +443,16 @@ PAL_RNGPlay(
    for (; iStartFrame <= iEndFrame; iStartFrame++)
    {
       iTime = SDL_GetTicks() + iDelay;
-assert(0);
+
       if (PAL_RNGBlitToSurface(iNumRNG, iStartFrame, gpScreen, fp) == -1)
-      {
+      {assert(0);
          //
          // Failed to get the frame, don't go further
          //
          fclose(fp);
          return;
       }
-
+assert(0);
       //
       // Update the screen
       //
