@@ -193,16 +193,16 @@ PAL_RNGBlitToSurface(
    {
       return -1;
    }
-assert(0);
+
    //
    // Read the frame.
    //
    if (PAL_RNGReadFrame(buf, 65000, iNumRNG, iNumFrame, fpRngMKF) < 0)
-   {
+   {assert(0);
       free(buf);
       return -1;
    }
-
+assert(0);
    //
    // Decompress the frame.
    //
