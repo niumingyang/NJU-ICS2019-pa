@@ -212,7 +212,7 @@ PAL_RNGBlitToSurface(
       free(buf);
       return -1;
    }
-   Decompress(buf, rng, 65000);assert(0);
+   Decompress(buf, rng, 65000);
    free(buf);
 
    //

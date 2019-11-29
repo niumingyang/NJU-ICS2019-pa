@@ -190,7 +190,9 @@ Decompress(
          unsigned short hul = SWAP16(header->UncompressedLength);
          while (hul--)
          {
-            *dest++ = *src++;
+            *dest = *src;
+            dest++;
+            src++;
          }
          continue;
       }
