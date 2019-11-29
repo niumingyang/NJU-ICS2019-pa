@@ -506,7 +506,7 @@ PAL_SplashScreen(
 
    PAL_FadeOut(1);
 }
-
+#include <assert.h>
 void
 main_loop() {
    WORD          wScreenWidth = 0, wScreenHeight = 0;
@@ -529,7 +529,7 @@ main_loop() {
    SDL_SetHint(SDL_HINT_WINRT_HANDLE_BACK_BUTTON, "1");
 #endif
 
-   UTIL_OpenLog();
+   UTIL_OpenLog();assert(0);
 
 #ifdef _WIN32
 #if SDL_MAJOR_VERSION == 1 && SDL_MINOR_VERSION <= 2
