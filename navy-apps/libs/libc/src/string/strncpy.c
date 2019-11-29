@@ -57,12 +57,12 @@ QUICKREF
 #endif
 
 #define TOO_SMALL(LEN) ((LEN) < sizeof (long))
-
+#include <assert.h>
 char *
 strncpy (char *__restrict dst0,
 	const char *__restrict src0,
 	size_t count)
-{
+{assert(0);
 #if defined(PREFER_SIZE_OVER_SPEED) || defined(__OPTIMIZE_SIZE__)
   char *dscan;
   const char *sscan;
