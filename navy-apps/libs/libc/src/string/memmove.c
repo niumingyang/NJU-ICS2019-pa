@@ -46,14 +46,14 @@ QUICKREF
 
 /* Threshhold for punting to the byte copier.  */
 #define TOO_SMALL(LEN)  ((LEN) < BIGBLOCKSIZE)
-
+#include <assert.h>
 /*SUPPRESS 20*/
 void *
 __inhibit_loop_to_libcall
 memmove (void *dst_void,
 	const void *src_void,
 	size_t length)
-{
+{assert(0);
 #if defined(PREFER_SIZE_OVER_SPEED) || defined(__OPTIMIZE_SIZE__)
   char *dst = dst_void;
   const char *src = src_void;

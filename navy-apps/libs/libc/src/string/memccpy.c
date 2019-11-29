@@ -70,11 +70,13 @@ memccpy (void *__restrict dst0,
 
   while (len0--)
     {
-      if ((*dst++ = *src++) == endchar)
+      if ((*dst = *src) == endchar)
         {
+          dst++;src++;
           ptr = dst;
           break;
         }
+        dst++;src++;
     }
 
   return ptr;
