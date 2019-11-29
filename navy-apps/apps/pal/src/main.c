@@ -232,7 +232,7 @@ PAL_TrademarkScreen(
 --*/
 {
    PAL_SetPalette(3, FALSE);
-   PAL_RNGPlay(6, 0, 1000, 25);
+   PAL_RNGPlay(6, 0, 1000, 25);assert(0);
    UTIL_Delay(1000);
    PAL_FadeOut(1);
 }
@@ -553,7 +553,7 @@ main_loop() {
    // Show the trademark screen and splash screen
    
    PAL_TrademarkScreen();
-   PAL_SplashScreen();assert(0);
+   PAL_SplashScreen();
 
    //
    // Run the main game routine
