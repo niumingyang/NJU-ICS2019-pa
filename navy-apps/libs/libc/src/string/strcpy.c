@@ -50,11 +50,11 @@ QUICKREF
 #ifndef DETECTNULL
 #error long int is not a 32bit or 64bit byte
 #endif
-
+#include <assert.h>
 char*
 strcpy (char *dst0,
 	const char *src0)
-{
+{assert(0);
 #if defined(PREFER_SIZE_OVER_SPEED) || defined(__OPTIMIZE_SIZE__)
   char *s = dst0;
 
