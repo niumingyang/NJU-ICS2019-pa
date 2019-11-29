@@ -21,7 +21,7 @@
 
 #include "main.h"
 #include "getopt.h"
-
+#include <assert.h>
 #ifdef PSP
 #include "main_PSP.h"
 #endif
@@ -84,7 +84,7 @@ PAL_Init(
 #else
    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_CDROM | SDL_INIT_NOPARACHUTE | SDL_INIT_JOYSTICK) == -1)
 #endif
-   {
+   {assert(0);
 #if defined (_WIN32) && SDL_MAJOR_VERSION == 1 && SDL_MINOR_VERSION <= 2
       //
       // Try the WINDIB driver if DirectX failed.
@@ -506,7 +506,7 @@ PAL_SplashScreen(
 
    PAL_FadeOut(1);
 }
-#include <assert.h>
+
 void
 main_loop() {
    WORD          wScreenWidth = 0, wScreenHeight = 0;
@@ -546,7 +546,6 @@ main_loop() {
 #ifdef PSP
    sdlpal_psp_init();
 #endif
-assert(0);
    PAL_Init(wScreenWidth, wScreenHeight, fFullScreen);
 
 
