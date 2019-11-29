@@ -82,7 +82,9 @@ stpncpy (char *__restrict dst,
       while (count >= sizeof (long int) && !DETECTNULL(*aligned_src))
 	{
 	  count -= sizeof (long int);
-	  *aligned_dst++ = *aligned_src++;
+	  *aligned_dst = *aligned_src;
+    	aligned_dst++;
+        aligned_src++;
 	}
 
       dst = (char*)aligned_dst;
@@ -93,11 +95,12 @@ stpncpy (char *__restrict dst,
   while (count > 0)
     {
       --count;
-      if ((*dst++ = *src++) == '\0')
+      if ((*dst = *src) == '\0')
 	{
 	  ret = dst - 1;
 	  break;
 	}
+		dst++; src++;
     }
 
   while (count-- > 0)

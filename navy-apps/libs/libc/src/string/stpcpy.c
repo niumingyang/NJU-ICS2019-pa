@@ -80,7 +80,8 @@ stpcpy (char *__restrict dst,
     }
 #endif /* not PREFER_SIZE_OVER_SPEED */
 
-  while ((*dst++ = *src++))
-    ;
+  //while ((*dst++ = *src++))
+  //  ;
+  while (*dst = *src) {dst++;src++;}
   return --dst;
 }
