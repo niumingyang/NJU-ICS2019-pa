@@ -90,7 +90,7 @@ memcpy (void *__restrict dst0,
       /* Copy one long word at a time if possible.  */
       while (len0 >= LITTLEBLOCKSIZE)
         {
-          *aligned_dst++ = *aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
           len0 -= LITTLEBLOCKSIZE;
         }
 
