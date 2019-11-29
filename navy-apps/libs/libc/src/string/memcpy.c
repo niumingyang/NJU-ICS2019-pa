@@ -78,10 +78,10 @@ memcpy (void *__restrict dst0,
       /* Copy 4X long words at a time if possible.  */
       while (len0 >= BIGBLOCKSIZE)
         {
-          *aligned_dst++ = *aligned_src++;
-          *aligned_dst++ = *aligned_src++;
-          *aligned_dst++ = *aligned_src++;
-          *aligned_dst++ = *aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
+          *aligned_dst = *aligned_src;aligned_dst++;aligned_src++;
           len0 -= BIGBLOCKSIZE;
         }
 
