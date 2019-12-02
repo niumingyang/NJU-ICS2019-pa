@@ -140,7 +140,7 @@ static int cmd_detach(char *args) {
 	puts("DiffTest is not defined!");
 #else
 	difftest_detach();
-	puts("detach from QEMU successfully!");
+	puts("Detach from QEMU successfully!");
 #endif
 	return 0;
 }
@@ -150,7 +150,7 @@ static int cmd_attach(char *args) {
 	puts("DiffTest is not defined!");
 #else
 	difftest_attach();
-	puts("attach to QEMU successfully!");
+	puts("Attach to QEMU successfully!");
 #endif
 	return 0;
 }
