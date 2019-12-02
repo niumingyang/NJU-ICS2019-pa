@@ -30,7 +30,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     rd_offset += Ehdr_info.e_phentsize;
     fs_lseek(fd, rd_offset, SEEK_SET);
   }
-  fs_close(fd);
+  fs_close(fd);assert(0);
   return Ehdr_info.e_entry;
 }
 
