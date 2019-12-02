@@ -12,6 +12,8 @@ void isa_reg_display(void);
 void wp_display(void);
 bool wp_delete(int _no);
 int wp_insert(char *wp_s, int wp_val, bool *success);
+void difftest_detach();
+void difftest_attach();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -133,20 +135,42 @@ static int cmd_d(char *args) {
 	return 0;
 }
 
+static int cmd_detach(char *args) {
+#ifndef DIFF_TEST
+	puts("DiffTest is not defined!");
+#else
+	difftest_detach();
+	puts("detach from QEMU successfully!");
+#endif
+	return 0;
+}
+
+static int cmd_attach(char *args) {
+#ifndef DIFF_TEST
+	puts("DiffTest is not defined!");
+#else
+	difftest_attach();
+	puts("attach to QEMU successfully!");
+#endif
+	return 0;
+}
+
 static struct {
   char *name;
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
-  { "help", "Display informations about all supported commands", cmd_help },
-  { "c", "Continue the execution of the program", cmd_c },
-  { "q", "Exit NEMU", cmd_q },
-  { "si", "Executing code given numbers of line a time", cmd_si},
-  { "info", "print the status of registers and watchpoint information", cmd_info},
-  { "p", "print the value of given expression", cmd_p},
-  { "x", "print the value in continious", cmd_x},
-  { "w", "set the watchpoint", cmd_w},
-  { "d", "delete the watchpoint", cmd_d},
+  { "help",   "Display informations about all supported commands",        cmd_help   },
+  { "c",      "Continue the execution of the program",                    cmd_c      },
+  { "q",      "Exit NEMU",                                                cmd_q      },
+  { "si",     "Executing code given numbers of line a time",              cmd_si     },
+  { "info",   "Print the status of registers and watchpoint information", cmd_info   },
+  { "p",      "Print the value of given expression",                      cmd_p      },
+  { "x",      "Print the value in continious",                            cmd_x      },
+  { "w",      "Set the watchpoint",                                       cmd_w      },
+  { "d",      "Delete the watchpoint",                                    cmd_d      },
+  { "detach", "Turn off DiffTest",                                        cmd_detach },
+  { "attach", "Turn on DiffTest",                                         cmd_attach },
   /* TODO: Add more commands */
 };
 
