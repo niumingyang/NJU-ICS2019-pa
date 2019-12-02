@@ -155,22 +155,52 @@ static int cmd_attach(char *args) {
 	return 0;
 }
 
+static int cmd_save(char *args) {
+	FILE *fp = fopen("/home/nmy/ics2019/nemu/build/nemu_save","w+");
+    if(fp == NULL) {
+		puts("Save failed!");
+		return 0;
+	}
+	fwrite(&cpu, 1, sizeof(CPU_state), fp);
+    fwrite(guest_to_host(0), 1, PMEM_SIZE, fp);
+	fwrite(&nemu_state, 1, sizeof(nemu_state), fp);
+    fclose(fp);
+	puts("Save successfully!");
+	return 0;
+}
+
+static int cmd_load(char *args) {
+	FILE *fp = fopen("/home/nmy/ics2019/nemu/build/nemu_save","r");
+	if(fp == NULL) {
+		puts("Load failed!");
+		return 0;
+	}
+	fread(&cpu, 1, sizeof(CPU_state), fp);
+	fread(guest_to_host(0), 1, PMEM_SIZE, fp);
+	fread(&nemu_state, 1, sizeof(nemu_state), fp);
+	fclose(fp);
+	puts("Load successfully!");
+	return 0;
+}
+
 static struct {
   char *name;
   char *description;
   int (*handler) (char *);
 } cmd_table [] = {
-  { "help",   "Display informations about all supported commands",        cmd_help   },
-  { "c",      "Continue the execution of the program",                    cmd_c      },
-  { "q",      "Exit NEMU",                                                cmd_q      },
-  { "si",     "Executing code given numbers of line a time",              cmd_si     },
-  { "info",   "Print the status of registers and watchpoint information", cmd_info   },
-  { "p",      "Print the value of given expression",                      cmd_p      },
-  { "x",      "Print the value in continious",                            cmd_x      },
-  { "w",      "Set the watchpoint",                                       cmd_w      },
-  { "d",      "Delete the watchpoint",                                    cmd_d      },
-  { "detach", "Turn off DiffTest",                                        cmd_detach },
-  { "attach", "Turn on DiffTest",                                         cmd_attach },
+  { "help",   "Display informations about all supported commands", cmd_help   },
+  { "c",      "Continue the execution of the program",             cmd_c      },
+  { "q",      "Exit NEMU",                                         cmd_q      },
+  { "si",     "Executing code given numbers of line a time",       cmd_si     },
+  { "info",   "Print information about registers and watchpoints", cmd_info   },
+  { "p",      "Print the value of given expression",               cmd_p      },
+  { "x",      "Print the value in a continious space",             cmd_x      },
+  { "w",      "Set the watchpoint",                                cmd_w      },
+  { "d",      "Delete the watchpoint",                             cmd_d      },
+  { "detach", "Turn off DiffTest",                                 cmd_detach },
+  { "attach", "Turn on DiffTest",                                  cmd_attach },
+  { "save",   "Save the state of NEMU",                            cmd_save   },
+  { "load",   "Load the state of NEMU",                            cmd_load   },
   /* TODO: Add more commands */
 };
 
