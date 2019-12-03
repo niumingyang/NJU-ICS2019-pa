@@ -1,9 +1,19 @@
 #include "common.h"
 #include "syscall.h"
+#include "proc.h"
 #include <unistd.h>
 
+void naive_uload(PCB *pcb, const char *filename);
+
+uintptr_t sys_execve(const char *fname) {
+  naive_uload(NULL, fname);
+  return 0;
+}
+
 void sys_exit(int status) {
-  _halt(status);
+  sys_execve("/bin/init");
+  //_halt(status);
+
   // should not reach here
   assert(0);
 }
@@ -44,7 +54,7 @@ _Context* do_syscall(_Context *c) {
     //case SYS_fstat:        c->GPRx = sys_fstat();                           break;
     //case SYS_time:         c->GPRx = sys_time();                            break;
     //case SYS_signal:       c->GPRx = sys_signal();                          break;
-    //case SYS_execve:       c->GPRx = sys_execve();                          break;
+    case SYS_execve:         c->GPRx = sys_execve((char *)a[0]);              break;
     //case SYS_fork:         c->GPRx = sys_fork();                            break;
     //case SYS_link:         c->GPRx = sys_link();                            break;
     //case SYS_unlink:       c->GPRx = sys_unlink();                          break;
