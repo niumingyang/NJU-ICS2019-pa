@@ -54,7 +54,7 @@ _Context* do_syscall(_Context *c) {
     //case SYS_fstat:        c->GPRx = sys_fstat();                           break;
     //case SYS_time:         c->GPRx = sys_time();                            break;
     //case SYS_signal:       c->GPRx = sys_signal();                          break;
-    case SYS_execve:         c->GPRx = sys_execve((char *)a[0]);              break;
+    case SYS_execve:         c->GPRx = sys_execve((char *)a[1]);              break;
     //case SYS_fork:         c->GPRx = sys_fork();                            break;
     //case SYS_link:         c->GPRx = sys_link();                            break;
     //case SYS_unlink:       c->GPRx = sys_unlink();                          break;
