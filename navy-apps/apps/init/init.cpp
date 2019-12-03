@@ -73,7 +73,7 @@ int main(int argc, char *argv[], char *envp[]) {
   }
 
   open_display();
-return -1;
+
   evtdev = fopen("/dev/events", "r");
   font = new Font(font_fname);
   NDL_LoadBitmap(&logo, "/share/pictures/projectn.bmp");
@@ -122,7 +122,7 @@ return -1;
 
 static void open_display() {
   FILE *dispinfo = fopen("/proc/dispinfo", "r");
-
+assert(0);
   if (!dispinfo) {
     fprintf(stderr, "[IGN] Cannot open /proc/dispinfo.\n");
     return;
