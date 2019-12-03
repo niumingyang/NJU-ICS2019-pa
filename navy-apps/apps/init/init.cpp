@@ -122,7 +122,7 @@ int main(int argc, char *argv[], char *envp[]) {
 
 static void open_display() {
   FILE *dispinfo = fopen("/proc/dispinfo", "r");
-assert(0);
+
   if (!dispinfo) {
     fprintf(stderr, "[IGN] Cannot open /proc/dispinfo.\n");
     return;
@@ -136,7 +136,7 @@ assert(0);
     if (strcmp(key, "WIDTH") == 0) sscanf(value, "%d", &W);
     if (strcmp(key, "HEIGHT") == 0) sscanf(value, "%d", &H);
   }
-
+assert(0);
   fclose(dispinfo);
 
   if (W == 0 || H == 0) {
