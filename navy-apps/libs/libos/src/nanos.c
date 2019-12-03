@@ -84,7 +84,7 @@ int _close(int fd) {
 off_t _lseek(int fd, off_t offset, int whence) {
   return _syscall_(SYS_lseek, fd, offset, whence);
 }
-
+#include <assert.h>
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
   printf("%s\n",fname);
   assert(0);
