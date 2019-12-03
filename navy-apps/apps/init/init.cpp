@@ -136,7 +136,7 @@ static void open_display() {
     if (strcmp(key, "WIDTH") == 0) sscanf(value, "%d", &W);
     if (strcmp(key, "HEIGHT") == 0) sscanf(value, "%d", &H);
   }
-assert(0);
+
   fclose(dispinfo);
 
   if (W == 0 || H == 0) {
