@@ -106,7 +106,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   *(_Context**)(ustack.start)=c;
   c->pc=(uintptr_t)entry;
 //_kcontext
-  c->pc=0;
+  c->edi=0;
   c->cs=8;//For diff-test
 
 return c;
