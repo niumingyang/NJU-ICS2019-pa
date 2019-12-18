@@ -12,11 +12,12 @@ void context_uload(PCB *pcb, const char *filename);
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
-
+#include <assert.h>
 void hello_fun(void *arg) {
   int j = 1;
   while (1) {
     Log("Hello World from Nanos-lite for the %dth time!", j);
+    //assert(0);
     j ++;
     _yield();
   }
