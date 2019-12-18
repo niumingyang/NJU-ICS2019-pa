@@ -5,6 +5,7 @@ struct _Context {
   struct _AddressSpace *as;
   uintptr_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
   int irq;
+  uintptr_t pc, cs;
 };
 
 #define GPR1 eax
