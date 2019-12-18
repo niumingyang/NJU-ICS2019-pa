@@ -84,8 +84,30 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
 }
 
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
-  _Context *c = (_Context*)(ustack.end) - sizeof(_Context) - 4*sizeof(uintptr_t);
+  /*_Context *c = (_Context*)(ustack.end) - sizeof(_Context) - 4*sizeof(uintptr_t);
   c->cs = 8;
   c->pc = (uintptr_t)entry;
-  return c;
+  return c;*/
+  void* new_end = ustack.end - 4 * sizeof(uintptr_t);//argc,
+                                                     //argv,
+                                                     //envp,
+                                                     //ret_addr
+                                                     //4 in total
+  new_end =(void*)
+          (((uintptr_t)new_end) & (-16));//栈帧对齐
+
+  while(ustack.end!=new_end){
+      ustack.end-=sizeof(uintptr_t);
+      *(uintptr_t*)ustack.end=0;
+  }
+//_kcontext
+  _Context *c=(_Context*)(ustack.end)-1;
+
+  *(_Context**)(ustack.start)=c;
+  c->pc=(uintptr_t)entry;
+//_kcontext
+  c->pc=0;
+  c->cs=8;//For diff-test
+
+return c;
 }
