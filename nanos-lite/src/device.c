@@ -36,9 +36,6 @@ static char dispinfo[128] __attribute__((used)) = {};
 static int W, H;
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  if(len+offset > sizeof(dispinfo)){
-    len = sizeof(dispinfo)-offset;
-  }
   memcpy(buf, dispinfo + offset, len);
   return len;
 }
