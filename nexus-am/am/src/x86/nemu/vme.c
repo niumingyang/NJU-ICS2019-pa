@@ -91,6 +91,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   *(uintptr_t *)(ustack.end - sizeof(sizeof(uintptr_t))) = 0;
   return c;*/
   _Context* ct = (ustack.end - sizeof(_Context) - 4*sizeof(uintptr_t)); 
+  ct->as = as;
 	ct->pc  = (uintptr_t)entry;
 	ct->cs = 8;
 	ct->eflags = 0x2 | (1 << 9);
