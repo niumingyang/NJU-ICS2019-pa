@@ -85,7 +85,9 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
 
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
   _Context *c = (_Context*)(ustack.end) - sizeof(_Context) - 4*sizeof(uintptr_t);
+  c->eflags = 0x2 | (1 << 9);
   c->cs = 8;
   c->pc = (uintptr_t)entry;
+  *(uintptr_t *)(ustack.end - sizeof(sizeof(uintptr_t))) = 0;
   return c;
 }
