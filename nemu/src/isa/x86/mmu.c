@@ -8,10 +8,10 @@ paddr_t page_translate(vaddr_t addr){
     uint32_t pdb = cpu.cr3.page_directory_base;
 
     uint32_t pt = paddr_read((pdb << 12) + (dir << 2), 4);
-    //assert(pt & 1);
+    assert(pt & 1);
 
     uint32_t pf = paddr_read((pt & 0xfffff000) + (page << 2), 4);
-    //assert(pf & 1);
+    assert(pf & 1);
 
     return (pf & 0xfffff000) + offset;
   }
