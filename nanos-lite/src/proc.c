@@ -29,11 +29,10 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  context_uload(&pcb[0], "/bin/dummy");
   //context_kload(&pcb[0], (void *)hello_fun);
   //context_uload(&pcb[0], "/bin/hello");
   //context_uload(&pcb[1], "/bin/init");
-  //naive_uload(NULL, "/bin/init");
+  naive_uload(NULL, "/bin/dummy");
 
 }
 
