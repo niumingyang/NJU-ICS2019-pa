@@ -91,6 +91,7 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
     pb[shift] = (uintptr_t)upt | PTE_P;
   }
 
+  tr = pb[shift];
   shift = (((uintptr_t)va) & 0x003ff000) >> 12;
   uint32_t* pgr = (uint32_t*)(tr & 0xfffff000);
   pgr[shift] = (uintptr_t)pa | PTE_P;
