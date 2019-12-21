@@ -31,7 +31,7 @@ void init_proc() {
   // load program here
   //context_kload(&pcb[0], (void *)hello_fun);
   context_uload(&pcb[0], "/bin/pal");
-  //context_uload(&pcb[1], "/bin/init");
+  context_uload(&pcb[1], "/bin/hello");
   //naive_uload(NULL, "/bin/dummy");
 
 }
