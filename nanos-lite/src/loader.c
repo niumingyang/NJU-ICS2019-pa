@@ -25,38 +25,38 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     fs_lseek(fd, Ehdr_info.e_phoff + i*Ehdr_info.e_phentsize, SEEK_SET);
     fs_read(fd, &Phdr_info, Ehdr_info.e_phentsize);
     if (Phdr_info.p_type == PT_LOAD) {
-      uint32_t un_size = Phdr_info.p_filesz;
-      uint32_t va  = Phdr_info.p_vaddr;
-      void* pa;
+      uint32_t fsz = Phdr_info.p_filesz;
+      void *va = (void *)Phdr_info.p_vaddr;
+      void *pa;
 
       fs_lseek(fd, Phdr_info.p_offset, SEEK_SET);
       while (1) {
         pa = new_page(1);
-        _map(&(pcb->as), (void*)va, pa, 0);
+        _map(&(pcb->as), va, pa, 0);
 
-        if (un_size > PGSIZE)
+        if (fsz > PGSIZE)
           fs_read(fd, pa, PGSIZE);
         else{
-          fs_read(fd, pa, un_size);
+          fs_read(fd, pa, fsz);
           break;
         }
-        un_size -= PGSIZE;
+        fsz -= PGSIZE;
         va  += PGSIZE;
       }
 
       if (Phdr_info.p_memsz > Phdr_info.p_filesz) {
         size_t zero_size = Phdr_info.p_memsz - Phdr_info.p_filesz;
         
-        if (zero_size <= PGSIZE - un_size) {
-          memset((void*)((uint32_t)pa + un_size*4), 0, zero_size);
+        if (zero_size <= PGSIZE - fsz) {
+          memset((void*)((uint32_t)pa + fsz*4), 0, zero_size);
         } else {
-          memset((void*)((uint32_t)pa + un_size*4), 0, PGSIZE - un_size);
-          zero_size -= (PGSIZE - un_size);
+          memset((void*)((uint32_t)pa + fsz*4), 0, PGSIZE - fsz);
+          zero_size -= (PGSIZE - fsz);
           va    += PGSIZE;
 
           while (1) {
             pa = new_page(1);
-            _map(&(pcb->as), (void*)va, pa, 0);
+            _map(&(pcb->as), va, pa, 0);
 
             if (zero_size>PGSIZE) 
               memset(pa, 0, PGSIZE);
@@ -70,7 +70,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           }
         }
       }
-      pcb->max_brk = va + PGSIZE;
+      pcb->max_brk = (uintptr_t)va + PGSIZE;
     }
   }
   fs_close(fd);
