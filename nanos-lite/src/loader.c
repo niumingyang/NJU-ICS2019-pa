@@ -9,15 +9,15 @@
 # define Elf_Ehdr Elf32_Ehdr
 # define Elf_Phdr Elf32_Phdr
 #endif
-#define DEFAULT_ENTRY 0x8048000
+#define DEFAULT_ENTRY 0x40000000
 int fs_open(const char *path, int flags, int mode);
 ssize_t fs_read(int fd, void *buf, size_t count);
 ssize_t fs_write(int fd, const void *buf, size_t count);
 int fs_close(int fd);
 off_t fs_lseek(int fd, off_t offset, int whence);
-
+size_t fs_filesz(int fd);
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  int fd = fs_open(filename, 0, 0);
+  /*int fd = fs_open(filename, 0, 0);
   Elf_Ehdr Ehdr_info;
   Elf_Phdr Phdr_info;
   size_t rd_offset = sizeof(Elf_Ehdr);
@@ -40,7 +40,21 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     fs_lseek(fd, rd_offset, SEEK_SET);
   }
   fs_close(fd);
-  return Ehdr_info.e_entry;
+  return Ehdr_info.e_entry;*/
+  int fd = fs_open(filename, 0, 0);
+  size_t size = fs_filesz(fd);
+  size_t page_cnt = (size + PGSIZE - 1) / PGSIZE;
+  void* pa;
+  void* va = (void*)DEFAULT_ENTRY;
+  for(int i = 0; i < page_cnt; i ++){
+    pa = new_page(1);
+    _map(&pcb->as, va, pa, 0);
+    fs_read(fd, pa, (((size - i * PGSIZE) < PGSIZE) ? (size - i * PGSIZE) : PGSIZE));
+    va += PGSIZE;
+  }
+  pcb->max_brk = (uintptr_t) va;
+  fs_close(fd);
+return DEFAULT_ENTRY;
 }
 
 void naive_uload(PCB *pcb, const char *filename) { 
