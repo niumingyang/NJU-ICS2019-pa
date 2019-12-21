@@ -32,7 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     for(int i = 0; i < page_cnt; ++i){
       pa = new_page(1);
       _map(&pcb->as, va, pa, 0);
-      fs_read(fd, pa, (((size - i * PGSIZE) < PGSIZE) ? (size - i * PGSIZE) : PGSIZE));
+      fs_read(fd, va, (((size - i * PGSIZE) < PGSIZE) ? (size - i * PGSIZE) : PGSIZE));
       va += PGSIZE;
     }
     //memset((uintptr_t *)(Phdr_info.p_vaddr + Phdr_info.p_filesz), 0, Phdr_info.p_memsz - Phdr_info.p_filesz);
