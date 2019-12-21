@@ -33,7 +33,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       while (1) {
         pa = new_page(1);
         _map(&(pcb->as), va, pa, 0);
-
         if (fsz > PGSIZE)
           fs_read(fd, pa, PGSIZE);
         else{
@@ -41,9 +40,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           break;
         }
         fsz -= PGSIZE;
-        va  += PGSIZE;
+        va += PGSIZE;
       }
-
+/*
       if (Phdr_info.p_memsz > Phdr_info.p_filesz) {
         size_t zero_size = Phdr_info.p_memsz - Phdr_info.p_filesz;
         
@@ -70,7 +69,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           }
         }
       }
-      pcb->max_brk = (uintptr_t)va + PGSIZE;
+      pcb->max_brk = (uintptr_t)va + PGSIZE;*/
     }
   }
   fs_close(fd);
