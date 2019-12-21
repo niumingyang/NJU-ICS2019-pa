@@ -102,6 +102,7 @@ _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, 
   _Context *c = (_Context*)(ustack.end) - sizeof(_Context) - 4*sizeof(uintptr_t);
   c->as = as;
   c->cs = 8;
+  c->eflags = 0x2 | (1 << 9); // set eflags.IF
   c->pc = (uintptr_t)entry;
   return c;
 }

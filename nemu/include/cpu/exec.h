@@ -50,6 +50,7 @@ static inline void update_pc(void) {
 
 void display_inv_msg(vaddr_t pc);
 void raise_intr(uint32_t NO, vaddr_t ret_addr);
+bool isa_query_intr(void);
 
 #ifdef DEBUG
 #define print_asm(...) \

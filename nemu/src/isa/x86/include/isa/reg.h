@@ -66,6 +66,8 @@ typedef struct {
     uint32_t base;
   } idtr;
 
+  bool INTR;
+
   CR0 cr0;
   CR3 cr3;
 
