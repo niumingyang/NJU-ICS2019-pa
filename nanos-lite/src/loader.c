@@ -25,7 +25,16 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   for (int i = 0; i < Ehdr_info.e_phnum; ++i) {
     fs_read(fd, &Phdr_info, Ehdr_info.e_phentsize);
     fs_lseek(fd, Phdr_info.p_offset, SEEK_SET);
-    fs_read(fd, (uintptr_t *)Phdr_info.p_vaddr, Phdr_info.p_filesz);
+    size_t size = Phdr_info.p_filesz;
+    size_t page_cnt = (size + PGSIZE - 1) / PGSIZE;
+    void* pa;
+    void* va = (uintptr_t *)Phdr_info.p_vaddr;
+    for(int i = 0; i < page_cnt; ++i){
+      pa = new_page(1);
+      _map(&pcb->as, va, pa, 0);
+      fs_read(fd, pa, (((size - i * PGSIZE) < PGSIZE) ? (size - i * PGSIZE) : PGSIZE));
+      va += PGSIZE;
+    }
     memset((uintptr_t *)(Phdr_info.p_vaddr + Phdr_info.p_filesz), 0, Phdr_info.p_memsz - Phdr_info.p_filesz);
     rd_offset += Ehdr_info.e_phentsize;
     fs_lseek(fd, rd_offset, SEEK_SET);
