@@ -82,9 +82,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         size_t zero_size = Elf_Program_Header.p_memsz - Elf_Program_Header.p_filesz;
         
         if (zero_size <= PAGE_SIZE - un_size) {
-          memset((void*)((uint32_t)p_addr + un_size*4), 0, zero_size);
+          //memset((void*)((uint32_t)p_addr + un_size*4), 0, zero_size);
         } else {
-          memset((void*)((uint32_t)p_addr + un_size*4), 0, PAGE_SIZE - un_size);
+          //memset((void*)((uint32_t)p_addr + un_size*4), 0, PAGE_SIZE - un_size);
           zero_size -= (PAGE_SIZE - un_size);
           v_addr    += PAGE_SIZE;
 
