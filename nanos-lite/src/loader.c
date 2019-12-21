@@ -68,8 +68,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
             va    += PGSIZE;
           }
         }
-      }
-      pcb->max_brk = (uintptr_t)va + PGSIZE;*/
+      }*/
+      pcb->max_brk = (uintptr_t)va + PGSIZE;
     }
   }
   fs_close(fd);
