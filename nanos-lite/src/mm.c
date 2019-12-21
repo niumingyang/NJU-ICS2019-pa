@@ -16,7 +16,7 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t brk, intptr_t increment) {
-  uintptr_t new_brk = brk + increment;assert(0);
+  uintptr_t new_brk = brk + increment;
   if(new_brk > current->max_brk){
     uintptr_t vaddr = (current->max_brk & 0xfffff000);
     while(vaddr < (uint32_t)(new_brk & 0xfffff000)){
