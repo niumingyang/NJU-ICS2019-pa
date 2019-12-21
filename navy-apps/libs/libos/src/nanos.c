@@ -66,7 +66,7 @@ static intptr_t brk = (intptr_t)&_end;
 void *_sbrk(intptr_t increment) {
   intptr_t now = brk;
   intptr_t res = brk + increment;
-  if(_syscall_(SYS_brk, res, 0, 0) == 0) {
+  if(_syscall_(SYS_brk, brk, increment, 0) == 0) {
     brk = res;
     return (void *)now;
   }

@@ -28,10 +28,7 @@ ssize_t fs_read(int fd, void *buf, size_t count);
 ssize_t fs_write(int fd, const void *buf, size_t count);
 int fs_close(int fd);
 off_t fs_lseek(int fd, off_t offset, int whence);
-
-intptr_t sys_brk(intptr_t _brk_) {
-  return 0;
-}
+int mm_brk(uintptr_t brk, intptr_t increment);
 
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -50,7 +47,7 @@ _Context* do_syscall(_Context *c) {
     //case SYS_getpid:       c->GPRx = sys_getpid();                          break;
     case SYS_close:          c->GPRx = fs_close(a[1]);                        break;
     case SYS_lseek:          c->GPRx = fs_lseek(a[1],a[2],a[3]);              break;
-    case SYS_brk:            c->GPRx = sys_brk(a[1]);                         break;
+    case SYS_brk:            c->GPRx = mm_brk(a[1],a[2]);                     break;
     //case SYS_fstat:        c->GPRx = sys_fstat();                           break;
     //case SYS_time:         c->GPRx = sys_time();                            break;
     //case SYS_signal:       c->GPRx = sys_signal();                          break;
