@@ -44,7 +44,7 @@ _Context* schedule(_Context *prev) {
   //current = &pcb[0];
 
   // xia ji er cao zuo
-  if (cnt++ < 9999) current = &pcb[0];
+  if (cnt++ < 999) current = &pcb[0];
   else {
     current = &pcb[1];
     cnt = 0;
