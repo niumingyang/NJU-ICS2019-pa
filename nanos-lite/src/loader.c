@@ -25,50 +25,40 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     fs_lseek(fd, Ehdr_info.e_phoff + i*Ehdr_info.e_phentsize, SEEK_SET);
     fs_read(fd, &Phdr_info, Ehdr_info.e_phentsize);
     if (Phdr_info.p_type == PT_LOAD) {
-      uint32_t fsz = Phdr_info.p_filesz;
       void *va = (void *)Phdr_info.p_vaddr;
       void *pa;
 
+      // loading by paging
       fs_lseek(fd, Phdr_info.p_offset, SEEK_SET);
+      uint32_t fsz = Phdr_info.p_filesz;
       while (1) {
         pa = new_page(1);
         _map(&(pcb->as), va, pa, 0);
-        if (fsz > PGSIZE)
-          fs_read(fd, pa, PGSIZE);
-        else{
-          fs_read(fd, pa, fsz);
-          break;
-        }
+        if (fsz > PGSIZE) fs_read(fd, pa, PGSIZE);
+        else { fs_read(fd, pa, fsz); break; }
         fsz -= PGSIZE;
         va += PGSIZE;
       }
-/*
-      if (Phdr_info.p_memsz > Phdr_info.p_filesz) {
-        size_t zero_size = Phdr_info.p_memsz - Phdr_info.p_filesz;
-        
-        if (zero_size <= PGSIZE - fsz) {
-          memset((void*)((uint32_t)pa + fsz*4), 0, zero_size);
-        } else {
-          memset((void*)((uint32_t)pa + fsz*4), 0, PGSIZE - fsz);
-          zero_size -= (PGSIZE - fsz);
-          va    += PGSIZE;
 
+      //set unused memory space to zero
+      if (Phdr_info.p_memsz > Phdr_info.p_filesz) {
+        size_t zsz = Phdr_info.p_memsz - Phdr_info.p_filesz;
+        if (zsz <= PGSIZE - fsz)
+          memset((void*)((uintptr_t)pa + fsz*4), 0, zsz);
+        else {
+          memset((void*)((uintptr_t)pa + fsz*4), 0, PGSIZE - fsz);
+          zsz -= (PGSIZE - fsz);
+          va += PGSIZE;
           while (1) {
             pa = new_page(1);
             _map(&(pcb->as), va, pa, 0);
-
-            if (zero_size>PGSIZE) 
-              memset(pa, 0, PGSIZE);
-            else {
-              memset(pa, 0, zero_size);
-              break;
-            }
-
-            zero_size -= PGSIZE;
-            va    += PGSIZE;
+            if (zsz > PGSIZE) memset(pa, 0, PGSIZE);
+            else { memset(pa, 0, zsz); break; }
+            zsz -= PGSIZE;
+            va += PGSIZE;
           }
         }
-      }*/
+      }
       pcb->max_brk = (uintptr_t)va + PGSIZE;
     }
   }
