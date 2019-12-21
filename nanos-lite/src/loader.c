@@ -30,7 +30,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
       // loading by paging
       fs_lseek(fd, Phdr_info.p_offset, SEEK_SET);
-      uint32_t fsz = Phdr_info.p_filesz;
+      size_t fsz = Phdr_info.p_filesz;
       while (1) {
         pa = new_page(1);
         _map(&(pcb->as), va, pa, 0);
