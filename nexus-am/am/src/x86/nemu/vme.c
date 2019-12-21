@@ -82,13 +82,13 @@ void __am_switch(_Context *c) {
 }
 
 int _map(_AddressSpace *as, void *va, void *pa, int prot) {
-  uint32_t* ptr = (uint32_t*)as->ptr;
+  uint32_t* pb = (uint32_t*)as->ptr;
   uint32_t shift = (uintptr_t)va >> 22;
-  uintptr_t tr = ptr[shift];
+  uintptr_t tr = pb[shift];
 
   if (tr == kpdirs[shift]) {
-    PTE *uptable = (PTE*)(pgalloc_usr(1));
-    ptr[shift] = (uintptr_t)uptable | PTE_P;
+    PTE *upt = (PTE*)(pgalloc_usr(1));
+    pb[shift] = (uintptr_t)upt | PTE_P;
   }
 
   shift = (((uintptr_t)va) & 0x003ff000) >> 12;
@@ -99,6 +99,7 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
 
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
   _Context *c = (_Context*)(ustack.end) - sizeof(_Context) - 4*sizeof(uintptr_t);
+  c->as = as;
   c->cs = 8;
   c->pc = (uintptr_t)entry;
   return c;

@@ -11,8 +11,8 @@ uintptr_t sys_execve(const char *fname) {
 }
 
 void sys_exit(int status) {
-  sys_execve("/bin/init");
-  //_halt(status);
+  //sys_execve("/bin/init");
+  _halt(status);
 
   // should not reach here
   assert(0);
