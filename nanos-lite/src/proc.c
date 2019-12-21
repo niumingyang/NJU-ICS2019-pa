@@ -30,7 +30,7 @@ void init_proc() {
 
   // load program here
   //context_kload(&pcb[0], (void *)hello_fun);
-  context_uload(&pcb[0], "/bin/dummy");
+  context_uload(&pcb[0], "/bin/hello");
   //context_uload(&pcb[1], "/bin/init");
   //naive_uload(NULL, "/bin/dummy");
 
@@ -40,7 +40,7 @@ _Context* schedule(_Context *prev) {
   // save the context pointer
   current->cp = prev;
 
-  //current = &pcb[0];
+  current = &pcb[0];
   //current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
   return current->cp;
 }
