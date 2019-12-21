@@ -78,33 +78,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
         v_addr  += PAGE_SIZE;
       }
 
-      if (Elf_Program_Header.p_memsz > Elf_Program_Header.p_filesz) {
-        size_t zero_size = Elf_Program_Header.p_memsz - Elf_Program_Header.p_filesz;
-        
-        if (zero_size <= PAGE_SIZE - un_size) {
-          //memset((void*)((uint32_t)p_addr + un_size*4), 0, zero_size);
-        } else {
-          //memset((void*)((uint32_t)p_addr + un_size*4), 0, PAGE_SIZE - un_size);
-          zero_size -= (PAGE_SIZE - un_size);
-          v_addr    += PAGE_SIZE;
-
-          while (1) {
-            p_addr = new_page(1);
-            _map(&(pcb->as), (void*)v_addr, p_addr, 0);
-
-            if (zero_size>PAGE_SIZE) 
-              memset(p_addr, 0, PAGE_SIZE);
-            else {
-              memset(p_addr, 0, zero_size);
-              // pcb->max_brk = v_addr + zero_size;
-              break;
-            }
-
-            zero_size -= PAGE_SIZE;
-            v_addr    += PAGE_SIZE;
-          }
-        }
-      }
+  
       pcb->max_brk = v_addr+PAGE_SIZE;
     }
   }
