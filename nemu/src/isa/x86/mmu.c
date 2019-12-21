@@ -11,7 +11,7 @@ paddr_t page_translate(vaddr_t addr){
     assert(pt & 1);
 
     uint32_t pf = paddr_read((pt & 0xfffff000) + (page << 2), 4);
-    //assert(pf & 1);
+    assert(pf & 1);
 
     return (pf & 0xfffff000) + offset;
   }

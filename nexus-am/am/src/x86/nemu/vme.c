@@ -96,9 +96,10 @@ int _map(_AddressSpace *as, void *va, void *pa, int prot) {
   pgr[shift] = (uintptr_t)pa | PTE_P;
   return 0;
 }
-
+#include <klib.h>
 _Context *_ucontext(_AddressSpace *as, _Area ustack, _Area kstack, void *entry, void *args) {
   _Context *c = (_Context*)(ustack.end) - sizeof(_Context) - 4*sizeof(uintptr_t);
+  memset(c, 0, sizeof(_Context) + 4*sizeof(uintptr_t));
   c->as = as;
   c->cs = 8;
   c->pc = (uintptr_t)entry;
