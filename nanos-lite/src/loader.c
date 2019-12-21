@@ -25,7 +25,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   for (int i = 0; i < Ehdr_info.e_phnum; ++i) {
     fs_read(fd, &Phdr_info, Ehdr_info.e_phentsize);
     fs_lseek(fd, Phdr_info.p_offset, SEEK_SET);
-    size_t size = Phdr_info.p_memsz;
+    size_t size = Phdr_info.p_filesz;
     size_t page_cnt = (size + PGSIZE - 1) / PGSIZE;
     void* pa;
     void* va = (uintptr_t *)Phdr_info.p_vaddr;
@@ -40,7 +40,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     fs_lseek(fd, rd_offset, SEEK_SET);
   }
   fs_close(fd);
-  return Ehdr_info.e_entry;
+  //return Ehdr_info.e_entry;
+  return 0x8048000;
 }
 
 void naive_uload(PCB *pcb, const char *filename) { 
