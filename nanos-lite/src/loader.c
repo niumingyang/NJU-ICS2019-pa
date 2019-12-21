@@ -16,7 +16,7 @@ ssize_t fs_write(int fd, const void *buf, size_t count);
 int fs_close(int fd);
 off_t fs_lseek(int fd, off_t offset, int whence);
 
-/*static uintptr_t loader(PCB *pcb, const char *filename) {
+static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   Elf_Ehdr Ehdr_info;
   Elf_Phdr Phdr_info;
@@ -41,8 +41,8 @@ off_t fs_lseek(int fd, off_t offset, int whence);
   }
   fs_close(fd);
   return Ehdr_info.e_entry;
-}*/
-#define PAGE_SIZE 4096
+}
+/*#define PAGE_SIZE 4096
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   Elf_Ehdr Elf_Header;
@@ -110,7 +110,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
   fs_close(fd);
   return Elf_Header.e_entry;
-}
+}*/
 void naive_uload(PCB *pcb, const char *filename) { 
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %x", entry);
