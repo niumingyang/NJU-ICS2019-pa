@@ -36,11 +36,18 @@ void init_proc() {
 
 }
 
+int cnt = 0;
 _Context* schedule(_Context *prev) {
   // save the context pointer
   current->cp = prev;
 
   //current = &pcb[0];
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+
+  // xia ji er cao zuo
+  if (cnt++ < 99) current = &pcb[0];
+  else {
+    current = &pcb[1];
+    cnt = 0;
+  }
   return current->cp;
 }
