@@ -23,6 +23,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if (key & 0x8000) {
     key ^= 0x8000;
     keydown = true;
+    extern void change_pcb(int k);
+    change_pcb(key);
   }
   if (key == _KEY_NONE) {
     uint32_t time = uptime();
